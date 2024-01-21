@@ -59,6 +59,33 @@ class FirebaseDB extends Database{
     // TODO: implement syncDatabases
     throw UnimplementedError();
   }
+  
+}
 
+//Currently designed for usual authentication, with completed tables data type requested can be changed
+class Authentication {
+  Future<bool> login(String username, String password) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('username', username);
+    prefs.setString('password', password);
+    return true;
+  }
 
+  Future<bool> logout() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove('username');
+    prefs.remove('password');
+    return true;
+  }
+
+  Future<bool> isLogin() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? username = prefs.getString('username');
+    String? password = prefs.getString('password');
+    if (username != null && password != null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
