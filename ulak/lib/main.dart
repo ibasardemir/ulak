@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-
+import "flutternearby.dart";
 void main() {
-  runApp(const MyApp());
+  runApp( const App());
 }
 
 class MyApp extends StatelessWidget {
