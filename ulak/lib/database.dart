@@ -64,6 +64,15 @@ class FirebaseDB extends Database{
 
 //Currently designed for usual authentication, with completed tables data type requested can be changed
 class Authentication {
+  
+  Future<bool> signIn(String username, String password) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    //TODO: get data from user, save it to local database and also to shared preferences
+    return true;
+
+  }
+
+
   Future<bool> login(String username, String password) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('username', username);
