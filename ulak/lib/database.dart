@@ -64,25 +64,38 @@ class FirebaseDB extends Database{
 
 //Currently designed for usual authentication, with completed tables data type requested can be changed
 class Authentication {
-  Future<bool> login(String username, String password) async {
+  
+  Future<bool> signIn(String phoneNumber) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('username', username);
-    prefs.setString('password', password);
+    //TODO: get data from user, save it to local database and also to shared preferences
     return true;
+
+  }
+
+
+  Future<bool> login(String phoneNumber) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    // TODO: check if phone number is the device phone number,
+    // TODO: if so then check if it exists in database,
+    // TODO: if so then save it to local database and also to shared preferences then return true else return false
+  
+    bool result1 = await prefs.setString('phoneNumber', phoneNumber);
+
+    return result1;
+    
   }
 
   Future<bool> logout() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.remove('username');
-    prefs.remove('password');
-    return true;
+    bool result1 = await prefs.remove('phoneNumber');
+    return result1;
   }
 
-  Future<bool> isLogin() async {
+  Future<bool> isLogin(String phoneNumber) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? username = prefs.getString('username');
-    String? password = prefs.getString('password');
-    if (username != null && password != null) {
+    String? username = prefs.getString('phoneNumber');
+
+    if (username != null ) {
       return true;
     } else {
       return false;
