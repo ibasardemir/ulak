@@ -1,11 +1,20 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:ulak/firebase_options.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
+
+  //Text editing controller
+  final nameController = TextEditingController();
+  final telephoneController = TextEditingController();
 
   // This widget is the root of your application.
   @override
@@ -17,7 +26,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    debugShowCheckedModeBanner:false,
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -32,42 +41,39 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+  get nameController => null;
+  get telephoneController => null;
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: Center(
-
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          title: Text(widget.title),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), 
-    );
+        body: Padding(
+            padding: const EdgeInsets.all(25.0),
+            child: Column(
+              children: [
+                TextFormField(
+                  controller: nameController,
+                  decoration: const InputDecoration(hintText: 'Name'),
+                ),
+                TextFormField(
+                  controller: telephoneController,
+                  decoration: const InputDecoration(hintText: 'Telephone'),
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      CollectionReference collRef =
+                          FirebaseFirestore.instance.collection('user');
+                      collRef.add({
+                        'name': nameController.text,
+                        'telephone': telephoneController.text,
+                      });
+                    },
+                    child: const Text('Add Client'))
+              ],
+            )));
   }
 }
