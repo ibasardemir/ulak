@@ -26,9 +26,3 @@ doc/api/
 .flutter-plugins
 .flutter-plugins-dependencies
 
-# For Ulak project
-/android
-/ios
-/linux
-/web
-/windows
