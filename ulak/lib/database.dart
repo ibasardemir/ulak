@@ -1,4 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
+import "package:phone_number/phone_number.dart";
 
 abstract class Database {
   Future<void> saveData(String tablename, String key, dynamic data);
@@ -66,7 +67,18 @@ class FirebaseDB extends Database{
 class Authentication {
   
   Future<bool> signIn(String phoneNumber) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+
+    // * Doğukan buradaki kod ile telefon numarası valid mi diye test edebilirsin  
+    RegionInfo region = const RegionInfo(code:"TR" ,name:"Turkey" ,prefix:90);
+    bool isValid = await PhoneNumberUtil().validate(phoneNumber, regionCode: region.code);
+    // *senin kodun buraya kadar
+    
+    if(isValid){
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+    }
+
+    
     //TODO: get data from user, save it to local database and also to shared preferences
     return true;
 
@@ -101,4 +113,10 @@ class Authentication {
       return false;
     }
   }
+}
+
+Future<bool> isvalid(String phoneNumber)async{
+  RegionInfo region = const RegionInfo(code:"TR" ,name:"Turkey" ,prefix:90);
+  return await PhoneNumberUtil().validate(phoneNumber, regionCode: region.code);
+  
 }
