@@ -68,7 +68,6 @@ class Authentication {
   
   Future<bool> signIn(String phoneNumber) async {
 
-
     // * Doğukan buradaki kod ile telefon numarası valid mi diye test edebilirsin  
     RegionInfo region = const RegionInfo(code:"TR" ,name:"Turkey" ,prefix:90);
     bool isValid = await PhoneNumberUtil().validate(phoneNumber, regionCode: region.code);
@@ -113,19 +112,16 @@ class Authentication {
       return false;
     }
   }
-<<<<<<< HEAD
+
+  Future<String> returnPhoneNum() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? phone_number = prefs.getString('phoneNumber');
+    return phone_number!;
+  }
 }
 
 Future<bool> isvalid(String phoneNumber)async{
   RegionInfo region = const RegionInfo(code:"TR" ,name:"Turkey" ,prefix:90);
   return await PhoneNumberUtil().validate(phoneNumber, regionCode: region.code);
-  
+
 }
-=======
-  // NEEDED PHONE NUMBER
-  Future<String> returnPhoneNum() async{
-    //TODO:add access to the phone number
-    return "Umut adamdır";
-  }
-}
->>>>>>> ab9091cfc32afb40ba61201bc3c115c0981eb2e4
