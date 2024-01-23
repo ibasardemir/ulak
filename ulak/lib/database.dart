@@ -113,6 +113,7 @@ class Authentication {
       return false;
     }
   }
+<<<<<<< HEAD
 }
 
 Future<bool> isvalid(String phoneNumber)async{
@@ -120,3 +121,11 @@ Future<bool> isvalid(String phoneNumber)async{
   return await PhoneNumberUtil().validate(phoneNumber, regionCode: region.code);
   
 }
+=======
+  // NEEDED PHONE NUMBER
+  Future<String> returnPhoneNum() async{
+    //TODO:add access to the phone number
+    return "Umut adamdır";
+  }
+}
+>>>>>>> ab9091cfc32afb40ba61201bc3c115c0981eb2e4
