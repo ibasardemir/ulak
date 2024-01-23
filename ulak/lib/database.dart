@@ -101,4 +101,9 @@ class Authentication {
       return false;
     }
   }
+  // NEEDED PHONE NUMBER
+  Future<String> returnPhoneNum() async{
+    //TODO:add access to the phone number
+    return "Umut adamdır";
+  }
 }
