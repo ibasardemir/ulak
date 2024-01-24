@@ -33,10 +33,6 @@ class _EmergencyLoginPageState extends State<EmergencyLoginPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image.asset(
-              'assets/emergency_logo.png', // Acil durum logosu
-              height: 100.0,
-            ),
             SizedBox(height: 20.0),
             TextField(
               controller: _usernameController,
