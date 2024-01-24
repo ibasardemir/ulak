@@ -267,7 +267,7 @@ class _DevicesListScreenState extends State<DevicesListScreen> {
       });
    subscription = nearbyService.stateChangedSubscription(
         callback: (deviceList) {
-          deviceList.forEach((element) { 
+          for (var element in deviceList) { 
 
             if(Platform.isAndroid){
               if(element.state== SessionState.connected){
@@ -276,7 +276,7 @@ class _DevicesListScreenState extends State<DevicesListScreen> {
                 nearbyService.startBrowsingForPeers();
               }
             }
-          });
+          }
           setState(() {
             devices.clear();
             devices.addAll(deviceList);
