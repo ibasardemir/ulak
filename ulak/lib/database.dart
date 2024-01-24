@@ -1,16 +1,16 @@
+import 'dart:ffi';
 import 'dart:math';
-
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:phone_number/phone_number.dart';
 import 'package:flutter_sms/flutter_sms.dart';
-import 
+
+
 
 abstract class Database {
   Future<bool> saveData(String tablename, String key, dynamic data);
   Future<dynamic> getData(String tablename, String key);
   Future<bool> deleteData(String tablename, String key);
   Future<bool> syncDatabases();
-
 }
 
 class LocalDB extends Database{
@@ -67,31 +67,47 @@ class FirebaseDB extends Database{
   
 }
 
+class SmsResultPackgage{
+
+  SmsResultPackgage({this.message, this.result});
+
+  String? message;
+  bool? result;
+}
+
+
 //Currently designed for usual authentication, with completed tables data type requested can be changed
 class Authentication {
   
   LocalDB localDB = LocalDB();
   FirebaseDB firebaseDB = FirebaseDB();
 
-  Future<bool> signInSmsSender(String phoneNumber,String name) async {
+  //Takes phone number as argument and sends sms to that number with a random 6 digit number
+  //returns true if sms is sent successfully else returns false
+  Future<SmsResultPackgage> signInSmsSender(String phoneNumber) async {
 
-    // * Doğukan buradaki kod ile telefon numarası valid mi diye test edebilirsin  
     RegionInfo region = const RegionInfo(code:"TR" ,name:"Turkey" ,prefix:90);
     bool isPhoneNumberValid = await PhoneNumberUtil().validate(phoneNumber, regionCode: region.code);
-    // *senin kodun buraya kadar
-    
 
     if(isPhoneNumberValid){
       String message=Random().nextInt(899999)+100000 as String;
+      bool smsResult=await smsSender(message, [phoneNumber]);
 
+      return SmsResultPackgage(message: message, result: smsResult);
 
-      bool smsResult=await sendSMS(message: message, recipients: phoneNumber)
-
-      return true;
     }
     else{
-      return false;
+      return SmsResultPackgage(message: "No code sended because of invalid phone number", result: false);
     }
+  }
+
+  //If entered code entered by user is equal to the code sended by signInSmsSender function save user to databases and shared preferences
+  //If save is successful returns true else returns false
+  Future<bool> signInSmsCodeChecker(String phoneNumber, String username,String code,String enteredCode) async { 
+    
+
+
+
   }
 
 
@@ -139,12 +155,20 @@ Future<bool> isPhoneNumberValid(String phoneNumber)async{
 
 }
 
-Future<bool> _sendSMS(String message, List<String> recipents) async {
+Future<bool> smsSender(String message, List<String> recipents) async {
+  
  String _result = await sendSMS(message: message, recipients: recipents)
         .catchError((onError) {
       print(onError);
-      return false;
+      return "false";
     });
-print(_result);
-return false;
+
+  print(_result);
+
+  if(_result=="false"){
+    return false;
+  }
+  else{
+    return true;
+  }
 }
