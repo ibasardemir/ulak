@@ -1,17 +1,19 @@
+import 'dart:ffi';
+import 'dart:math';
 import 'package:shared_preferences/shared_preferences.dart';
-import "package:phone_number/phone_number.dart";
+import 'package:phone_number/phone_number.dart';
+
 
 abstract class Database {
-  Future<void> saveData(String tablename, String key, dynamic data);
+  Future<bool> saveData(String tablename, String key, dynamic data);
   Future<dynamic> getData(String tablename, String key);
-  Future<void> deleteData(String tablename, String key);
-  bool syncDatabases();
-
+  Future<bool> deleteData(String tablename, String key);
+  Future<bool> syncDatabases();
 }
 
 class LocalDB extends Database{
   @override
-  Future<void> deleteData(String tablename, String key) {
+  Future<bool>  deleteData(String tablename, String key) {
     // TODO: implement deleteData
     throw UnimplementedError();
   }
@@ -23,13 +25,13 @@ class LocalDB extends Database{
   }
 
   @override
-  Future<void> saveData(String tablename, String key, data) {
+  Future<bool>  saveData(String tablename, String key, data) {
     // TODO: implement saveData
     throw UnimplementedError();
   }
 
   @override
-  bool syncDatabases() {
+  Future<bool>  syncDatabases() {
     // TODO: implement syncDatabases
     throw UnimplementedError();
   }
@@ -38,7 +40,7 @@ class LocalDB extends Database{
 
 class FirebaseDB extends Database{
   @override
-  Future<void> deleteData(String tablename, String key) {
+  Future<bool> deleteData(String tablename, String key) {
     // TODO: implement deleteData
     throw UnimplementedError();
   }
@@ -50,36 +52,89 @@ class FirebaseDB extends Database{
   }
 
   @override
-  Future<void> saveData(String tablename, String key, data) {
+  Future<bool> saveData(String tablename, String key, data) {
     // TODO: implement saveData
     throw UnimplementedError();
   }
 
   @override
-  bool syncDatabases() {
+  Future<bool> syncDatabases() {
     // TODO: implement syncDatabases
     throw UnimplementedError();
   }
   
 }
 
+class SmsResultPackgage{
+
+  SmsResultPackgage({this.message, this.result});
+
+  String? message;
+  bool? result;
+}
+
+
 //Currently designed for usual authentication, with completed tables data type requested can be changed
 class Authentication {
   
-  Future<bool> signIn(String phoneNumber) async {
+  LocalDB localDB = LocalDB();
+  FirebaseDB firebaseDB = FirebaseDB();
 
-    // * Doğukan buradaki kod ile telefon numarası valid mi diye test edebilirsin  
+  //Takes phone number as argument and sends sms to that number with a random 6 digit number
+  //returns true if sms is sent successfully else returns false
+  Future<SmsResultPackgage> signInSmsSender(String phoneNumber) async {
+
     RegionInfo region = const RegionInfo(code:"TR" ,name:"Turkey" ,prefix:90);
-    bool isValid = await PhoneNumberUtil().validate(phoneNumber, regionCode: region.code);
-    // *senin kodun buraya kadar
-    
-    if(isValid){
-      SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool isPhoneNumberValid = await PhoneNumberUtil().validate(phoneNumber, regionCode: region.code);
+
+    if(isPhoneNumberValid){
+      String message=Random().nextInt(899999)+100000 as String;
+      bool smsResult=await smsSender(message, [phoneNumber]);
+
+      return SmsResultPackgage(message: message, result: smsResult);
+
+    }
+    else{
+      return SmsResultPackgage(message: "No code sended because of invalid phone number", result: false);
+    }
+  }
+
+  //If entered code entered by user is equal to the code sended by signInSmsSender function save user to databases and shared preferences
+  //If save is successful returns true else returns false
+  Future<bool> signInSmsCodeChecker(String phoneNumber, String username,String? code,String? enteredCode) async { 
+    if(code==enteredCode){
+      
+      bool firebaseResult = await firebaseDB.saveData("users", phoneNumber, username);
+
+      if(firebaseResult){
+        bool localResult = await localDB.saveData("users",phoneNumber, username);
+
+        if(localResult){
+          SharedPreferences preferences = await SharedPreferences.getInstance();
+          bool phoneNumberResult = await preferences.setString("phoneNumber", phoneNumber);
+          if (phoneNumberResult) {
+            bool usernameResult = await preferences.setString("username", username);
+            return usernameResult;
+          }
+          else{
+            return false;
+          }
+        }
+        else{
+          return false;
+        }
+
+      }
+      else{
+        return false;
+      }
+
+    }
+    else{
+      return false;
     }
 
-    
-    //TODO: get data from user, save it to local database and also to shared preferences
-    return true;
+
 
   }
 
@@ -104,9 +159,9 @@ class Authentication {
 
   Future<bool> isLogin(String phoneNumber) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? username = prefs.getString('phoneNumber');
+    String? phoneNumber = prefs.getString('phoneNumber');
 
-    if (username != null ) {
+    if (phoneNumber != null ) {
       return true;
     } else {
       return false;
@@ -120,8 +175,17 @@ class Authentication {
   }
 }
 
-Future<bool> isvalid(String phoneNumber)async{
+
+
+Future<bool> isPhoneNumberValid(String phoneNumber)async{
   RegionInfo region = const RegionInfo(code:"TR" ,name:"Turkey" ,prefix:90);
   return await PhoneNumberUtil().validate(phoneNumber, regionCode: region.code);
 
 }
+
+Future<bool> smsSender(String message, List<String> recipents) async {
+  
+ 
+  return true;
+}
+

@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-
+import '../database.dart';
 // Olayları temsil eden sınıf
 abstract class LoginEvent extends Equatable {
   const LoginEvent();
@@ -12,8 +12,9 @@ abstract class LoginEvent extends Equatable {
 class LoginButtonPressed extends LoginEvent {
   final String username;
   final String password;
+  final String code; //Kullanıcının gireceği sms kodu
 
-  LoginButtonPressed({required this.username, required this.password});
+  LoginButtonPressed({required this.username, required this.password,this.code=""});
 
   @override
   List<Object> get props => [username, password];
@@ -50,9 +51,26 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     Emitter<LoginState> emit,
   ) async {
     emit(LoginLoading());
-
+  
 
     try {
+      Authentication auth = Authentication();
+      SmsResultPackgage result=await auth.signInSmsSender(event.password);
+
+      if(!(result.result??false)){
+        print("failed");
+        emit(LoginFailure(error: 'Giriş başarısız.'));
+        return;
+      }
+
+      //sms kodu sayfasına yönlendir
+
+      bool auth_result =await auth.signInSmsCodeChecker(event.password, event.username, result.message, event.code);
+
+      if(auth_result){
+        //uygulamaya git
+      }
+
       await Future.delayed(Duration(seconds: 2));
 
       emit(LoginSuccess());
