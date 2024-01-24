@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ulak/pages/register_page.dart';
 
 
 class FixedButton extends StatelessWidget {
@@ -23,6 +24,7 @@ class FixedButton extends StatelessWidget {
           elevation: 2, 
         ),
         onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterPage()));
         },
         child: Text(
           '$name',
