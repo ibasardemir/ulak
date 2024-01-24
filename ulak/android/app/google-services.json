@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "626463636097",
+    "project_id": "ulak-531f6",
+    "storage_bucket": "ulak-531f6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:626463636097:android:436c93b440b67a6bc26b80",
+        "android_client_info": {
+          "package_name": "com.example.ulak"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIEytHoPl7xh4SvYXtEC6aHcbYj1Q8yj8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
