@@ -110,16 +110,8 @@ class Authentication {
         bool localResult = await localDB.saveData("users",phoneNumber, username);
 
         if(localResult){
-
           SharedPreferences preferences = await SharedPreferences.getInstance();
-          bool result1 = await preferences.setString('phoneNumber', phoneNumber);
-          if(result1){
-            bool result2=await preferences.setString('username', username);
-            return result2;
-          }
-          else{
-            return false;
-          }
+
         }
         else{
           return false;
@@ -187,5 +179,7 @@ Future<bool> isPhoneNumberValid(String phoneNumber)async{
 }
 
 Future<bool> smsSender(String message, List<String> recipents) async {
-  return false;
+  
+ 
+  return true;
 }
