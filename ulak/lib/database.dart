@@ -66,7 +66,7 @@ class FirebaseDB extends Database{
 //Currently designed for usual authentication, with completed tables data type requested can be changed
 class Authentication {
   
-  Future<bool> signIn(String phoneNumber) async {
+  Future<bool> signIn(String phoneNumber,String name) async {
 
     // * Doğukan buradaki kod ile telefon numarası valid mi diye test edebilirsin  
     RegionInfo region = const RegionInfo(code:"TR" ,name:"Turkey" ,prefix:90);
@@ -76,7 +76,8 @@ class Authentication {
     if(isValid){
       SharedPreferences prefs = await SharedPreferences.getInstance();
     }
-
+      
+    
     
     //TODO: get data from user, save it to local database and also to shared preferences
     return true;
