@@ -111,7 +111,14 @@ class Authentication {
 
         if(localResult){
           SharedPreferences preferences = await SharedPreferences.getInstance();
-
+          bool phoneNumberResult = await preferences.setString("phoneNumber", phoneNumber);
+          if (phoneNumberResult) {
+            bool usernameResult = await preferences.setString("username", username);
+            return usernameResult;
+          }
+          else{
+            return false;
+          }
         }
         else{
           return false;
