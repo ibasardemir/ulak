@@ -2,8 +2,6 @@ import 'dart:ffi';
 import 'dart:math';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:phone_number/phone_number.dart';
-import 'package:flutter_sms/flutter_sms.dart';
-
 
 
 abstract class Database {
@@ -104,7 +102,32 @@ class Authentication {
   //If entered code entered by user is equal to the code sended by signInSmsSender function save user to databases and shared preferences
   //If save is successful returns true else returns false
   Future<bool> signInSmsCodeChecker(String phoneNumber, String username,String code,String enteredCode) async { 
-    
+    if(code==enteredCode){
+      
+      bool firebaseResult = await firebaseDB.saveData("users", phoneNumber, username);
+
+      if(firebaseResult){
+        bool localResult = await localDB.saveData("users",phoneNumber, username);
+
+        if(localResult){
+          SharedPreferences preferences = await SharedPreferences.getInstance();
+
+        }
+        else{
+          return false;
+        }
+
+      }
+      else{
+        return false;
+      }
+
+
+
+    }
+    else{
+      return false;
+    }
 
 
 
@@ -131,9 +154,9 @@ class Authentication {
 
   Future<bool> isLogin(String phoneNumber) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? username = prefs.getString('phoneNumber');
+    String? phoneNumber = prefs.getString('phoneNumber');
 
-    if (username != null ) {
+    if (phoneNumber != null ) {
       return true;
     } else {
       return false;
@@ -157,18 +180,6 @@ Future<bool> isPhoneNumberValid(String phoneNumber)async{
 
 Future<bool> smsSender(String message, List<String> recipents) async {
   
- String _result = await sendSMS(message: message, recipients: recipents)
-        .catchError((onError) {
-      print(onError);
-      return "false";
-    });
-
-  print(_result);
-
-  if(_result=="false"){
-    return false;
-  }
-  else{
-    return true;
-  }
+ 
+  return true;
 }
