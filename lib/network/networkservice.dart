@@ -4,6 +4,10 @@ import "package:flutter_nearby_connections/flutter_nearby_connections.dart";
 import "package:device_info_plus/device_info_plus.dart";
 import "package:ulak/database.dart";
 
+/*
+Network Service: 
+  Function sendMessage input:Message object, sends message to the network.
+*/
 
 class Message {
   int time;String sender;String receiver; String content;
@@ -16,7 +20,6 @@ class NetworkService {
   NearbyService nearbyService = NearbyService();
   List<Device> connectedDevices = [];
   void init() async {
-     //nearbyService = NearbyService();
     
     await nearbyService.init(
       serviceType: 'mpconn',
@@ -39,6 +42,11 @@ class NetworkService {
           }
         }
       );
+      void sendMessage(Message message)  {
+    
+     //TODO do this
+
+  }
       StreamSubscription subscription = nearbyService.stateChangedSubscription(
         callback: (deviceList) {
           connectedDevices.clear();
@@ -53,9 +61,12 @@ class NetworkService {
    ); 
     StreamSubscription receivedDataSubscription = nearbyService.dataReceivedSubscription(callback: (data){
       //TODO check this
+      for (var dev in connectedDevices){
+        if(dev.deviceId!=data.senderDeviceId)sendMessage(data.content);
+      }
       LocalDB().saveData("messages", data.name, data);
    });
-
+  
   }
   
 }

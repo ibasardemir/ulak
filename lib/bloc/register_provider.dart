@@ -71,7 +71,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         //uygulamaya git
       }
 
-      await Future.delayed(Duration(seconds: 2));
+      await Future.delayed(const Duration(seconds: 2));
 
       emit(LoginSuccess());
       print('Giriş başarılı. Kullanıcı adı: ${event.username}, Şifre: ${event.password}');
