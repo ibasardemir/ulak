@@ -14,7 +14,7 @@ class LoginButtonPressed extends LoginEvent {
   final String password;
   final String code; //Kullanıcının gireceği sms kodu
 
-  LoginButtonPressed({required this.username, required this.password,this.code=""});
+  const LoginButtonPressed({required this.username, required this.password,this.code=""});
 
   @override
   List<Object> get props => [username, password];
@@ -34,7 +34,7 @@ class LoginSuccess extends LoginState {}
 class LoginFailure extends LoginState {
   final String error;
 
-  LoginFailure({required this.error});
+  const LoginFailure({required this.error});
 
   @override
   List<Object> get props => [error];
@@ -59,15 +59,15 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
       if(!(result.result??false)){
         print("failed");
-        emit(LoginFailure(error: 'Giriş başarısız.'));
+        emit(const LoginFailure(error: 'Giriş başarısız.'));
         return;
       }
 
       //sms kodu sayfasına yönlendir
 
-      bool auth_result =await auth.signInSmsCodeChecker(event.password, event.username, result.message, event.code);
+      bool authResult =await auth.signInSmsCodeChecker(event.password, event.username, result.message, event.code);
 
-      if(auth_result){
+      if(authResult){
         //uygulamaya git
       }
 
@@ -77,7 +77,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       print('Giriş başarılı. Kullanıcı adı: ${event.username}, Şifre: ${event.password}');
 
     } catch (error) {
-      emit(LoginFailure(error: 'Giriş başarısız.'));
+      emit(const LoginFailure(error: 'Giriş başarısız.'));
     }
   }
 }

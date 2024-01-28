@@ -1,4 +1,3 @@
-import 'dart:ffi';
 import 'dart:math';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:phone_number/phone_number.dart';
@@ -101,7 +100,7 @@ class Authentication {
 
   //If entered code entered by user is equal to the code sended by signInSmsSender function save user to databases and shared preferences
   //If save is successful returns true else returns false
-  Future<bool> signInSmsCodeChecker(String phoneNumber, String username,String? code,String? enteredCode) async { 
+  Future<bool> signInSmsCodeChecker(String phoneNumber, Sflutttring username,String? code,String? enteredCode) async { 
     if(code==enteredCode){
       
       bool firebaseResult = await firebaseDB.saveData("users", phoneNumber, username);
@@ -170,8 +169,8 @@ class Authentication {
 
   Future<String> returnPhoneNum() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? phone_number = prefs.getString('phoneNumber');
-    return phone_number!;
+    String? phoneNumber = prefs.getString('phoneNumber');
+    return phoneNumber!;
   }
 }
 

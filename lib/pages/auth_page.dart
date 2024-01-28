@@ -6,7 +6,7 @@ class AuthPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AuthWidget();
+    return const AuthWidget();
   }
 }
 
@@ -22,7 +22,7 @@ class _AuthWidgetState extends State<AuthWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Container(
+        child: SizedBox(
           width: MediaQuery.of(context).size.width * 0.9,
           height: 600,
           child: Column(
@@ -43,10 +43,10 @@ class _AuthWidgetState extends State<AuthWidget> {
                 children: <Widget>[
                     Container(
                       margin: const EdgeInsets.all(10),
-                      child: FixedButton(name: "Register",)),
+                      child: const FixedButton(name: "Register",)),
                     Container(
                       margin: const EdgeInsets.all(10),
-                      child: FixedButton(name: "Login"))
+                      child: const FixedButton(name: "Login"))
                 ],
               ))
           ])

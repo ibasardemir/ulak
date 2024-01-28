@@ -7,18 +7,18 @@ class RegisterButton extends StatelessWidget {
   final TextEditingController phoneNumberController;
   final LoginBloc loginBloc;
 
-  RegisterButton({required this.name, required this.userNameController, required this.phoneNumberController, required this.loginBloc});
+  const RegisterButton({super.key, required this.name, required this.userNameController, required this.phoneNumberController, required this.loginBloc});
 
   @override
   Widget build(BuildContext context) {
     double containerWidth = MediaQuery.of(context).size.width * 0.9;
 
-    return Container(
+    return SizedBox(
       width: containerWidth,
       height: 50.0,
       child: TextButton(
         style: TextButton.styleFrom(
-          backgroundColor: Color(0xFFFF8C00),
+          backgroundColor: const Color(0xFFFF8C00),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20.0),
           ),
@@ -29,7 +29,7 @@ class RegisterButton extends StatelessWidget {
         },
         child: Text(
           name,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 16.0,
           ),

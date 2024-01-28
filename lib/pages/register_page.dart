@@ -5,7 +5,7 @@ import 'package:ulak/components/register_button.dart';
 import 'package:ulak/components/register_textfield.dart';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({Key? key}) : super(key: key);
+  const RegisterPage({super.key});
 
   @override
   _RegisterPageState createState() => _RegisterPageState();
@@ -43,7 +43,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 builder: (context, state) {
                   if (state is LoginLoading) {
                     // Yükleme göstergesi
-                    return CircularProgressIndicator();
+                    return const CircularProgressIndicator();
                   }
                   return _buildRegisterForm(context,_usernameController,_phonenumberController);
                 },
@@ -55,7 +55,7 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  Widget _buildRegisterForm(BuildContext context, TextEditingController _name, TextEditingController _phoneNumber) {
+  Widget _buildRegisterForm(BuildContext context, TextEditingController name, TextEditingController phoneNumber) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.center,
     children: <Widget>[
@@ -69,7 +69,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 14),
                 child: RegisterTextField(
                   iconName: "user",
-                  textController: _name,
+                  textController: name,
                 ),
               ),
               // Telefon Numarası Giriş Alanı
@@ -77,7 +77,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 14),
                 child: RegisterTextField(
                   iconName: "phone",
-                  textController: _phoneNumber,
+                  textController: phoneNumber,
                 ),
               ),
               // Kayıt Ol Butonu
@@ -85,8 +85,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 14),
                 child: RegisterButton(
                   name: 'Register',
-                  userNameController: _name,
-                  phoneNumberController: _phoneNumber,
+                  userNameController: name,
+                  phoneNumberController: phoneNumber,
                   loginBloc: BlocProvider.of<LoginBloc>(context),
                 ),
               ),
