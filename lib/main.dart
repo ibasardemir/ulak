@@ -4,6 +4,7 @@ import 'package:ulak/bloc/register_provider.dart';
 import 'package:ulak/pages/auth_page.dart';
 // 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 

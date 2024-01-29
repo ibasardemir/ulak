@@ -1,16 +1,42 @@
 import 'dart:math';
+import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:phone_number/phone_number.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:path/path.dart';
+class User{
 
+  User({required this.phoneNumber, required this.username});
 
-abstract class Database {
+  final String? phoneNumber;
+  final String? username;
+
+  Map<String, dynamic> toMap() {
+    return {
+      'phoneNumber': phoneNumber,
+      'username': username,
+    };
+  }
+}
+
+abstract class DatabaseUtility {
+
+  Database? database;
+
   Future<bool> saveData(String tablename, String key, dynamic data);
   Future<dynamic> getData(String tablename, String key);
   Future<bool> deleteData(String tablename, String key);
-  Future<bool> syncDatabases();
+  Future<bool> syncDatabases(Database otherDatabase);
+  Future<bool> openDatabase(String path);
+
 }
 
-class LocalDB extends Database{
+class LocalDB extends DatabaseUtility{
+  
+  LocalDB(){
+    dbResu = await openDatabase("local.db");
+  };
+  
   @override
   Future<bool>  deleteData(String tablename, String key) {
     // TODO: implement deleteData
@@ -30,14 +56,20 @@ class LocalDB extends Database{
   }
 
   @override
-  Future<bool>  syncDatabases() {
+  Future<bool>  syncDatabases(Database otherDatabase) {
     // TODO: implement syncDatabases
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<bool> openDatabase(String path) {
+    // TODO: implement openDatabase
     throw UnimplementedError();
   }
 
 }
 
-class FirebaseDB extends Database{
+class FirebaseDB extends DatabaseUtility{
   @override
   Future<bool> deleteData(String tablename, String key) {
     // TODO: implement deleteData
@@ -57,8 +89,14 @@ class FirebaseDB extends Database{
   }
 
   @override
-  Future<bool> syncDatabases() {
+  Future<bool> syncDatabases(Database otherDatabase) {
     // TODO: implement syncDatabases
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<bool> openDatabase(String path) {
+    // TODO: implement openDatabase
     throw UnimplementedError();
   }
   
@@ -122,7 +160,6 @@ class Authentication {
         else{
           return false;
         }
-
       }
       else{
         return false;
@@ -132,8 +169,6 @@ class Authentication {
     else{
       return false;
     }
-
-
 
   }
 
@@ -176,15 +211,21 @@ class Authentication {
 
 
 
-Future<bool> isPhoneNumberValid(String phoneNumber)async{
-  RegionInfo region = const RegionInfo(code:"TR" ,name:"Turkey" ,prefix:90);
-  return await PhoneNumberUtil().validate(phoneNumber, regionCode: region.code);
 
-}
+class AuthenticationHelper{
 
-Future<bool> smsSender(String message, List<String> recipents) async {
+  Future<bool> isPhoneNumberValid(String phoneNumber)async{
+    RegionInfo region = const RegionInfo(code:"TR" ,name:"Turkey" ,prefix:90);
+    return await PhoneNumberUtil().validate(phoneNumber, regionCode: region.code);
+
+  }
+
+  Future<bool> smsSender(String message, List<String> recipents) async {
+    
   
- 
-  return true;
+    return true;
+  }
+
 }
+
 
