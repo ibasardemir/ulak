@@ -100,7 +100,7 @@ class Authentication {
 
   //If entered code entered by user is equal to the code sended by signInSmsSender function save user to databases and shared preferences
   //If save is successful returns true else returns false
-  Future<bool> signInSmsCodeChecker(String phoneNumber, Sflutttring username,String? code,String? enteredCode) async { 
+  Future<bool> signInSmsCodeChecker(String phoneNumber, String username,String? code,String? enteredCode) async { 
     if(code==enteredCode){
       
       bool firebaseResult = await firebaseDB.saveData("users", phoneNumber, username);
