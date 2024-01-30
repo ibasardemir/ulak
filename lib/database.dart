@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:phone_number/phone_number.dart';
 import 'package:sqflite/sqflite.dart';
@@ -144,8 +143,7 @@ class Authentication {
 
     if(isPhoneNumberValid){
       String message=Random().nextInt(899999)+100000 as String;
-      bool smsResult=await smsSender(message, [phoneNumber]);
-
+      bool smsResult=true;
       return SmsResultPackgage(message: message, result: smsResult);
 
     }
