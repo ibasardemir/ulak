@@ -40,6 +40,8 @@ class DebugButton extends StatelessWidget {
               if (name == "OpenDB") {
                 print("OpenDB");
                 bool result = await localDBInstance.openDB("test");
+                context.read<MessageDatabaseBloc>().add(GetMessages());
+
                 print(result);
               } else if (name == "GetMessages") {
                 // BLoC olayını tetikle
