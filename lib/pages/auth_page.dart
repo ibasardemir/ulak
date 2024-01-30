@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ulak/components/fixed_button.dart';
-import '/database.dart';
+
 
 class AuthPage extends StatelessWidget {
   const AuthPage({super.key});
@@ -49,18 +49,6 @@ class _AuthWidgetState extends State<AuthWidget> {
                       margin: const EdgeInsets.all(10),
                       child: const FixedButton(name: "Login")),
 
-                    Container(
-                      margin: const EdgeInsets.all(10),
-                      child: const TextButton(
-                        onPressed: LocalDB().openDB('test.db'),
-                        child: Text(
-                          "Forgot Password?",
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
                 ],
                 
               ))

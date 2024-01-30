@@ -1,6 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import '../database.dart';
+import '../database/database.dart';
+import '../database/auth.dart';
+
 // Olayları temsil eden sınıf
 abstract class LoginEvent extends Equatable {
   const LoginEvent();

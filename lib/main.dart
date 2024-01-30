@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ulak/bloc/register_provider.dart';
 import 'package:ulak/pages/auth_page.dart';
-// 
+import 'database/database.dart';
+import 'dart:developer' as developer;
+
 Future<void> main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
