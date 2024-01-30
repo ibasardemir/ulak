@@ -1,4 +1,6 @@
 
+import 'dart:isolate';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:sqflite/sqflite.dart';
@@ -22,10 +24,10 @@ class User{
 
 abstract class DatabaseUtility {
 
-  DatabaseUtility(){database=null; isOpen=null;}
+  DatabaseUtility(){database=null;}
 
   Database? database;
-  bool? isOpen;
+
 
   Future<bool> saveData(String tablename, String key, dynamic data);
   Future<dynamic> getData(String tablename, String key);
@@ -82,6 +84,7 @@ class LocalDB extends DatabaseUtility{
   // path to perform database upgrades and downgrades.
   version: 1,
 );
+
   return true;
     
   }
