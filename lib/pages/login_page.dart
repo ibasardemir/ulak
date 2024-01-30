@@ -67,7 +67,7 @@ class _LoginPageState extends State<LoginPage> {
           padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 14),
           child: Column(
             children: <Widget>[
-              SizedBox(height: 100,),
+              SizedBox(height: 110,),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 14),
                 child: RegisterTextField(
