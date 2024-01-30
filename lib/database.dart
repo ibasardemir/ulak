@@ -4,6 +4,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:phone_number/phone_number.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import 'dart:async';
+
 class User{
 
   User({required this.phoneNumber, required this.username});
@@ -22,21 +24,21 @@ class User{
 abstract class DatabaseUtility {
 
   Database? database;
+  bool? isOpen;
 
   Future<bool> saveData(String tablename, String key, dynamic data);
   Future<dynamic> getData(String tablename, String key);
   Future<bool> deleteData(String tablename, String key);
   Future<bool> syncDatabases(Database otherDatabase);
-  Future<bool> openDatabase(String path);
+  Future<bool> openDB(String path);
 
 }
 
 class LocalDB extends DatabaseUtility{
   
-  LocalDB(){
-    dbResu = await openDatabase("local.db");
-  };
+
   
+
   @override
   Future<bool>  deleteData(String tablename, String key) {
     // TODO: implement deleteData
@@ -62,9 +64,25 @@ class LocalDB extends DatabaseUtility{
   }
   
   @override
-  Future<bool> openDatabase(String path) {
-    // TODO: implement openDatabase
-    throw UnimplementedError();
+  Future<bool> openDB(String path) async {
+  database =await openDatabase(
+  // Set the path to the database. Note: Using the `join` function from the
+  // `path` package is best practice to ensure the path is correctly
+  // constructed for each platform.
+  join(await getDatabasesPath(), 'ulak_database.db'),
+  // When the database is first created, create a table to store dogs.
+  onCreate: (db, version) {
+    // Run the CREATE TABLE statement on the database.
+    return db.execute(
+      'CREATE TABLE users(phoneNumber TEXT PRIMARY KEY, username TEXT)',
+    );
+  },
+  // Set the version. This executes the onCreate function and provides a
+  // path to perform database upgrades and downgrades.
+  version: 1,
+);
+  return true;
+    
   }
 
 }
@@ -95,7 +113,7 @@ class FirebaseDB extends DatabaseUtility{
   }
   
   @override
-  Future<bool> openDatabase(String path) {
+  Future<bool> openDB(String path) {
     // TODO: implement openDatabase
     throw UnimplementedError();
   }

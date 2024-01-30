@@ -46,8 +46,13 @@ class _AuthWidgetState extends State<AuthWidget> {
                       child: const FixedButton(name: "Register",)),
                     Container(
                       margin: const EdgeInsets.all(10),
-                      child: const FixedButton(name: "Login"))
+                      child: const FixedButton(name: "Login")),
+
+                    Container(
+                      margin: const EdgeInsets.all(10),
+                      child: const FixedButton(name: "Umut")),
                 ],
+                
               ))
           ])
         ),
