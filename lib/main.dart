@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ulak/bloc/database_messages_provider.dart';
 import 'package:ulak/bloc/register_provider.dart';
 import 'package:ulak/pages/auth_page.dart';
+import 'package:ulak/pages/debug_page.dart';
 import 'database/database.dart';
 import 'dart:developer' as developer;
 
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
         // Diğer BlocProvider'lar buraya eklenebilir
       ],
       child: MaterialApp(
-        home: AuthPage(),
+        home: DebugPage(),
       ),
     ),
     );

@@ -8,18 +8,18 @@ class DebugPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const DebugPage();
+    return const AuthWidget();
   }
 }
 
-class DebugWidget extends StatefulWidget {
-  const DebugWidget({super.key});
+class AuthWidget extends StatefulWidget {
+  const AuthWidget({super.key});
 
   @override
-  State<DebugWidget> createState() => _DebugWidgetState();
+  State<AuthWidget> createState() => _AuthWidgetState();
 }
 
-class _DebugWidgetState extends State<DebugWidget> {
+class _AuthWidgetState extends State<AuthWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,11 +45,7 @@ class _DebugWidgetState extends State<DebugWidget> {
                 children: <Widget>[
                     Container(
                       margin: const EdgeInsets.all(10),
-                      child:  DebugButton(name: "OpenLocalDB")),
-                    Container(
-                      margin: const EdgeInsets.all(10),
-                      child:  DebugButton(name: "AddUser")),
-                    
+                      child:  DebugButton(name: "OpenDB")),
                 ],
                 
               ))
