@@ -54,3 +54,4 @@ class RegisterTextField extends StatelessWidget
     );
   }
 }
+

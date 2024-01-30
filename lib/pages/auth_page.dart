@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ulak/components/fixed_button.dart';
+import 'package:ulak/components/auth/fixed_button.dart';
 
 
 class AuthPage extends StatelessWidget {
@@ -44,10 +44,10 @@ class _AuthWidgetState extends State<AuthWidget> {
                 children: <Widget>[
                     Container(
                       margin: const EdgeInsets.all(10),
-                      child: const FixedButton(name: "Register",)),
+                      child:  FixedButton(name: "Register",)),
                     Container(
                       margin: const EdgeInsets.all(10),
-                      child: const FixedButton(name: "Login")),
+                      child:  FixedButton(name: "Login")),
 
                 ],
                 

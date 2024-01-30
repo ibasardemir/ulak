@@ -1,6 +1,7 @@
 import "dart:async";
 import "dart:math";
 import "package:flutter_nearby_connections/flutter_nearby_connections.dart";
+import "package:ulak/database/auth.dart";
 import "package:ulak/database/database.dart";
 import "package:ulak/database/auth.dart";
 
