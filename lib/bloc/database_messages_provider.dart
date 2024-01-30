@@ -32,12 +32,12 @@ class MessageDatabseFailure extends MessageDatabaseState {
 }
 
 // BLoC sınıfı
-class LoginBloc extends Bloc<MessageDatabaseEvent, MessageDatabaseState> {
-  LoginBloc() : super(MessageDatabseInitial()) {
-    on<GetMessages>(_onLoginButtonPressed);
+class MessageDatabaseBloc extends Bloc<MessageDatabaseEvent, MessageDatabaseState> {
+  MessageDatabaseBloc() : super(MessageDatabseInitial()) {
+    on<GetMessages>(_onGetMessages);
   }
 
-  Future<void> _onLoginButtonPressed(
+  Future<void> _onGetMessages(
     GetMessages event, 
     Emitter<MessageDatabaseState> emit,
   ) async {
