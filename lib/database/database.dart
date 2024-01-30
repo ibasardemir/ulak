@@ -67,12 +67,12 @@ class LocalDB extends DatabaseUtility{
   }
   
   @override
-  Future<bool> openDB(String path) async {
+  Future<bool> openDB(String name) async {
   database =await openDatabase(
   // Set the path to the database. Note: Using the `join` function from the
   // `path` package is best practice to ensure the path is correctly
   // constructed for each platform.
-  join(await getDatabasesPath(), 'ulak_database.db'),
+  join(await getDatabasesPath(), '$name.db'),
   // When the database is first created, create a table to store dogs.
   onCreate: (db, version) {
     // Run the CREATE TABLE statement on the database.
