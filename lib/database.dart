@@ -22,6 +22,8 @@ class User{
 
 abstract class DatabaseUtility {
 
+  DatabaseUtility(){database=null; isOpen=null;};
+
   Database? database;
   bool? isOpen;
 
@@ -36,7 +38,7 @@ abstract class DatabaseUtility {
 class LocalDB extends DatabaseUtility{
   
 
-  
+  LocalDB(){}
 
   @override
   Future<bool>  deleteData(String tablename, String key) {
