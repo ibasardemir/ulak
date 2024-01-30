@@ -39,8 +39,14 @@ abstract class DatabaseUtility {
 
 class LocalDB extends DatabaseUtility{
   
+  static final LocalDB _instance = LocalDB._internal();
+  
+  //private constructor
+  LocalDB._internal();
 
-  LocalDB(){}
+  factory LocalDB() {
+    return _instance;
+  }
 
   @override
   Future<bool>  deleteData(String tablename, String key) {
