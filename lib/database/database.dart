@@ -1,4 +1,6 @@
 
+import 'dart:isolate';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:sqflite/sqflite.dart';
@@ -22,10 +24,10 @@ class User{
 
 abstract class DatabaseUtility {
 
-  DatabaseUtility(){database=null; isOpen=null;}
+  DatabaseUtility(){database=null;}
 
   Database? database;
-  bool? isOpen;
+
 
   Future<bool> saveData(String tablename, String key, dynamic data);
   Future<dynamic> getData(String tablename, String key);
@@ -37,8 +39,14 @@ abstract class DatabaseUtility {
 
 class LocalDB extends DatabaseUtility{
   
+  static final LocalDB _instance = LocalDB._internal();
+  
+  //private constructor
+  LocalDB._internal();
 
-  LocalDB(){}
+  factory LocalDB() {
+    return _instance;
+  }
 
   @override
   Future<bool>  deleteData(String tablename, String key) {
@@ -65,12 +73,12 @@ class LocalDB extends DatabaseUtility{
   }
   
   @override
-  Future<bool> openDB(String path) async {
+  Future<bool> openDB(String name) async {
   database =await openDatabase(
   // Set the path to the database. Note: Using the `join` function from the
   // `path` package is best practice to ensure the path is correctly
   // constructed for each platform.
-  join(await getDatabasesPath(), 'ulak_database.db'),
+  join(await getDatabasesPath(), '$name.db'),
   // When the database is first created, create a table to store dogs.
   onCreate: (db, version) {
     // Run the CREATE TABLE statement on the database.
@@ -82,6 +90,7 @@ class LocalDB extends DatabaseUtility{
   // path to perform database upgrades and downgrades.
   version: 1,
 );
+
   return true;
     
   }

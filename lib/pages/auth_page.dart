@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ulak/components/auth/fixed_button.dart';
+import 'package:ulak/components/debug/debug_button.dart';
 
 
 class AuthPage extends StatelessWidget {
@@ -48,7 +49,9 @@ class _AuthWidgetState extends State<AuthWidget> {
                     Container(
                       margin: const EdgeInsets.all(10),
                       child:  FixedButton(name: "Login")),
-
+                    Container(
+                      margin: const EdgeInsets.all(10),
+                      child:  DebugButton(name: "OpenDB")),
                 ],
                 
               ))
