@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:ulak/bloc/register_provider.dart';
+import 'package:ulak/pages/register_page.dart';
 
-class RegisterButton extends StatelessWidget {
+import '../../pages/login_page.dart';
+
+
+class FixedButton extends StatelessWidget {
   final String name;
-  final TextEditingController userNameController;
-  final TextEditingController phoneNumberController;
-  final LoginBloc loginBloc;
 
-  RegisterButton({required this.name, required this.userNameController, required this.phoneNumberController, required this.loginBloc});
+  FixedButton({required this.name,});
 
   @override
   Widget build(BuildContext context) {
+
     double containerWidth = MediaQuery.of(context).size.width * 0.9;
 
     return Container(
@@ -18,18 +19,23 @@ class RegisterButton extends StatelessWidget {
       height: 50.0,
       child: TextButton(
         style: TextButton.styleFrom(
-          backgroundColor: Color(0xFFFF8C00),
+          backgroundColor: Color(0xFFFF8C00), 
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20.0),
           ),
-          elevation: 2,
+          elevation: 2, 
         ),
         onPressed: () {
-          loginBloc.add(LoginButtonPressed(username: userNameController.text, password: phoneNumberController.text));
+          if(name == "Register"){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const RegisterPage()));
+          }
+          else if(name == "Login"){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage()));
+          }
         },
         child: Text(
           name,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 16.0,
           ),

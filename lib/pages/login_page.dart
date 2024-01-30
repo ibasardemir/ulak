@@ -5,17 +5,17 @@ import 'package:ulak/bloc/register_provider.dart';
 import 'package:ulak/components/auth/register_button.dart';
 import 'package:ulak/components/auth/register_textfield.dart';
 import 'package:ulak/pages/auth_page.dart';
-import 'package:ulak/pages/login_page.dart';
+import 'package:ulak/pages/register_page.dart';
 
-class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
 
   @override
   // ignore: library_private_types_in_public_api
-  _RegisterPageState createState() => _RegisterPageState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
+class _LoginPageState extends State<LoginPage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _phonenumberController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -67,13 +67,7 @@ class _RegisterPageState extends State<RegisterPage> {
           padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 14),
           child: Column(
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 14),
-                child: RegisterTextField(
-                  iconName: "user",
-                  textController: _name,
-                ),
-              ),
+              SizedBox(height: 100,),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 14),
                 child: RegisterTextField(
@@ -86,7 +80,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 14),
                   child: RegisterButton(
-                    name: 'Register',
+                    name: 'Login',
                     userNameController: _name,
                     phoneNumberController: _phoneNumber,
                     loginBloc: BlocProvider.of<LoginBloc>(context),
@@ -97,14 +91,14 @@ class _RegisterPageState extends State<RegisterPage> {
                 child: RichText(text: TextSpan(children: <TextSpan>[
                   const TextSpan(
                     style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
-                    text: "Already have an acount?       "),
+                    text: "Don't have an acount?       "),
                   TextSpan(
-                    text: 'Login',
+                    text: 'Sign up',
                     style: const TextStyle(color: Color(0xFFFF8C00)),
                     recognizer: TapGestureRecognizer()
                       ..onTap = () {
                         Navigator.push(context, 
-                        MaterialPageRoute(builder: (context) => LoginPage())
+                        MaterialPageRoute(builder: (context) => RegisterPage())
                         );
                       }
                   )

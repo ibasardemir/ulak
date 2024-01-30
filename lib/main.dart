@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       ),
       home: BlocProvider(
         create: (context) => LoginBloc(),
-        child: AuthPage(),
+        child: const AuthPage(),
       ),
     );
   }

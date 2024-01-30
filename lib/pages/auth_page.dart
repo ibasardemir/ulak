@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ulak/components/fixed_button.dart';
+import 'package:ulak/components/auth/fixed_button.dart';
 
 class AuthPage extends StatelessWidget {
   const AuthPage({super.key});
