@@ -56,21 +56,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
     try {
       Authentication auth = Authentication();
-      SmsResultPackgage result=await auth.signInSmsSender(event.password);
+   
 
-      if(!(result.result??false)){
-        print("failed");
-        emit(const LoginFailure(error: 'Giriş başarısız.'));
-        return;
-      }
 
-      //sms kodu sayfasına yönlendir
-
-      bool authResult =await auth.signInSmsCodeChecker(event.password, event.username, result.message, event.code);
-
-      if(authResult){
-        //uygulamaya git
-      }
+   
 
       await Future.delayed(const Duration(seconds: 2));
 

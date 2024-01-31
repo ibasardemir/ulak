@@ -29,11 +29,11 @@ abstract class DatabaseUtility {
   Database? database;
 
 
-  Future<bool> saveData(String tablename, String key, dynamic data);
-  Future<dynamic> getData(String tablename, String key);
+  void saveData(String tablename, User data);
+  Future<List<User>>getData(String tablename);
   Future<bool> deleteData(String tablename, String key);
   Future<bool> syncDatabases(Database otherDatabase);
-  Future<bool> openDB(String path);
+  Future<bool> openDB(String name);
 
 }
 
@@ -55,15 +55,26 @@ class LocalDB extends DatabaseUtility{
   }
 
   @override
-  Future getData(String tablename, String key) {
-    // TODO: implement getData
-    throw UnimplementedError();
-  }
+  Future<List<User>> getData(String tablename) async {
+    final List<Map<String, dynamic>> maps = await database?.query(tablename) ?? [];
+
+    return List.generate(maps.length, (i) {
+    return User(
+      phoneNumber: maps[i]['phoneNumber'] as String,
+      username: maps[i]['username'] as String,
+    
+    );
+  });
+}
+  
 
   @override
-  Future<bool>  saveData(String tablename, String key, data) {
-    // TODO: implement saveData
-    throw UnimplementedError();
+  void saveData(String tablename,User data) async{
+    await database?.insert(
+      tablename,
+      data.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
   }
 
   @override
@@ -74,6 +85,7 @@ class LocalDB extends DatabaseUtility{
   
   @override
   Future<bool> openDB(String name) async {
+  print(join(await getDatabasesPath(), '$name.db'));
   database =await openDatabase(
   // Set the path to the database. Note: Using the `join` function from the
   // `path` package is best practice to ensure the path is correctly
@@ -91,7 +103,12 @@ class LocalDB extends DatabaseUtility{
   version: 1,
 );
 
-  return true;
+  if(database==null){
+    return false;
+    }
+  else{
+    return database?.isOpen ??false;
+  }
     
   }
 
@@ -105,13 +122,13 @@ class FirebaseDB extends DatabaseUtility{
   }
 
   @override
-  Future getData(String tablename, String key) {
+  Future<List<User>> getData(String tablename) {
     // TODO: implement getData
     throw UnimplementedError();
   }
 
   @override
-  Future<bool> saveData(String tablename, String key, data) {
+  Future<bool> saveData(String tablename, User data) {
     // TODO: implement saveData
     throw UnimplementedError();
   }
@@ -123,7 +140,7 @@ class FirebaseDB extends DatabaseUtility{
   }
   
   @override
-  Future<bool> openDB(String path) {
+  Future<bool> openDB(String name) {
     // TODO: implement openDatabase
     throw UnimplementedError();
   }

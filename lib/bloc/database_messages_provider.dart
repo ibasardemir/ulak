@@ -33,23 +33,21 @@ class MessageDatabseFailure extends MessageDatabaseState {
 
 // BLoC sınıfı
 class MessageDatabaseBloc extends Bloc<MessageDatabaseEvent, MessageDatabaseState> {
+
   MessageDatabaseBloc() : super(MessageDatabseInitial()) {
     on<GetMessages>(_onGetMessages);
   }
 
-  Future<void> _onGetMessages(
-    GetMessages event, 
-    Emitter<MessageDatabaseState> emit,
-  ) async {
+  Future<void> _onGetMessages(GetMessages event, Emitter<MessageDatabaseState> emit,) async {
     emit(MessageDatabseLoading());
-  
 
     try {
       
-
+      
       print("object");
 
       emit(MessageDatabseSuccess());
+      
     } catch (error) {
       emit(const MessageDatabseFailure(error: 'Giriş başarısız.'));
     }

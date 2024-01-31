@@ -31,21 +31,34 @@ class _AuthWidgetState extends State<AuthWidget> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Expanded(
-              flex: 3,
-              child: Container(
-                margin: const EdgeInsets.all(40),
-                child: Image.asset(
-                    'assets/ulak_logo.jpg',
-                    fit: BoxFit.cover, 
-                  ),
-              )),
-            Expanded(
               flex: 1,
               child: Column(
                 children: <Widget>[
                     Container(
                       margin: const EdgeInsets.all(10),
                       child:  DebugButton(name: "OpenDB")),
+                    Container(
+                      margin: const EdgeInsets.all(10),
+                      child:  const TextField(
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'username',
+                        ),
+                      )),
+                      Container(
+                      margin: const EdgeInsets.all(10),
+                      child:  const TextField(
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'phoneNumber',
+                        ),
+                      )),
+                       Container(
+                      margin: const EdgeInsets.all(10),
+                      child:  DebugButton(name: "Save User")),
+                       Container(
+                      margin: const EdgeInsets.all(10),
+                      child:  DebugButton(name: "Get All Users")),
                 ],
                 
               ))

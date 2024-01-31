@@ -40,12 +40,27 @@ class DebugButton extends StatelessWidget {
               if (name == "OpenDB") {
                 print("OpenDB");
                 bool result = await localDBInstance.openDB("test");
-                context.read<MessageDatabaseBloc>().add(GetMessages());
+                /*
+                for (int i = 0; i < 10; i++) {
+                  User user = User(phoneNumber: "$i", username: "test $i");
+                  localDBInstance.saveData("users", user);
+                }*/
+                
+                List<User> users= await localDBInstance.getData("users");
 
+                for (var user in users) {
+                  print(user.phoneNumber);
+                  print(user.username);
+                  print("------");
+                }
                 print(result);
               } else if (name == "GetMessages") {
                 // BLoC olayını tetikle
                 context.read<MessageDatabaseBloc>().add(GetMessages());
+              }
+              else if(name=="Save User"){
+                User user = User(phoneNumber: "123", username: "test 123");
+                localDBInstance.saveData("users", user);
               }
             },
             child: Text(
