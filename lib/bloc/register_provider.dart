@@ -58,9 +58,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       Authentication auth = Authentication();
    
 
-
-   
-
       await Future.delayed(const Duration(seconds: 2));
 
       emit(LoginSuccess());

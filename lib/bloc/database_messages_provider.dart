@@ -12,6 +12,17 @@ class GetMessages extends MessageDatabaseEvent {
 
 }
 
+class SaveUserButtonPressed extends MessageDatabaseEvent {
+  final String phoneNumber;
+  final String username;
+
+  const SaveUserButtonPressed({required this.phoneNumber, required this.username});
+
+  @override
+  List<Object> get props => [phoneNumber, username];
+}
+
+
 abstract class MessageDatabaseState extends Equatable {
   const MessageDatabaseState();
 
@@ -22,6 +33,7 @@ abstract class MessageDatabaseState extends Equatable {
 class MessageDatabseInitial extends MessageDatabaseState {}
 class MessageDatabseLoading extends MessageDatabaseState {}
 class MessageDatabseSuccess extends MessageDatabaseState {}
+
 class MessageDatabseFailure extends MessageDatabaseState {
   final String error;
 
@@ -36,6 +48,7 @@ class MessageDatabaseBloc extends Bloc<MessageDatabaseEvent, MessageDatabaseStat
 
   MessageDatabaseBloc() : super(MessageDatabseInitial()) {
     on<GetMessages>(_onGetMessages);
+    on<SaveUserButtonPressed>(_onSaveUserButtonPressed);
   }
 
   Future<void> _onGetMessages(GetMessages event, Emitter<MessageDatabaseState> emit,) async {
@@ -45,11 +58,29 @@ class MessageDatabaseBloc extends Bloc<MessageDatabaseEvent, MessageDatabaseStat
     try {
  
       print("object");
-
+      
       emit(MessageDatabseSuccess());
       
     } catch (error) {
       emit(const MessageDatabseFailure(error: 'Giriş başarısız.'));
     }
   }
+
+  Future<void> _onSaveUserButtonPressed(SaveUserButtonPressed event, Emitter<MessageDatabaseState> emit,) async {
+
+    emit(MessageDatabseLoading());
+
+    try {
+      
+      print("Save Button Pressed");
+      print(event.phoneNumber);
+      print(event.username);  
+      emit(MessageDatabseSuccess());
+      
+    } catch (error) {
+      emit(const MessageDatabseFailure(error: 'Giriş başarısız.'));
+    }
+  }
+
+
 }

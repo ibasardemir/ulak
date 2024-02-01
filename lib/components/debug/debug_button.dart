@@ -5,8 +5,10 @@ import 'package:ulak/database/database.dart';
 
 class DebugButton extends StatelessWidget {
   final String name;
+  final TextEditingController? userNameController;
+  final TextEditingController? phoneNumberController;
 
-  const DebugButton({super.key, required this.name});
+  const DebugButton({super.key, required this.name, this.userNameController, this.phoneNumberController});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class DebugButton extends StatelessWidget {
         listener: (context, state) {
           if (state is MessageDatabseSuccess) {
             // İşlem başarılı olduğunda yapılacaklar
-            print("Mesajlar başarıyla alındı");
+
           } else if (state is MessageDatabseFailure) {
             // Hata durumunda yapılacaklar
             print("Hata: ${state.error}");
@@ -37,30 +39,60 @@ class DebugButton extends StatelessWidget {
             ),
             onPressed: () async {
               print("pressed");
+
+
               if (name == "OpenDB") {
                 print("OpenDB");
                 bool result = await localDBInstance.openDB("test");
-                /*
-                for (int i = 0; i < 10; i++) {
-                  User user = User(phoneNumber: "$i", username: "test $i");
-                  localDBInstance.saveData("users", user);
-                }*/
-                
-                List<User> users= await localDBInstance.getData("users");
-
-                for (var user in users) {
-                  print(user.phoneNumber);
-                  print(user.username);
-                  print("------");
+                if(result){
+                  print("DB opened");
                 }
+                else{
+                  print("DB not opened");
+                }
+                
                 print(result);
               } else if (name == "GetMessages") {
                 // BLoC olayını tetikle
                 context.read<MessageDatabaseBloc>().add(GetMessages());
               }
               else if(name=="Save User"){
-                User user = User(phoneNumber: "123", username: "test 123");
+                if(localDBInstance.database==null){
+                  print("Open Database First");
+                }
+                else{
+                   User user = User(phoneNumber: phoneNumberController?.text, username: userNameController?.text);
                 localDBInstance.saveData("users", user);
+                if(phoneNumberController?.text==null || userNameController?.text==null){
+                  print("null");
+                }
+                if(phoneNumberController?.text=="" || userNameController?.text==""){
+                  print("empty");
+                }
+
+                context.read<MessageDatabaseBloc>().add(SaveUserButtonPressed(phoneNumber: phoneNumberController?.text??"",username: userNameController?.text??""));
+
+                }
+                
+               
+              }
+              else if(name=="Get All Users"){
+                if(localDBInstance.database==null){
+                  print("Open Database First");
+                }
+                else{
+                 List<User> users= await localDBInstance.getData("users");
+
+                  for (var user in users) {
+                    print(user.phoneNumber);
+                    print(user.username);
+                    print("------");
+                  }
+                }
+              }
+              else if(name=="DeleteDB"){
+                localDBInstance.deleteDB("test");
+                localDBInstance.database=null;
               }
             },
             child: Text(

@@ -1,9 +1,8 @@
-
-
-
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'dart:async';
+import 'package:flutter/foundation.dart';
+import 'package:ulak/network/flutternearby.dart';
 
 class User{
 
@@ -32,7 +31,7 @@ abstract class DatabaseUtility {
   Future<bool> deleteData(String tablename, String key);
   Future<bool> syncDatabases(Database otherDatabase);
   Future<bool> openDB(String name);
-
+  void deleteDB(String name);
 }
 
 class LocalDB extends DatabaseUtility{
@@ -84,21 +83,16 @@ class LocalDB extends DatabaseUtility{
   @override
   Future<bool> openDB(String name) async {
   print(join(await getDatabasesPath(), '$name.db'));
+  
   database =await openDatabase(
-  // Set the path to the database. Note: Using the `join` function from the
-  // `path` package is best practice to ensure the path is correctly
-  // constructed for each platform.
-  join(await getDatabasesPath(), '$name.db'),
-  // When the database is first created, create a table to store dogs.
-  onCreate: (db, version) {
-    // Run the CREATE TABLE statement on the database.
-    return db.execute(
-      'CREATE TABLE users(phoneNumber TEXT PRIMARY KEY, username TEXT)',
-    );
-  },
-  // Set the version. This executes the onCreate function and provides a
-  // path to perform database upgrades and downgrades.
-  version: 1,
+                            join(await getDatabasesPath(), '$name.db'),
+                            onCreate: (db, version) {
+                                return db.execute(
+                                'CREATE TABLE users(phoneNumber TEXT PRIMARY KEY, username TEXT)',
+                                );
+                            },
+
+                            version: 1,
 );
 
   if(database==null){
@@ -109,6 +103,9 @@ class LocalDB extends DatabaseUtility{
   }
     
   }
+  
+  @override
+  void deleteDB(String name) async=> databaseFactory.deleteDatabase(join(await getDatabasesPath(), '$name.db'));
 
 }
 
@@ -140,6 +137,12 @@ class FirebaseDB extends DatabaseUtility{
   @override
   Future<bool> openDB(String name) {
     // TODO: implement openDatabase
+    throw UnimplementedError();
+  }
+  
+  @override
+  void deleteDB(String name) {
+    // TODO: implement deleteDB
     throw UnimplementedError();
   }
   
