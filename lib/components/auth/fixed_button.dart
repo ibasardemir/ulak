@@ -7,19 +7,19 @@ import '../../pages/login_page.dart';
 class FixedButton extends StatelessWidget {
   final String name;
 
-  FixedButton({required this.name,});
+  const FixedButton({super.key, required this.name,});
 
   @override
   Widget build(BuildContext context) {
 
     double containerWidth = MediaQuery.of(context).size.width * 0.9;
 
-    return Container(
+    return SizedBox(
       width: containerWidth,
       height: 50.0,
       child: TextButton(
         style: TextButton.styleFrom(
-          backgroundColor: Color(0xFFFF8C00), 
+          backgroundColor: const Color(0xFFFF8C00), 
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20.0),
           ),

@@ -6,14 +6,14 @@ import 'package:ulak/database/database.dart';
 class DebugButton extends StatelessWidget {
   final String name;
 
-  DebugButton({required this.name});
+  const DebugButton({super.key, required this.name});
 
   @override
   Widget build(BuildContext context) {
     final localDBInstance = LocalDB();
     double containerWidth = MediaQuery.of(context).size.width * 0.9;
 
-    return Container(
+    return SizedBox(
       width: containerWidth,
       height: 50.0,
       child: BlocConsumer<MessageDatabaseBloc, MessageDatabaseState>(
@@ -29,7 +29,7 @@ class DebugButton extends StatelessWidget {
         builder: (context, state) {
           return TextButton(
             style: TextButton.styleFrom(
-              backgroundColor: Color(0xFFFF8C00),
+              backgroundColor: const Color(0xFFFF8C00),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20.0),
               ),

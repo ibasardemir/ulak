@@ -71,7 +71,7 @@ class _OtpScreenState extends State<OtpScreen> {
                       enabledBorder: OutlineInputBorder(
                         // Odaklanılmamış durum için kenarlık stili
                         borderSide:
-                            BorderSide(color: Color(0xFFFF8C00), width: 2.0),
+                            const BorderSide(color: Color(0xFFFF8C00), width: 2.0),
                         borderRadius: BorderRadius.circular(12.0),
                       ),
                       filled: true,
@@ -87,7 +87,7 @@ class _OtpScreenState extends State<OtpScreen> {
               },
             ),
           ),
-          Expanded(child: Center(child: FixedButton(name: "Verify")))
+          const Expanded(child: Center(child: FixedButton(name: "Verify")))
         ])),
       ),
     );

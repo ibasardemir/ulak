@@ -39,11 +39,11 @@ class MessageDatabaseBloc extends Bloc<MessageDatabaseEvent, MessageDatabaseStat
   }
 
   Future<void> _onGetMessages(GetMessages event, Emitter<MessageDatabaseState> emit,) async {
+
     emit(MessageDatabseLoading());
 
     try {
-      
-      
+ 
       print("object");
 
       emit(MessageDatabseSuccess());

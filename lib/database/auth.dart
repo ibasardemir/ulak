@@ -1,7 +1,6 @@
 //Currently designed for usual authentication, with completed tables data type requested can be changed
 import 'database.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:math';
 import 'package:phone_number/phone_number.dart';
 
 class Authentication {

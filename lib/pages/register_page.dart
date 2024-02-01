@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ulak/bloc/register_provider.dart';
 import 'package:ulak/components/auth/register_button.dart';
 import 'package:ulak/components/auth/register_textfield.dart';
-import 'package:ulak/pages/auth_page.dart';
 import 'package:ulak/pages/login_page.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -57,7 +56,7 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  Widget _buildRegisterForm(BuildContext context, TextEditingController _name, TextEditingController _phoneNumber) {
+  Widget _buildRegisterForm(BuildContext context, TextEditingController name, TextEditingController phoneNumber) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.center,
     children: <Widget>[
@@ -71,14 +70,14 @@ class _RegisterPageState extends State<RegisterPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 14),
                 child: RegisterTextField(
                   iconName: "user",
-                  textController: _name,
+                  textController: name,
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 14),
                 child: RegisterTextField(
                   iconName: "phone",
-                  textController: _phoneNumber,
+                  textController: phoneNumber,
                 ),
               ),
               Column(
@@ -87,8 +86,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 14),
                   child: RegisterButton(
                     name: 'Register',
-                    userNameController: _name,
-                    phoneNumberController: _phoneNumber,
+                    userNameController: name,
+                    phoneNumberController: phoneNumber,
                     loginBloc: BlocProvider.of<LoginBloc>(context),
                     formKey: _formKey,
                   ),
@@ -104,7 +103,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     recognizer: TapGestureRecognizer()
                       ..onTap = () {
                         Navigator.push(context, 
-                        MaterialPageRoute(builder: (context) => LoginPage())
+                        MaterialPageRoute(builder: (context) => const LoginPage())
                         );
                       }
                   )
