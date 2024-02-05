@@ -131,7 +131,8 @@ class LocalDB extends DatabaseUtility{
                             join(await getDatabasesPath(), '$name.db'),
                             onCreate: (db, version) {
                                 return db.execute(
-                                'CREATE TABLE users(phoneNumber TEXT PRIMARY KEY, username TEXT)',
+                                '''CREATE TABLE users(phoneNumber TEXT PRIMARY KEY, username TEXT);
+                                  CREATE TABLE messages(from TEXT , from TEXT, message TEXT, status BOOL,sentTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,PRIMARY KEY(from, to,sentTime);'''
                                 );
                             },
 
