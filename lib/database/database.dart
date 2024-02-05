@@ -8,20 +8,26 @@ import 'package:ulak/network/flutternearby.dart';
 
 class Message{
 
-    Message({required this.from, required this.to, required this.message, required this.status});
+    Message({required this.sender, required this.reciever, required this.message, required this.status,this.sentTime});
 
-    final String? from;
-    final String? to;
+    final String? sender;
+    final String? reciever;
     final String? message;
     final bool? status;
+    DateTime? sentTime;
+    String? id;
 
   Map<String, dynamic> toMap() {
     return {
-      'from': from,
-      'to': to,
+      'sender': sender,
+      'reciever': reciever,
       'message': message,
       'status': status,
     };
+  }
+
+  void generateID(){
+    id = sender!+reciever!+sentTime!.toString();
   }
 }
 
@@ -76,6 +82,7 @@ class LocalDB extends DatabaseUtility{
   Future<List<User>> getUsers() async {
     final List<Map<String, dynamic>> maps = await database?.query("users") ?? [];
 
+
     return List.generate(maps.length, (i) {
     return User(
       phoneNumber: maps[i]['phoneNumber'] as String,
@@ -87,16 +94,28 @@ class LocalDB extends DatabaseUtility{
   
 @override
   Future<List<Message>> getMessages() async {
+    print("DEBUG");
     final List<Map<String, dynamic>> maps = await database?.query("messages") ?? [];
+    
+    print(maps);
+    List<Message> messages = [];
+    for (var map in maps) {
+      Message message=Message(
+        sender: map['sender'] as String,
+        reciever: map['reciever'] as String,
+        message: map['message'] as String,
+        status: map['status'] as int==1?true:false,
+        sentTime: DateTime.parse(map['sentTime'] as String), 
+      );
+      message.generateID();
+      messages.add(message);
+    }
+ 
 
-    return List.generate(maps.length, (i) {
-    return Message(
-      from: maps[i]['phoneNumber'] as String,
-      to: maps[i]['username'] as String,
-      message: maps[i]['message'] as String,
-      status: maps[i]['status'] as bool, 
-    );
-  });
+    return messages;
+
+  
+  ;
 }
 
   @override
@@ -129,20 +148,30 @@ class LocalDB extends DatabaseUtility{
   
   database =await openDatabase(
                             join(await getDatabasesPath(), '$name.db'),
-                            onCreate: (db, version) {
-                                return db.execute(
-                                '''CREATE TABLE users(phoneNumber TEXT PRIMARY KEY, username TEXT);
-                                  CREATE TABLE messages(from TEXT , from TEXT, message TEXT, status BOOL,sentTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,PRIMARY KEY(from, to,sentTime);'''
+                            onCreate: (db, version) async {
+                                db.execute(
+                                "CREATE TABLE users(phoneNumber TEXT PRIMARY KEY, username TEXT)"
                                 );
+
+                                db.execute('''CREATE TABLE messages(
+                                  sender TEXT,
+                                  reciever TEXT,
+                                  message TEXT,
+                                  status BOOLEAN,
+                                  sentTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                                  PRIMARY KEY (sender,reciever,sentTime)
+                                );''');
                             },
 
                             version: 1,
 );
 
+
   if(database==null){
     return false;
     }
   else{
+    print(database);
     return database?.isOpen ??false;
   }
     

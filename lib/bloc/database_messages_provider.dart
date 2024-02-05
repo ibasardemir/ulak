@@ -8,9 +8,7 @@ abstract class MessageDatabaseEvent extends Equatable{
   List<Object> get props => [];
 }
 
-class GetMessages extends MessageDatabaseEvent {
 
-}
 
 class SaveUserButtonPressed extends MessageDatabaseEvent {
   final String phoneNumber;
@@ -21,6 +19,19 @@ class SaveUserButtonPressed extends MessageDatabaseEvent {
   @override
   List<Object> get props => [phoneNumber, username];
 }
+
+class SaveMessageButtonPressed extends MessageDatabaseEvent {
+  final String sender;
+  final String reciever;
+  final String message;
+  final bool status;
+
+  const SaveMessageButtonPressed({required this.sender, required this.reciever, required this.message, required this.status});
+
+  @override
+  List<Object> get props => [sender, reciever, message, status];
+}
+
 
 
 abstract class MessageDatabaseState extends Equatable {
@@ -47,24 +58,11 @@ class MessageDatabseFailure extends MessageDatabaseState {
 class MessageDatabaseBloc extends Bloc<MessageDatabaseEvent, MessageDatabaseState> {
 
   MessageDatabaseBloc() : super(MessageDatabseInitial()) {
-    on<GetMessages>(_onGetMessages);
+
     on<SaveUserButtonPressed>(_onSaveUserButtonPressed);
+    on<SaveMessageButtonPressed>(_onSaveMessageButtonPressed);
   }
 
-  Future<void> _onGetMessages(GetMessages event, Emitter<MessageDatabaseState> emit,) async {
-
-    emit(MessageDatabseLoading());
-
-    try {
- 
-      print("object");
-      
-      emit(MessageDatabseSuccess());
-      
-    } catch (error) {
-      emit(const MessageDatabseFailure(error: 'Giriş başarısız.'));
-    }
-  }
 
   Future<void> _onSaveUserButtonPressed(SaveUserButtonPressed event, Emitter<MessageDatabaseState> emit,) async {
 
@@ -82,5 +80,21 @@ class MessageDatabaseBloc extends Bloc<MessageDatabaseEvent, MessageDatabaseStat
     }
   }
 
+  Future<void> _onSaveMessageButtonPressed(SaveMessageButtonPressed event, Emitter<MessageDatabaseState> emit,)async{
+    
+    emit(MessageDatabseLoading());
+    try {
+      print("Save Message Button Pressed");
+      print(event.sender);
+      print(event.reciever);
+      print(event.message);
+      print(event.status);
+      emit(MessageDatabseSuccess());
+    } catch (error) {
+      emit(const MessageDatabseFailure(error: 'Giriş başarısız.'));
+    }
+
+
+  }
 
 }

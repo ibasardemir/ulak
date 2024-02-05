@@ -4,8 +4,8 @@ import 'package:ulak/bloc/database_messages_provider.dart';
 import 'package:ulak/components/debug/debug_button.dart';
 
 
-class DebugPage extends StatelessWidget {
-  const DebugPage({super.key});
+class DebugPageMessages extends StatelessWidget {
+  const DebugPageMessages({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,13 +22,15 @@ class AuthWidget extends StatefulWidget {
 
 class _AuthWidgetState extends State<AuthWidget> {
 
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _phonenumberController = TextEditingController();
+  final TextEditingController _senderController = TextEditingController();
+  final TextEditingController _recieverController = TextEditingController();
+  final TextEditingController _messageController = TextEditingController();
 
   @override
   void dispose() {
-    _usernameController.dispose();
-    _phonenumberController.dispose();
+    _senderController.dispose();
+    _recieverController.dispose();
+    _messageController.dispose();
     super.dispose();
   }
 
@@ -52,7 +54,7 @@ class _AuthWidgetState extends State<AuthWidget> {
                   if (state is MessageDatabseLoading) {
                     return const CircularProgressIndicator();
                   }
-                  return _buildRegisterForm(context,_usernameController,_phonenumberController);
+                  return _buildRegisterForm(context,_senderController,_recieverController,_messageController);
                 },
               ),
             ),
@@ -62,13 +64,13 @@ class _AuthWidgetState extends State<AuthWidget> {
     );
 }
 
-Widget _buildRegisterForm(BuildContext context, TextEditingController phoneNumberCr, TextEditingController userNameCr){
+Widget _buildRegisterForm(BuildContext context, TextEditingController fromCr, TextEditingController toCr, TextEditingController messageCr){
   return Scaffold(
       body: Center(
         child: SizedBox(
           width: MediaQuery.of(context).size.width * 0.9,
           height: 600,
-          child: Column(  
+          child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Expanded(
@@ -81,35 +83,51 @@ Widget _buildRegisterForm(BuildContext context, TextEditingController phoneNumbe
                     Container(
                       margin: const EdgeInsets.all(10),
                       child:   TextField(
-                        controller: userNameCr,
+                        controller: fromCr,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
-                          labelText: 'username',
+                          labelText: 'from',
                         ),
                       )),
+
                       Container(
                       margin: const EdgeInsets.all(10),
                       child:   TextField(
-                        controller: phoneNumberCr,
+                        controller: toCr,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
-                          labelText: 'phoneNumber',
+                          labelText: 'to',
                         ),
                       )),
-                       Container(
-                      margin: const EdgeInsets.all(10),
-                      child:   DebugButton(name: "Save User",userNameController: userNameCr,phoneNumberController: phoneNumberCr,)),
-                       Container(
-                      margin: const EdgeInsets.all(10),
-                      child:  const DebugButton(name: "Get All Users")),
 
                       Container(
                       margin: const EdgeInsets.all(10),
-                      child:  const DebugButton(name: "DeleteDB")),
-                    Container(
-                      margin: const EdgeInsets.all(10),
-                      child:  const DebugButton(name: "Go to Messages")),
+                      child:   TextField(
+                        controller: messageCr,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'message',
+                        ),
+                      )),
 
+                       Container(
+                      margin: const EdgeInsets.all(10),
+                      child:   DebugButton(name: "Save Message",senderController: fromCr,recieverController: toCr,messageController: messageCr,)),
+                       Container(
+                      margin: const EdgeInsets.all(10),
+                      child:  const DebugButton(name: "Get Messages")),
+          
+
+                      Container(
+                      
+                      margin: const EdgeInsets.all(10),
+                      child:  const DebugButton(name: "DeleteDB")),
+                      Container(
+                      height:48,
+                      margin: const EdgeInsets.all(10),
+                      child:  const DebugButton(name: "Go to Users")),
+                
+                
                 ],
                 
               ))
