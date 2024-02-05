@@ -2,7 +2,29 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'dart:async';
 import 'package:flutter/foundation.dart';
+import 'package:ulak/bloc/database_messages_provider.dart';
 import 'package:ulak/network/flutternearby.dart';
+
+
+class Message{
+
+    Message({required this.from, required this.to, required this.message, required this.status});
+
+    final String? from;
+    final String? to;
+    final String? message;
+    final bool? status;
+
+  Map<String, dynamic> toMap() {
+    return {
+      'from': from,
+      'to': to,
+      'message': message,
+      'status': status,
+    };
+  }
+}
+
 
 class User{
 
@@ -21,13 +43,12 @@ class User{
 
 abstract class DatabaseUtility {
 
-  DatabaseUtility(){database=null;}
+  DatabaseUtility(){}
 
-  Database? database;
-
-
-  void saveData(String tablename, User data);
-  Future<List<User>>getData(String tablename);
+  void saveUser(User data);
+  void saveMessage(Message data);
+  Future<List<User>>getUsers();
+  Future<List<Message>> getMessages();
   Future<bool> deleteData(String tablename, String key);
   Future<bool> syncDatabases(Database otherDatabase);
   Future<bool> openDB(String name);
@@ -35,7 +56,7 @@ abstract class DatabaseUtility {
 }
 
 class LocalDB extends DatabaseUtility{
-  
+  Database? database;
   static final LocalDB _instance = LocalDB._internal();
   
   //private constructor
@@ -52,8 +73,8 @@ class LocalDB extends DatabaseUtility{
   }
 
   @override
-  Future<List<User>> getData(String tablename) async {
-    final List<Map<String, dynamic>> maps = await database?.query(tablename) ?? [];
+  Future<List<User>> getUsers() async {
+    final List<Map<String, dynamic>> maps = await database?.query("users") ?? [];
 
     return List.generate(maps.length, (i) {
     return User(
@@ -64,11 +85,33 @@ class LocalDB extends DatabaseUtility{
   });
 }
   
+@override
+  Future<List<Message>> getMessages() async {
+    final List<Map<String, dynamic>> maps = await database?.query("messages") ?? [];
+
+    return List.generate(maps.length, (i) {
+    return Message(
+      from: maps[i]['phoneNumber'] as String,
+      to: maps[i]['username'] as String,
+      message: maps[i]['message'] as String,
+      status: maps[i]['status'] as bool, 
+    );
+  });
+}
 
   @override
-  void saveData(String tablename,User data) async{
+  void saveUser(User data) async{
     await database?.insert(
-      tablename,
+      "users",
+      data.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  @override
+  void saveMessage(Message data) async{
+    await database?.insert(
+      "messages",
       data.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
@@ -111,21 +154,42 @@ class LocalDB extends DatabaseUtility{
 
 class FirebaseDB extends DatabaseUtility{
   @override
+  void deleteDB(String name) {
+    // TODO: implement deleteDB
+  }
+
+  @override
   Future<bool> deleteData(String tablename, String key) {
     // TODO: implement deleteData
     throw UnimplementedError();
   }
 
   @override
-  Future<List<User>> getData(String tablename) {
-    // TODO: implement getData
+  Future<List<Message>> getMessages() {
+    // TODO: implement getMessages
     throw UnimplementedError();
   }
 
   @override
-  Future<bool> saveData(String tablename, User data) {
-    // TODO: implement saveData
+  Future<List<User>> getUsers() {
+    // TODO: implement getUsers
     throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> openDB(String name) {
+    // TODO: implement openDB
+    throw UnimplementedError();
+  }
+
+  @override
+  void saveMessage(Message data) {
+    // TODO: implement saveMessage
+  }
+
+  @override
+  void saveUser(User data) {
+    // TODO: implement saveUser
   }
 
   @override
@@ -134,17 +198,6 @@ class FirebaseDB extends DatabaseUtility{
     throw UnimplementedError();
   }
   
-  @override
-  Future<bool> openDB(String name) {
-    // TODO: implement openDatabase
-    throw UnimplementedError();
-  }
-  
-  @override
-  void deleteDB(String name) {
-    // TODO: implement deleteDB
-    throw UnimplementedError();
-  }
   
 }
 

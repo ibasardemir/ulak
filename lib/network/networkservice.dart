@@ -64,7 +64,9 @@ class NetworkService {
       for (var dev in connectedDevices){
         if(dev.deviceId!=data.senderDeviceId)sendMessage(data.content);
       }
-      LocalDB().saveData("messages", data.name, data);
+      
+      //TODO: Başar Buraya bak
+      LocalDB().saveMessage("messages", data.name, data);
    });
   
   }

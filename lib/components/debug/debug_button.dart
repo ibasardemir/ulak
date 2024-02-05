@@ -62,7 +62,7 @@ class DebugButton extends StatelessWidget {
                 }
                 else{
                    User user = User(phoneNumber: phoneNumberController?.text, username: userNameController?.text);
-                localDBInstance.saveData("users", user);
+                localDBInstance.saveUser( user);
                 if(phoneNumberController?.text==null || userNameController?.text==null){
                   print("null");
                 }
@@ -81,7 +81,7 @@ class DebugButton extends StatelessWidget {
                   print("Open Database First");
                 }
                 else{
-                 List<User> users= await localDBInstance.getData("users");
+                 List<User> users= await localDBInstance.getUsers();
 
                   for (var user in users) {
                     print(user.phoneNumber);
