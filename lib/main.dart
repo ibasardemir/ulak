@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ulak/bloc/database_messages_provider.dart';
 import 'package:ulak/bloc/register_provider.dart';
-import 'package:ulak/pages/auth_page.dart';
-import 'package:ulak/pages/debug_page.dart';
+import 'package:ulak/pages/auth/auth_page.dart';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:ulak/pages/app/main_app_page.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -25,21 +25,21 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        scaffoldBackgroundColor: Colors.white, // Material app arka plan rengi
-      ),
       home:  MultiBlocProvider(
       providers: [
-        BlocProvider<LoginBloc>(
-          create: (context) => LoginBloc(),
+        BlocProvider<RegisterBloc>(
+          create: (context) => RegisterBloc(),
+        ),
+        BlocProvider<RegisterBloc>(
+          create: (context) => RegisterBloc(),
         ),
         BlocProvider<MessageDatabaseBloc>(
           create: (context) => MessageDatabaseBloc(),
         ),
         // Diğer BlocProvider'lar buraya eklenebilir
       ],
-      child: const MaterialApp(
-        home: AuthPage(),
+      child: MaterialApp(
+        home: MainPage(),
       ),
     ),
     );

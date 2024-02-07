@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:ulak/pages/auth/login_page.dart';
-import 'package:ulak/pages/auth/register_page.dart';
+import 'package:ulak/bloc/login_provider.dart';
 
-
-class FixedButton extends StatelessWidget {
+class LoginButton extends StatelessWidget {
   final String name;
+  final TextEditingController userNameController;
+  final TextEditingController phoneNumberController;
+  final LoginBloc loginBloc;
+  final GlobalKey<FormState> formKey;
 
-  const FixedButton({super.key, required this.name,});
+  const LoginButton({super.key, required this.name, required this.userNameController, required this.phoneNumberController, required this.loginBloc,required this.formKey});
 
   @override
   Widget build(BuildContext context) {
-
     double containerWidth = MediaQuery.of(context).size.width * 0.9;
 
     return SizedBox(
@@ -18,18 +19,15 @@ class FixedButton extends StatelessWidget {
       height: 50.0,
       child: TextButton(
         style: TextButton.styleFrom(
-          backgroundColor: const Color(0xFFFF8C00), 
+          backgroundColor: const Color(0xFFFF8C00),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20.0),
           ),
-          elevation: 2, 
+          elevation: 2,
         ),
         onPressed: () {
-          if(name == "Register"){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const RegisterPage()));
-          }
-          else if(name == "Login"){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage()));
+          if (formKey.currentState!.validate()) {
+            loginBloc.add(LoginButtonPressed(phoneNumber: phoneNumberController.text));
           }
         },
         child: Text(

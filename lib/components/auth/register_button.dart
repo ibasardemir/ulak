@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:ulak/bloc/register_provider.dart';
-import 'package:ulak/pages/otp_page.dart';
 
 class RegisterButton extends StatelessWidget {
   final String name;
   final TextEditingController userNameController;
   final TextEditingController phoneNumberController;
-  final LoginBloc loginBloc;
+  final RegisterBloc registerBloc;
   final GlobalKey<FormState> formKey;
 
-  const RegisterButton({super.key, required this.name, required this.userNameController, required this.phoneNumberController, required this.loginBloc,required this.formKey});
+  const RegisterButton({super.key, required this.name, required this.userNameController, required this.phoneNumberController, required this.registerBloc,required this.formKey});
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +27,8 @@ class RegisterButton extends StatelessWidget {
         ),
         onPressed: () {
           if (formKey.currentState!.validate()) {
-            loginBloc.add(LoginButtonPressed(username: userNameController.text, password: phoneNumberController.text));
-             Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const OTPPage()
-              ));
+            registerBloc.add(RegisterButtonPressed(username: userNameController.text, phoneNumber: phoneNumberController.text));
+             
           }
         },
         child: Text(
