@@ -32,7 +32,7 @@ class _MessagesMainPageState extends State<MessagesMainPage> {
                       ),
                       child: Row(
                         children: <Widget>[
-                          Icon(Icons.add,color: Colors.pink,size: 20,),
+                          Icon(Icons.add,color: Color(0xFFFF8C00),size: 20,),
                           SizedBox(width: 2,),
                           Text("Add New",style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),
                         ],
