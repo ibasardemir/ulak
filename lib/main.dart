@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
         // Diğer BlocProvider'lar buraya eklenebilir
       ],
       child: const MaterialApp(
-        home: DebugPage(),
+        home: AuthPage(),
       ),
     ),
     );
