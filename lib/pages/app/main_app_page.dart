@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ulak/pages/connect/app_connect_page.dart';
+import 'package:ulak/pages/messages/messages_main_page.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -11,7 +12,7 @@ class _MainPageState extends State<MainPage> {
 
   static List<Widget> _widgetOptions = <Widget>[
     ConnectionPage(),
-    TabPage2(),
+    MessagesMainPage(),
     TabPage3(),
   ];
 
@@ -56,16 +57,6 @@ class _MainPageState extends State<MainPage> {
   }
 }
 
-class TabPage2 extends StatelessWidget {
-  const TabPage2({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(child: Text("Page 1")),
-    );
-  }
-}
 
 class TabPage3 extends StatelessWidget {
   const TabPage3({super.key});
