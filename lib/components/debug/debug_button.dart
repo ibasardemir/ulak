@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ulak/bloc/database_messages_provider.dart';
 import 'package:ulak/database/database.dart';
-import 'package:ulak/pages/debug_page.dart';
-import 'package:ulak/pages/debug_page_messages.dart';
+import 'package:ulak/pages/auth/debug_page.dart';
+import 'package:ulak/pages/auth/debug_page_messages.dart';
 
 String mode = "firebase";
 

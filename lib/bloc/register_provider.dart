@@ -3,55 +3,55 @@ import 'package:equatable/equatable.dart';
 import '../database/auth.dart';
 
 // Olayları temsil eden sınıf
-abstract class LoginEvent extends Equatable {
-  const LoginEvent();
+abstract class RegisterEvent extends Equatable {
+  const RegisterEvent();
 
   @override
   List<Object> get props => [];
 }
 
-class LoginButtonPressed extends LoginEvent {
+class RegisterButtonPressed extends RegisterEvent {
   final String username;
-  final String password;
+  final String phoneNumber;
   final String code; //Kullanıcının gireceği sms kodu
 
-  const LoginButtonPressed({required this.username, required this.password,this.code=""});
+  const RegisterButtonPressed({required this.username, required this.phoneNumber,this.code=""});
 
   @override
-  List<Object> get props => [username, password];
+  List<Object> get props => [username, phoneNumber];
 }
 
 // Durumları temsil eden sınıf
-abstract class LoginState extends Equatable {
-  const LoginState();
+abstract class RegisterState extends Equatable {
+  const RegisterState();
 
   @override
   List<Object> get props => [];
 }
 
-class LoginInitial extends LoginState {}
-class LoginLoading extends LoginState {}
-class LoginSuccess extends LoginState {}
-class LoginFailure extends LoginState {
+class RegisterInitial extends RegisterState {}
+class RegisterLoading extends RegisterState {}
+class RegisterSuccess extends RegisterState {}
+class RegisterFailure extends RegisterState {
   final String error;
 
-  const LoginFailure({required this.error});
+  const RegisterFailure({required this.error});
 
   @override
   List<Object> get props => [error];
 }
 
 // BLoC sınıfı
-class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  LoginBloc() : super(LoginInitial()) {
-    on<LoginButtonPressed>(_onLoginButtonPressed);
+class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
+  RegisterBloc() : super(RegisterInitial()) {
+    on<RegisterButtonPressed>(_onRegisterButtonPressed);
   }
 
-  Future<void> _onLoginButtonPressed(
-    LoginButtonPressed event, 
-    Emitter<LoginState> emit,
+  Future<void> _onRegisterButtonPressed(
+    RegisterButtonPressed event, 
+    Emitter<RegisterState> emit,
   ) async {
-    emit(LoginLoading());
+    emit(RegisterLoading());
   
 
     try {
@@ -60,11 +60,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
       await Future.delayed(const Duration(seconds: 2));
 
-      emit(LoginSuccess());
-      print('Giriş başarılı. Kullanıcı adı: ${event.username}, Şifre: ${event.password}');
+      emit(RegisterSuccess());
+      print('Giriş başarılı. Kullanıcı adı: ${event.username}, Şifre: ${event.phoneNumber}');
 
     } catch (error) {
-      emit(const LoginFailure(error: 'Giriş başarısız.'));
+      emit(const RegisterFailure(error: 'Giriş başarısız.'));
     }
   }
 }

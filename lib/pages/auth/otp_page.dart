@@ -14,12 +14,10 @@ class OtpScreen extends StatefulWidget {
   const OtpScreen({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _OtpScreenState createState() => _OtpScreenState();
 }
 
 class _OtpScreenState extends State<OtpScreen> {
-  // Her bir TextField için bir FocusNode
   List<FocusNode> focusNodes = List.generate(6, (index) => FocusNode());
 
   @override
