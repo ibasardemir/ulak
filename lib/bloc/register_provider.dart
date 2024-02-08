@@ -55,16 +55,35 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   
 
     try {
+      print("RegisterButtonPressed");
       Authentication auth = Authentication();
    
 
+      final smsResult = await auth.registerSendSMS(event.phoneNumber);
       await Future.delayed(const Duration(seconds: 2));
 
-      emit(RegisterSuccess());
-      print('Giriş başarılı. Kullanıcı adı: ${event.username}, Şifre: ${event.phoneNumber}');
+      if (!smsResult.result) {
+        emit(RegisterFailure(error: smsResult.message));
+        return;
+      }
+      else{
+        final registerResult=await auth.registerVerifySMS(smsResult.message, event.code, event.phoneNumber, event.username);
+
+        if(registerResult){
+          emit(RegisterSuccess());
+        }
+        else{
+          emit(const RegisterFailure(error: 'Kayıt başarısız.'));
+        }
+      }
+
+    
+
+      
+
 
     } catch (error) {
-      emit(const RegisterFailure(error: 'Giriş başarısız.'));
+      emit(const RegisterFailure(error: 'Kayıt başarısız.'));
     }
   }
 }
