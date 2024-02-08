@@ -18,23 +18,38 @@ class _MessagesMainPageState extends State<MessagesMainPage> {
           children: <Widget>[
             SafeArea(
               child: Padding(
-                padding: EdgeInsets.only(left: 16,right: 16,top: 10),
+                padding: EdgeInsets.only(left: 16, right: 16, top: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text("Conversations",style: TextStyle(fontSize: 32,fontWeight: FontWeight.bold),),
+                    Text(
+                      "Conversations",
+                      style:
+                          TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                    ),
                     Container(
-                      padding: EdgeInsets.only(left: 8,right: 8,top: 2,bottom: 2),
+                      padding:
+                          EdgeInsets.only(left: 8, right: 8, top: 2, bottom: 2),
                       height: 30,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
-                        color: Colors.pink[50],
+                        color: Color.fromARGB(255, 247, 215, 176),
                       ),
                       child: Row(
                         children: <Widget>[
-                          Icon(Icons.add,color: Color(0xFFFF8C00),size: 20,),
-                          SizedBox(width: 2,),
-                          Text("Add New",style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),
+                          Icon(
+                            Icons.add,
+                            color: Color(0xFFFF8C00),
+                            size: 20,
+                          ),
+                          SizedBox(
+                            width: 2,
+                          ),
+                          Text(
+                            "Add New",
+                            style: TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.bold),
+                          ),
                         ],
                       ),
                     )
@@ -42,9 +57,33 @@ class _MessagesMainPageState extends State<MessagesMainPage> {
                 ),
               ),
             ),
+            Padding(
+              padding: EdgeInsets.only(top: 16, left: 16, right: 16),
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: "Search...",
+                  hintStyle: TextStyle(color: Colors.grey.shade600),
+                  prefixIcon: Icon(
+                    Icons.search,
+                    color: Colors.grey.shade600,
+                    size: 20,
+                  ),
+                  filled: true,
+                  fillColor: Color.fromARGB(255, 249, 248, 248),
+                  contentPadding: EdgeInsets.all(8),
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: BorderSide(color: Colors.grey.shade100)),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    borderSide: BorderSide(color: Colors.grey.shade100),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
-    );;
+    );
   }
 }
