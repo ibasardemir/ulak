@@ -199,6 +199,7 @@ class FirebaseDB extends DatabaseUtility{
   @override
   Future<bool> deleteData(String tablename, String key) {
     // TODO: implement deleteData
+    
     throw UnimplementedError();
   }
 
