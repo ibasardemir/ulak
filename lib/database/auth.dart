@@ -69,24 +69,46 @@ class Authentication {
   
 
 
-  Future<bool> login(String phoneNumber) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    
-  
-    localDB.getUsers().then((users) {
+  Future<SmsResultPackgage> loginSendSms(String phoneNumber) async {
+    if(! await AuthenticationHelper.isPhoneNumberValid(phoneNumber)){
+
+      return SmsResultPackgage(message: "Phone number is not valid", result: false);
+    }
+
+    final users=await localDB.getUsers();
       for (var user in users) {
-        if(user.phoneNumber==phoneNumber){
-          prefs.setString('phoneNumber', phoneNumber);
-          prefs.setString("username", user.username??"");
-          return true;
+        
+      if(user.phoneNumber==phoneNumber){
+        String code = (Random().nextInt(900000) + 100000).toString();
+        final smsSendResult= await AuthenticationHelper.smsSender(code, [phoneNumber]);
+        if(smsSendResult){
+          return SmsResultPackgage(message: code, result: smsSendResult);
         }
+        else{
+          return SmsResultPackgage(message: "SMS could not be sent", result: smsSendResult);
+        }
+
       }
-    });
-    return false;
-      
-    
+    }
+    print("User does not exist");
+    return SmsResultPackgage(message: "User does not exist", result: false);
     
   }
+
+  Future<bool> loginVerifySms(String code, String userEntry, String phoneNumber) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    
+    if (code == userEntry) {
+      prefs.setString('phoneNumber', phoneNumber);
+      prefs.setString('username', phoneNumber);
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+
+
 
   Future<bool> logout() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

@@ -5,7 +5,7 @@ import 'package:ulak/database/database.dart';
 import 'package:ulak/pages/auth/debug_page.dart';
 import 'package:ulak/pages/auth/debug_page_messages.dart';
 
-String mode = "firebase";
+String mode = "local";
 
 class DebugButton extends StatelessWidget {
   final String name;
