@@ -41,7 +41,12 @@ class FixedButton extends StatelessWidget {
               );
             }
             else{
-              BlocProvider.of<OTPBloc>(context).add(OTPControl(code: "123456"));
+              String userCode = "";
+              otpValues.forEach((element) { 
+                userCode = userCode + element;
+              });
+              print(userCode);
+              BlocProvider.of<OTPBloc>(context).add(OTPControl(code: userCode));
             }
           }
         },
