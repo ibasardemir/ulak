@@ -58,7 +58,6 @@ class OTPLoginBloc extends Bloc<OTPLoginEvent, OTPLoginState> {
     try {
     print(currentState);
     if (currentState is LoginSuccess) {
-      Authentication auth = Authentication();
 
       String smsCode = currentState.smsCode;
       
@@ -69,8 +68,6 @@ class OTPLoginBloc extends Bloc<OTPLoginEvent, OTPLoginState> {
       if (verifyResult) {
         print("Kayıt işlemi başarılı.");
         emit(OTPLoginSuccess());
-      } else {
-        emit(OTPLoginFailure(error: 'Doğrulama kodu yanlış.'));
       }
     } else {
       emit(OTPLoginFailure(error: 'Kayıt işlemi tamamlanmadı.'));
