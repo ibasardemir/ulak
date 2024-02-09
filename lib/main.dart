@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
         )
       ],
       child: MaterialApp(
-        home: AuthPage(),
+        home: DebugPage(),
       ),
     ),
     );
