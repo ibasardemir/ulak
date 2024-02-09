@@ -66,7 +66,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
         emit(RegisterFailure(error: smsResult.message));
         return;
       }
-      else{
+      else{  
         final registerResult=await auth.registerVerifySMS(smsResult.message, event.code, event.phoneNumber, event.username);
 
         if(registerResult){
