@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ulak/bloc/otp_provider.dart';
 import 'package:ulak/pages/auth/login_page.dart';
 import 'package:ulak/pages/auth/register_page.dart';
 
-
 class FixedButton extends StatelessWidget {
   final String name;
+  final List<String> otpValues;
+  final String otpCode;
 
-  const FixedButton({super.key, required this.name,});
+  const FixedButton({super.key, required this.name, required this.otpValues,this.otpCode="123456"});
 
   @override
   Widget build(BuildContext context) {
-
     double containerWidth = MediaQuery.of(context).size.width * 0.9;
 
     return SizedBox(
@@ -18,18 +20,29 @@ class FixedButton extends StatelessWidget {
       height: 50.0,
       child: TextButton(
         style: TextButton.styleFrom(
-          backgroundColor: const Color(0xFFFF8C00), 
+          backgroundColor: const Color(0xFFFF8C00),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20.0),
           ),
-          elevation: 2, 
+          elevation: 2,
         ),
         onPressed: () {
-          if(name == "Register"){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const RegisterPage()));
-          }
-          else if(name == "Login"){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage()));
+          if (name == "Register") {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const RegisterPage()));
+          } else if (name == "Login") {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const LoginPage()));
+          } else if (name == "Verify") {
+            bool isFilled = otpValues.every((element) => element.isNotEmpty);
+            if (!isFilled) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Please fill in all the fields')),
+              );
+            }
+            else{
+              BlocProvider.of<OTPBloc>(context).add(OTPControl(code: "123456"));
+            }
           }
         },
         child: Text(

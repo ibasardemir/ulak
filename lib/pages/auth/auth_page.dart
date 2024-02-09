@@ -45,10 +45,10 @@ class _AuthWidgetState extends State<AuthWidget> {
                 children: <Widget>[
                     Container(
                       margin: const EdgeInsets.all(10),
-                      child:  const FixedButton(name: "Register",)),
+                      child:  const FixedButton(name: "Register",otpValues: [],)),
                     Container(
                       margin: const EdgeInsets.all(10),
-                      child:  const FixedButton(name: "Login")),
+                      child:  const FixedButton(name: "Login",otpValues: [],)),
                    
                 ],
                 

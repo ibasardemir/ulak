@@ -13,9 +13,9 @@ abstract class RegisterEvent extends Equatable {
 class RegisterButtonPressed extends RegisterEvent {
   final String username;
   final String phoneNumber;
-  final String code; //Kullanıcının gireceği sms kodu
+  var code;
 
-  const RegisterButtonPressed({required this.username, required this.phoneNumber,this.code=""});
+  RegisterButtonPressed({required this.username, required this.phoneNumber,this.code= ""});
 
   @override
   List<Object> get props => [username, phoneNumber];
@@ -31,7 +31,10 @@ abstract class RegisterState extends Equatable {
 
 class RegisterInitial extends RegisterState {}
 class RegisterLoading extends RegisterState {}
-class RegisterSuccess extends RegisterState {}
+class RegisterSuccess extends RegisterState {
+   final String smsCode; // OTP kontrolü için kullanılacak kod
+  RegisterSuccess({required this.smsCode});
+}
 class RegisterFailure extends RegisterState {
   final String error;
 
@@ -53,35 +56,17 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   ) async {
     emit(RegisterLoading());
   
-
     try {
       print("RegisterButtonPressed");
       Authentication auth = Authentication();
    
 
-      final smsResult = await auth.registerSendSMS(event.phoneNumber);
-      await Future.delayed(const Duration(seconds: 2));
+      // final smsResult = await auth.registerSendSMS(event.phoneNumber);
+      final smsResult = "123456";
 
-      if (!smsResult.result) {
-        emit(RegisterFailure(error: smsResult.message));
-        return;
-      }
-      else{
-        final registerResult=await auth.registerVerifySMS(smsResult.message, event.code, event.phoneNumber, event.username);
-
-        if(registerResult){
-          emit(RegisterSuccess());
-        }
-        else{
-          emit(const RegisterFailure(error: 'Kayıt başarısız.'));
-        }
-      }
-
-    
-
-      
-
-
+      event.code = smsResult;
+      print(state);
+      emit(RegisterSuccess(smsCode: event.code));
     } catch (error) {
       emit(const RegisterFailure(error: 'Kayıt başarısız.'));
     }

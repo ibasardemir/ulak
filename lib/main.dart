@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ulak/bloc/database_messages_provider.dart';
+import 'package:ulak/bloc/login_provider.dart';
+import 'package:ulak/bloc/otp_provider.dart';
 import 'package:ulak/bloc/register_provider.dart';
 import 'package:ulak/pages/auth/auth_page.dart';
 
@@ -16,11 +18,12 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
+  final RegisterBloc registerBloc = RegisterBloc();
 
   @override
   Widget build(BuildContext context) {
@@ -28,15 +31,17 @@ class MyApp extends StatelessWidget {
       home:  MultiBlocProvider(
       providers: [
         BlocProvider<RegisterBloc>(
-          create: (context) => RegisterBloc(),
+          create: (context) => registerBloc,
         ),
-        BlocProvider<RegisterBloc>(
-          create: (context) => RegisterBloc(),
+        BlocProvider<LoginBloc>(
+          create: (context) => LoginBloc(),
         ),
         BlocProvider<MessageDatabaseBloc>(
           create: (context) => MessageDatabaseBloc(),
         ),
-        // Diğer BlocProvider'lar buraya eklenebilir
+        BlocProvider<OTPBloc>(
+          create: (context) => OTPBloc(registerBloc: registerBloc)
+        )
       ],
       child: MaterialApp(
         home: AuthPage(),

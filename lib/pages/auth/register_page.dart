@@ -29,9 +29,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => RegisterBloc(),
-      child: SafeArea(
+    return SafeArea(
         child: Scaffold(
           body: Center(
             child: SizedBox(
@@ -57,8 +55,7 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
           ),
         ),
-      ),
-    );
+      );
   }
 
   Widget _buildRegisterForm(BuildContext context, TextEditingController name,

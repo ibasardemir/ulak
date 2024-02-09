@@ -2,10 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'dart:async';
-import 'package:flutter/foundation.dart';
-import 'package:ulak/bloc/database_messages_provider.dart';
-import 'package:ulak/network/flutternearby.dart';
-
 
 class Message{
 

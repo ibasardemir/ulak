@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ulak/bloc/otp_provider.dart';
 import 'package:ulak/components/auth/fixed_button.dart';
+import 'package:ulak/pages/app/main_app_page.dart';
 
 class OTPPage extends StatelessWidget {
   const OTPPage({super.key});
@@ -19,10 +22,10 @@ class OtpScreen extends StatefulWidget {
 
 class _OtpScreenState extends State<OtpScreen> {
   List<FocusNode> focusNodes = List.generate(6, (index) => FocusNode());
+  List<String> otpValues = List.filled(6, '');
 
   @override
   void dispose() {
-    // FocusNode'ları temizle
     for (var node in focusNodes) {
       node.dispose();
     }
@@ -68,13 +71,16 @@ class _OtpScreenState extends State<OtpScreen> {
                           borderRadius: BorderRadius.circular(8.0)),
                       enabledBorder: OutlineInputBorder(
                         // Odaklanılmamış durum için kenarlık stili
-                        borderSide:
-                            const BorderSide(color: Color(0xFFFF8C00), width: 2.0),
+                        borderSide: const BorderSide(
+                            color: Color(0xFFFF8C00), width: 2.0),
                         borderRadius: BorderRadius.circular(12.0),
                       ),
                       filled: true,
                       fillColor: const Color(0xFFFF8C00)),
                   onChanged: (value) {
+                    setState(() {
+                      otpValues[index] = value;
+                    });
                     if (value.length == 1 && index != 5) {
                       focusNodes[index + 1].requestFocus();
                     } else if (value.isEmpty && index != 0) {
@@ -85,7 +91,26 @@ class _OtpScreenState extends State<OtpScreen> {
               },
             ),
           ),
-          const Expanded(child: Center(child: FixedButton(name: "Verify")))
+          Expanded(
+              child: Center(
+                  child: BlocConsumer<OTPBloc, OTPState>(
+            listener: (context, state) {
+              if(state is OTPSuccess){
+                Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => MainPage()));
+              }
+            },
+            builder: (context, state) {
+              String buttonName = "Verify";
+              if (state is OTPLoading) {
+                buttonName = "Verifying...";
+              }
+
+              return FixedButton(name: "Verify", otpValues: otpValues);
+            },
+          )))
         ])),
       ),
     );
