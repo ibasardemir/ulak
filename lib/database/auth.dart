@@ -70,17 +70,22 @@ class Authentication {
 
 
   Future<SmsResultPackgage> loginSendSms(String phoneNumber) async {
+
     if(!await AuthenticationHelper.isPhoneNumberValid(phoneNumber)){
 
       return SmsResultPackgage(message: "Phone number is not valid", result: false);
     }
 
     final users=await localDB.getUsers();
-      for (var user in users) {
+
+    for (var user in users) {
+
       print(user.phoneNumber);  
+
       if(user.phoneNumber==phoneNumber){
         String code = (Random().nextInt(900000) + 100000).toString();
         final smsSendResult= await AuthenticationHelper.smsSender(code, [phoneNumber]);
+        
         if(smsSendResult){
           return SmsResultPackgage(message: code, result: smsSendResult);
         }
@@ -90,6 +95,7 @@ class Authentication {
 
       }
     }
+
     print("User does not exist");
     return SmsResultPackgage(message: "User does not exist", result: false);
     

@@ -59,6 +59,9 @@ abstract class DatabaseUtility {
 }
 
 class LocalDB extends DatabaseUtility{
+
+  
+
   Database? database;
   static final LocalDB _instance = LocalDB._internal();
   
@@ -67,7 +70,7 @@ class LocalDB extends DatabaseUtility{
 
 
   factory LocalDB() {
-   
+    _instance.openDB("test1");
     return _instance;
   }
 
@@ -79,9 +82,8 @@ class LocalDB extends DatabaseUtility{
 
   @override
   Future<List<User>> getUsers() async {
-    if(database==null){
-      this.openDB("test1.db");
-    }
+  
+
 
     final List<Map<String, dynamic>> maps = await database?.query("users") ?? [];
 
@@ -97,9 +99,6 @@ class LocalDB extends DatabaseUtility{
   
 @override
   Future<List<Message>> getMessages() async {
-    if(database==null){
-      this.openDB("test1.db");
-    }
 
     print("DEBUG");
     final List<Map<String, dynamic>> maps = await database?.query("messages") ?? [];
@@ -127,9 +126,9 @@ class LocalDB extends DatabaseUtility{
 
   @override
   void saveUser(User data) async{
-    if(database==null){
-      this.openDB("test1.db");
-    }
+    
+ 
+    
 
     await database?.insert(
       "users",
@@ -140,9 +139,8 @@ class LocalDB extends DatabaseUtility{
 
   @override
   void saveMessage(Message data) async{
-    if(database==null){
-      this.openDB("test1.db");
-    }
+    
+    
 
     await database?.insert(
       "messages",
@@ -254,6 +252,7 @@ class FirebaseDB extends DatabaseUtility{
 
   @override
   Future<List<User>> getUsers() async {
+
     final result=await db.collection("users").get();
     
     final users=result.docs.map((e) => User(phoneNumber: e['phoneNumber'], username: e['username'])).toList();
