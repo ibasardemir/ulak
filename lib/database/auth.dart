@@ -28,7 +28,6 @@ class Authentication {
       print("Phone number is not valid");
       return SmsResultPackgage(message: "Phone number is not valid", result: false);
     }
-    print("Before internet check");
     if(await InternetConnectionChecker().hasConnection){
       final users= await firebaseDB.getUsers();
 
@@ -41,9 +40,8 @@ class Authentication {
       }
    
       String code = (Random().nextInt(900000) + 100000).toString();
-      print("Before SMS send");
+ 
       final smsSendResult= await AuthenticationHelper.smsSender(code, [phoneNumber]);
-      print("After SMS send"  );
 
 
       return SmsResultPackgage(message: code, result: smsSendResult);
@@ -131,8 +129,8 @@ class AuthenticationHelper{
       print(onError);
     });
 
-    print(_result);
-    if (_result == "OK") {
+
+    if (_result == "SMS Sent!") {
       return true;
     } else {
       return false;
