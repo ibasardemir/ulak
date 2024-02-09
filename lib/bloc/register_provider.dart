@@ -61,12 +61,19 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       Authentication auth = Authentication();
    
 
-      // final smsResult = await auth.registerSendSMS(event.phoneNumber);
-      final smsResult = "123456";
+      final smsResult = await auth.registerSendSMS(event.phoneNumber);
+      if(smsResult.result){
+        final code = smsResult.message;
 
-      event.code = smsResult;
-      print(state);
-      emit(RegisterSuccess(smsCode: event.code));
+        event.code = code;
+        print(state);
+        emit(RegisterSuccess(smsCode: event.code));
+
+      }
+      else{
+        emit(const RegisterFailure(error: 'SMS gönderilemedi.'));
+      }
+      
     } catch (error) {
       emit(const RegisterFailure(error: 'Kayıt başarısız.'));
     }
