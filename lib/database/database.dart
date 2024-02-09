@@ -67,6 +67,7 @@ class LocalDB extends DatabaseUtility{
 
 
   factory LocalDB() {
+    openDatabase("test1.db");
     return _instance;
   }
 
