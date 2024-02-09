@@ -67,7 +67,7 @@ class LocalDB extends DatabaseUtility{
 
 
   factory LocalDB() {
-    openDatabase("test1.db");
+   
     return _instance;
   }
 
@@ -80,7 +80,7 @@ class LocalDB extends DatabaseUtility{
   @override
   Future<List<User>> getUsers() async {
     if(database==null){
-      openDatabase("test1.db");
+      this.openDB("test1.db");
     }
 
     final List<Map<String, dynamic>> maps = await database?.query("users") ?? [];
@@ -98,7 +98,7 @@ class LocalDB extends DatabaseUtility{
 @override
   Future<List<Message>> getMessages() async {
     if(database==null){
-      openDatabase("test1.db");
+      this.openDB("test1.db");
     }
 
     print("DEBUG");
@@ -128,7 +128,7 @@ class LocalDB extends DatabaseUtility{
   @override
   void saveUser(User data) async{
     if(database==null){
-      openDatabase("test1.db");
+      this.openDB("test1.db");
     }
 
     await database?.insert(
@@ -141,7 +141,7 @@ class LocalDB extends DatabaseUtility{
   @override
   void saveMessage(Message data) async{
     if(database==null){
-      openDatabase("test1.db");
+      this.openDB("test1.db");
     }
 
     await database?.insert(
