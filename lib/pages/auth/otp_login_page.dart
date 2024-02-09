@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ulak/bloc/otp_login_provider.dart';
 import 'package:ulak/bloc/otp_provider.dart';
 import 'package:ulak/components/auth/fixed_button.dart';
 import 'package:ulak/pages/app/main_app_page.dart';
@@ -93,9 +94,9 @@ class _OtpScreenState extends State<OtpScreen> {
           ),
           Expanded(
               child: Center(
-                  child: BlocConsumer<OTPBloc, OTPState>(
+                  child: BlocConsumer<OTPLoginBloc, OTPLoginState>(
             listener: (context, state) {
-              if(state is OTPSuccess){
+              if(state is OTPLoginSuccess){
                 Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -104,7 +105,7 @@ class _OtpScreenState extends State<OtpScreen> {
             },
             builder: (context, state) {
               String buttonName = "Verify Login";
-              if (state is OTPLoading) {
+              if (state is OTPLoginLoading) {
                 buttonName = "Verifying...";
               }
               return FixedButton(name: "Verify Login", otpValues: otpValues);
