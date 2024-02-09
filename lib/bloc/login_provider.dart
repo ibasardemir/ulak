@@ -12,9 +12,9 @@ abstract class LoginEvent extends Equatable {
 
 class LoginButtonPressed extends LoginEvent {
   final String phoneNumber;
-  final String code; //Kullanıcının gireceği sms kodu
+  var code; //Kullanıcının gireceği sms kodu
 
-  const LoginButtonPressed({required this.phoneNumber,this.code=""});
+  LoginButtonPressed({required this.phoneNumber,this.code=""});
 
   @override
   List<Object> get props => [phoneNumber];
@@ -30,7 +30,11 @@ abstract class LoginState extends Equatable {
 
 class LoginInitial extends LoginState {}
 class LoginLoading extends LoginState {}
-class LoginSuccess extends LoginState {}
+class LoginSuccess extends LoginState {
+  final String smsCode; 
+   final String phonenumber;
+  LoginSuccess({required this.smsCode, required this.phonenumber});
+}
 class LoginFailure extends LoginState {
   final String error;
 
@@ -51,15 +55,19 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     Emitter<LoginState> emit,
   ) async {
     emit(LoginLoading());
-  
+    try {   
+      final auth = Authentication();
 
-    try {
-      Authentication auth = Authentication();
-   
-      
-      await Future.delayed(const Duration(seconds: 2));
+      final smsResult = await auth.loginSendSms(event.phoneNumber);
+      if(smsResult.result){
+      event.code = smsResult.message;  
 
-      emit(LoginSuccess());
+      emit(LoginSuccess(smsCode: event.code, phonenumber: event.phoneNumber));
+      print(event.code);
+      }
+      else {
+        emit(const LoginFailure(error: 'Giriş başarısız.'));
+      }
 
     } catch (error) {
       emit(const LoginFailure(error: 'Giriş başarısız.'));

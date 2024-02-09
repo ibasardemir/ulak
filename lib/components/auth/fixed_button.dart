@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ulak/bloc/otp_login_provider.dart';
 import 'package:ulak/bloc/otp_provider.dart';
 import 'package:ulak/pages/auth/login_page.dart';
 import 'package:ulak/pages/auth/register_page.dart';
@@ -48,6 +49,21 @@ class FixedButton extends StatelessWidget {
               });
               print(userCode);
               BlocProvider.of<OTPBloc>(context).add(OTPControl(code: userCode));
+            }
+          } else if (name == "Verify Login"){
+            bool isFilled = otpValues.every((element) => element.isNotEmpty);
+            if (!isFilled) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Please fill in all the fields')),
+              );
+            }
+            else{
+              String userCode = "";
+              otpValues.forEach((element) { 
+                userCode = userCode + element;
+              });
+              print(userCode);
+              BlocProvider.of<OTPLoginBloc>(context).add(OTPLoginControl(code: userCode));
             }
           }
         },

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ulak/bloc/database_messages_provider.dart';
 import 'package:ulak/bloc/login_provider.dart';
+import 'package:ulak/bloc/otp_login_provider.dart';
 import 'package:ulak/bloc/otp_provider.dart';
 import 'package:ulak/bloc/register_provider.dart';
 import 'package:ulak/pages/auth/auth_page.dart';
@@ -24,6 +25,7 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   MyApp({super.key});
   final RegisterBloc registerBloc = RegisterBloc();
+  final LoginBloc loginBloc = LoginBloc();
 
   @override
   Widget build(BuildContext context) {
@@ -34,13 +36,16 @@ class MyApp extends StatelessWidget {
           create: (context) => registerBloc,
         ),
         BlocProvider<LoginBloc>(
-          create: (context) => LoginBloc(),
+          create: (context) => loginBloc,
         ),
         BlocProvider<MessageDatabaseBloc>(
           create: (context) => MessageDatabaseBloc(),
         ),
         BlocProvider<OTPBloc>(
           create: (context) => OTPBloc(registerBloc: registerBloc)
+        ),
+        BlocProvider<OTPLoginBloc>(
+          create: (context) => OTPLoginBloc(loginBloc: loginBloc)
         )
       ],
       child: MaterialApp(
