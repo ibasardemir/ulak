@@ -64,13 +64,19 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
    
 
       final smsResult = await auth.registerSendSMS(event.phoneNumber);
+      print(smsResult.result);
+      print(smsResult.message);
+      print("------------------");
       if(smsResult.result){
-        final code = smsResult.message;
+        String code = smsResult.message;
 
         event.code = code;
-        event.code = smsResult;
+
+        print("DENEME");
         print(state);
         emit(RegisterSuccess(smsCode: event.code,userName: event.username, phonenumber: event.phoneNumber));
+        print("DENEME2");
+        print(state);
       }
       else{
         emit(RegisterFailure(error: smsResult.message));

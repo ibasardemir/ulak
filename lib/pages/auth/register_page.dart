@@ -38,6 +38,7 @@ class _RegisterPageState extends State<RegisterPage> {
               child: BlocConsumer<RegisterBloc, RegisterState>(
                 listener: (context, state) {
                   if (state is RegisterSuccess) {
+                    print("Register Success");
                     Navigator.push(
                         context,
                         MaterialPageRoute(

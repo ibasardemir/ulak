@@ -52,17 +52,20 @@ class OTPBloc extends Bloc<OTPEvent, OTPState> {
     OTPControl event, 
     Emitter<OTPState> emit,
   ) async {
+    
     emit(OTPLoading());
     final currentState = registerBloc.state;
     try {
-
+    print(currentState);
     if (currentState is RegisterSuccess) {
       Authentication auth = Authentication();
 
       String smsCode = currentState.smsCode;
       
       final verifyResult= await auth.registerVerifySMS(smsCode, event.code, currentState.phonenumber,currentState.userName);
-
+      print(verifyResult);
+      print(smsCode);
+      print(event.code);
       if (verifyResult) {
         print("Kayıt işlemi başarılı.");
 
