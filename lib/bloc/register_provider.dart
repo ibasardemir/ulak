@@ -33,7 +33,9 @@ class RegisterInitial extends RegisterState {}
 class RegisterLoading extends RegisterState {}
 class RegisterSuccess extends RegisterState {
    final String smsCode; // OTP kontrolü için kullanılacak kod
-  RegisterSuccess({required this.smsCode});
+   final String userName;
+   final String phonenumber;
+  RegisterSuccess({required this.smsCode, required this.userName, required this.phonenumber});
 }
 class RegisterFailure extends RegisterState {
   final String error;
