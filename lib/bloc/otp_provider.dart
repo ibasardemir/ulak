@@ -55,13 +55,14 @@ class OTPBloc extends Bloc<OTPEvent, OTPState> {
     emit(OTPLoading());
     final currentState = registerBloc.state;
     try {
-    print(currentState);
 
     if (currentState is RegisterSuccess) {
       String smsCode = currentState.smsCode;
 
       if (smsCode == event.code) {
         print("fsdfasdfasdfasdfasdfasdfs");
+
+        // Register işlemleri
 
         emit(OTPSuccess());
       } else {
