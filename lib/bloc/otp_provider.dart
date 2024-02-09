@@ -58,6 +58,8 @@ class OTPBloc extends Bloc<OTPEvent, OTPState> {
 
     if (currentState is RegisterSuccess) {
       String smsCode = currentState.smsCode;
+      print(currentState.phonenumber);
+      print(currentState.userName);
 
       if (smsCode == event.code) {
         print("fsdfasdfasdfasdfasdfasdfs");

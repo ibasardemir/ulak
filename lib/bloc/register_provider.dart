@@ -33,7 +33,9 @@ class RegisterInitial extends RegisterState {}
 class RegisterLoading extends RegisterState {}
 class RegisterSuccess extends RegisterState {
    final String smsCode; // OTP kontrolü için kullanılacak kod
-  RegisterSuccess({required this.smsCode});
+   final String userName;
+   final String phonenumber;
+  RegisterSuccess({required this.smsCode, required this.userName, required this.phonenumber});
 }
 class RegisterFailure extends RegisterState {
   final String error;
@@ -66,7 +68,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
 
       event.code = smsResult;
       print(state);
-      emit(RegisterSuccess(smsCode: event.code));
+      emit(RegisterSuccess(smsCode: event.code,userName: event.username, phonenumber: event.phoneNumber));
     } catch (error) {
       emit(const RegisterFailure(error: 'Kayıt başarısız.'));
     }
