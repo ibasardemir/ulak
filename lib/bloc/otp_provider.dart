@@ -61,7 +61,7 @@ class OTPBloc extends Bloc<OTPEvent, OTPState> {
 
       String smsCode = currentState.smsCode;
       
-      final verifyResult= await auth.registerVerifySMS(smsCode, event.code, currentState.phoneNumber,currentState.username)
+      final verifyResult= await auth.registerVerifySMS(smsCode, event.code, currentState.phonenumber,currentState.userName);
 
       if (verifyResult) {
         print("Kayıt işlemi başarılı.");
