@@ -12,9 +12,9 @@ abstract class LoginEvent extends Equatable {
 
 class LoginButtonPressed extends LoginEvent {
   final String phoneNumber;
-  final String code; //Kullanıcının gireceği sms kodu
+  var code; //Kullanıcının gireceği sms kodu
 
-  const LoginButtonPressed({required this.phoneNumber,this.code=""});
+  LoginButtonPressed({required this.phoneNumber,this.code=""});
 
   @override
   List<Object> get props => [phoneNumber];
@@ -55,13 +55,19 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     Emitter<LoginState> emit,
   ) async {
     emit(LoginLoading());
-  
-
     try {   
-      
-      await Future.delayed(const Duration(seconds: 2));
+      final auth = Authentication();
+
+      final smsResult = await auth.loginSendSms(event.phoneNumber);
+      if(smsResult.result){
+      event.code = smsResult.message;  
 
       emit(LoginSuccess(smsCode: event.code, phonenumber: event.phoneNumber));
+      print(event.code);
+      }
+      else {
+        emit(const LoginFailure(error: 'Giriş başarısız.'));
+      }
 
     } catch (error) {
       emit(const LoginFailure(error: 'Giriş başarısız.'));
