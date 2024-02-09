@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ulak/bloc/otp_login_provider.dart';
 import 'package:ulak/bloc/otp_provider.dart';
+import 'package:ulak/database/auth.dart';
+import 'package:ulak/pages/app/main_app_page.dart';
 import 'package:ulak/pages/auth/login_page.dart';
 import 'package:ulak/pages/auth/register_page.dart';
 
@@ -27,13 +29,21 @@ class FixedButton extends StatelessWidget {
           ),
           elevation: 2,
         ),
-        onPressed: () {
+        onPressed: () async {
           if (name == "Register") {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const RegisterPage()));
           } else if (name == "Login") {
-            Navigator.push(context,
+            Authentication auth =Authentication();  
+            if(await auth.isLogin()){
+              Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const LoginPage()));
+            }
+            else{
+              Navigator.push(context,
+                MaterialPageRoute(builder: (context) =>  MainPage()));
+            }
+            
           } else if (name == "Verify") {
             bool isFilled = otpValues.every((element) => element.isNotEmpty);
             if (!isFilled) {
