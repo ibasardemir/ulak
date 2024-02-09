@@ -32,7 +32,7 @@ class Authentication {
       final users= await firebaseDB.getUsers();
 
       for (var user in users) {
-        
+        print(user.phoneNumber);
         if(user.phoneNumber==phoneNumber){
           print("User already exists");
           return SmsResultPackgage(message: "User already exists", result: false);
