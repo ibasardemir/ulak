@@ -32,7 +32,7 @@ abstract class RegisterState extends Equatable {
 class RegisterInitial extends RegisterState {}
 class RegisterLoading extends RegisterState {}
 class RegisterSuccess extends RegisterState {
-   final String smsCode; // OTP kontrolü için kullanılacak kod
+   final String smsCode;
    final String userName;
    final String phonenumber;
   RegisterSuccess({required this.smsCode, required this.userName, required this.phonenumber});

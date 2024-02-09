@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ulak/bloc/login_provider.dart';
 import 'package:ulak/components/auth/login_button.dart';
 import 'package:ulak/components/auth/register_textfield.dart';
+import 'package:ulak/pages/auth/otp_login_page.dart';
 import 'package:ulak/pages/auth/otp_page.dart';
 import 'package:ulak/pages/auth/register_page.dart';
 
@@ -29,9 +30,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => LoginBloc(),
-      child: SafeArea(
+    return SafeArea(
         child: Scaffold(
           body: Center(
             child: SizedBox(
@@ -43,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const OTPPage()));
+                            builder: (context) => const OTPLoginPage()));
                   } else if (state is LoginFailure) {}
                 },
                 builder: (context, state) {
@@ -57,8 +56,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
         ),
-      ),
-    );
+      );
   }
 
   Widget _buildRegisterForm(BuildContext context, TextEditingController name,

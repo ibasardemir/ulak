@@ -30,7 +30,11 @@ abstract class LoginState extends Equatable {
 
 class LoginInitial extends LoginState {}
 class LoginLoading extends LoginState {}
-class LoginSuccess extends LoginState {}
+class LoginSuccess extends LoginState {
+  final String smsCode; 
+   final String phonenumber;
+  LoginSuccess({required this.smsCode, required this.phonenumber});
+}
 class LoginFailure extends LoginState {
   final String error;
 
@@ -53,13 +57,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     emit(LoginLoading());
   
 
-    try {
-      Authentication auth = Authentication();
-   
+    try {   
       
       await Future.delayed(const Duration(seconds: 2));
 
-      emit(LoginSuccess());
+      emit(LoginSuccess(smsCode: event.code, phonenumber: event.phoneNumber));
 
     } catch (error) {
       emit(const LoginFailure(error: 'Giriş başarısız.'));
