@@ -165,6 +165,9 @@ class DebugButton extends StatelessWidget {
                         MaterialPageRoute(
                             builder: (context) => const DebugPage()));
                   }
+                  else if(name=="Sync"){
+                    localDBInstance.syncDatabases(FirebaseDB());
+                  }
                   break;
                 case "firebase":
                   final firebaseDBInstance = FirebaseDB();
@@ -225,6 +228,9 @@ class DebugButton extends StatelessWidget {
                             builder: (context) => const DebugPage()));
                   break;
               }
+              else if(name=="Sync"){
+                    firebaseDBInstance.syncDatabases(LocalDB());
+                  }
             }
             },
             child: Text(

@@ -4,6 +4,7 @@ import 'package:ulak/bloc/otp_login_provider.dart';
 import 'package:ulak/bloc/otp_provider.dart';
 import 'package:ulak/database/auth.dart';
 import 'package:ulak/pages/app/main_app_page.dart';
+import 'package:ulak/pages/auth/auth_page.dart';
 import 'package:ulak/pages/auth/login_page.dart';
 import 'package:ulak/pages/auth/register_page.dart';
 
@@ -36,12 +37,13 @@ class FixedButton extends StatelessWidget {
           } else if (name == "Login") {
             Authentication auth =Authentication();  
             if(await auth.isLogin()){
+              print("hello");
               Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const LoginPage()));
+                MaterialPageRoute(builder: (context) =>  MainPage()));
             }
             else{
               Navigator.push(context,
-                MaterialPageRoute(builder: (context) =>  MainPage()));
+                MaterialPageRoute(builder: (context) =>  AuthPage()));
             }
             
           } else if (name == "Verify") {

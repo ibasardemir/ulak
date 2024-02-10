@@ -1,14 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'dart:async';
 
 class Message{
 
-    Message({required this.sender, required this.reciever, required this.message, required this.status,this.sentTime,}){generateID();}
+    Message({required this.sender, required this.reciever, required this.message, required this.status,this.sentTime,}){
+      if(this.sentTime==null){
+        sentTime=DateTime.now();
+      }
+      generateID();}
 
 
-    final String? sender;
+    final String ?sender;
     final String? reciever;
     final String? message;
     final bool? status;
@@ -25,7 +30,7 @@ class Message{
   }
 
   void generateID(){
-    id = sender!+reciever!+sentTime!.toString();
+    this.id = sender!+reciever!+sentTime.toString()!;
   }
 }
 
@@ -48,19 +53,17 @@ class User{
 abstract class DatabaseUtility {
 
   DatabaseUtility(){}
-
+  String? type;
   void saveUser(User data);
   void saveMessage(Message data);
   Future<List<User>>getUsers();
   Future<List<Message>> getMessages();
   Future<bool> deleteData(String tablename, String key);
-  Future<bool> syncDatabases(Database otherDatabase);
+  Future<bool> syncDatabases(DatabaseUtility otherDatabase);
 
 }
 
 class LocalDB extends DatabaseUtility{
-
-  
 
   Database? database;
   static final LocalDB _instance = LocalDB._internal();
@@ -71,6 +74,7 @@ class LocalDB extends DatabaseUtility{
 
   factory LocalDB() {
     _instance.openDB("test1");
+    _instance.type="local";
     return _instance;
   }
 
@@ -82,8 +86,6 @@ class LocalDB extends DatabaseUtility{
 
   @override
   Future<List<User>> getUsers() async {
-  
-
 
     final List<Map<String, dynamic>> maps = await database?.query("users") ?? [];
 
@@ -126,10 +128,6 @@ class LocalDB extends DatabaseUtility{
 
   @override
   void saveUser(User data) async{
-    
- 
-    
-
     await database?.insert(
       "users",
       data.toMap(),
@@ -139,8 +137,6 @@ class LocalDB extends DatabaseUtility{
 
   @override
   void saveMessage(Message data) async{
-    
-    
 
     await database?.insert(
       "messages",
@@ -150,11 +146,39 @@ class LocalDB extends DatabaseUtility{
   }
 
   @override
-  Future<bool>  syncDatabases(Database otherDatabase) {
-    // TODO: implement syncDatabases
-    throw UnimplementedError();
+  Future<bool> syncDatabases(DatabaseUtility otherDatabase)async {
+   
+
+    if(otherDatabase.type=="firebase"){
+       if(!await InternetConnectionChecker().hasConnection){
+          print("No internet connection");
+          return false;
+        }
+    }
+    final otherUsers=await otherDatabase.getUsers();
+    final otherMessages=await otherDatabase.getMessages();
+
+    final thisUsers=await getUsers();
+    final thisMessages=await getMessages();
+
+    for (var user in otherUsers) {
+      saveUser(user);
+    }
+    for (var message in otherMessages) {
+      saveMessage(message);
+    }
+          
+    for (var user in thisUsers) {
+      otherDatabase.saveUser(user);
+    } 
+    for (var message in thisMessages) {
+      otherDatabase.saveMessage(message);
+    }
+    return true;
+    
   }
-  
+
+
   @override
   Future<bool> openDB(String name) async {
   print(join(await getDatabasesPath(), '$name.db'));
@@ -205,6 +229,7 @@ class FirebaseDB extends DatabaseUtility{
   FirebaseDB._internal();
 
   factory FirebaseDB() {
+    _instance.type="firebase";
     return _instance;
   }
 
@@ -263,33 +288,73 @@ class FirebaseDB extends DatabaseUtility{
  
 
   @override
-  void saveMessage(Message data) {
+  void saveMessage(Message data) async{
     final message=<String,dynamic>{
       'sender': data.sender,
       'reciever': data.reciever,
       'message': data.message,
       'status': data.status,
       'sentTime': data.sentTime,
+      'id': data.id,
     };
+
+    if(await db.collection("messages").where('id',isEqualTo: data.id).get().then((value) => value.docs.isNotEmpty)){
+      print("Message already exists");
+    }
+    else{
     db.collection("messages").add(message).then((DocumentReference doc) => print('DocumentSnapshot added with ID: ${doc.id}'));
-    
+    } 
   }
 
   @override
-  void saveUser(User data) {
+  void saveUser(User data) async{
+
     final user=<String,dynamic>{
       'phoneNumber': data.phoneNumber,
       'username': data.username,
     };
     
-    db.collection("users").add(user).then((DocumentReference doc) => print('DocumentSnapshot added with ID: ${doc.id}'));
+    if(await db.collection("users").where('phoneNumber',isEqualTo: data.phoneNumber).get().then((value) => value.docs.isNotEmpty)){
+      print("User already exists");
+    }else{
+      db.collection("users").add(user).then((DocumentReference doc) => print('DocumentSnapshot added with ID: ${doc.id}'));
+    }
+    
   }
 
   @override
-  Future<bool> syncDatabases(Database otherDatabase) {
-    // TODO: implement syncDatabases
-    throw UnimplementedError();
+  Future<bool> syncDatabases(DatabaseUtility otherDatabase)async {
+   
+
+    if(otherDatabase.type=="firebase"){
+       if(!await InternetConnectionChecker().hasConnection){
+          print("No internet connection");
+          return false;
+        }
+    }
+    final otherUsers=await otherDatabase.getUsers();
+    final otherMessages=await otherDatabase.getMessages();
+
+    final thisUsers=await getUsers();
+    final thisMessages=await getMessages();
+
+    for (var user in otherUsers) {
+      saveUser(user);
+    }
+    for (var message in otherMessages) {
+      saveMessage(message);
+    }
+          
+    for (var user in thisUsers) {
+      otherDatabase.saveUser(user);
+    } 
+    for (var message in thisMessages) {
+      otherDatabase.saveMessage(message);
+    }
+    return true;
+    
   }
+
   
   
 }

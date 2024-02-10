@@ -126,8 +126,9 @@ class Authentication {
   Future<bool> isLogin() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? phoneNumber = prefs.getString('phoneNumber');
-
+    
     if (phoneNumber != null ) {
+      print("$phoneNumber is logged in");
       return true;
     } else {
       return false;
