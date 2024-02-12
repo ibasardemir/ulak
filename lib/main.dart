@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
         )
       ],
       child: MaterialApp(
-        home: DebugPage(),
+        home: AuthPage(),
       ),
     ),
     );
