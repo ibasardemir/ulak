@@ -66,7 +66,8 @@ class NetworkService {
       }
       
       //TODO: Başar Buraya bak
-      LocalDB().saveMessage("messages", data.name, data);
+      // *Database.dart message class yolla*
+      LocalDB().saveMessage(data);
    });
   
   }
