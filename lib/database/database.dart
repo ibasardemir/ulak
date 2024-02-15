@@ -4,6 +4,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'dart:async';
 
+//Very Nice Classes
 class Message{
 
     Message({required this.sender, required this.reciever, required this.message, required this.status,this.sentTime,}){
