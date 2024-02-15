@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ulak/components/auth/fixed_button.dart';
 
 class MessagesMainPage extends StatefulWidget {
   const MessagesMainPage({super.key});
@@ -50,9 +51,12 @@ class _MessagesMainPageState extends State<MessagesMainPage> {
                             style: TextStyle(
                                 fontSize: 14, fontWeight: FontWeight.bold),
                           ),
+                          
                         ],
                       ),
-                    )
+                    ),
+                     
+                   
                   ],
                 ),
               ),

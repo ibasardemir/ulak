@@ -47,6 +47,7 @@ class _MainPageState extends State<MainPage> {
             icon: Icon(Icons.settings),
             label: 'Settings',
           ),
+          
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Color(0xFFFF8C00),
