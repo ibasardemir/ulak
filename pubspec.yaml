@@ -52,8 +52,8 @@ dependencies:
   sqflite: ^2.3.2
   style: ^0.0.5
   internet_connection_checker: ^1.0.0+1
-  flutter_sms:
-    path: additional_dependencies/flutter_sms-master
+  flutter_sms: ^2.3.3
+  
 dev_dependencies:
   flutter_lints: ^3.0.1
   flutter_test:
