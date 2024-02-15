@@ -35,6 +35,7 @@ class FixedButton extends StatelessWidget {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const RegisterPage()));
           } else if (name == "Login") {
+
             Authentication auth =Authentication();  
             if(await auth.isLogin()){
               print("hello");
@@ -43,10 +44,17 @@ class FixedButton extends StatelessWidget {
             }
             else{
               Navigator.push(context,
-                MaterialPageRoute(builder: (context) =>  AuthPage()));
+                MaterialPageRoute(builder: (context) =>  LoginPage()));
             }
             
-          } else if (name == "Verify") {
+          }
+          else if (name == "Logout") {
+            Authentication auth =Authentication();  
+            auth.logout();
+            print("afaf");
+          }
+
+           else if (name == "Verify") {
             bool isFilled = otpValues.every((element) => element.isNotEmpty);
             if (!isFilled) {
               ScaffoldMessenger.of(context).showSnackBar(

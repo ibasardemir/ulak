@@ -28,7 +28,14 @@ class Authentication {
       print("Phone number is not valid");
       return SmsResultPackgage(message: "Phone number is not valid", result: false);
     }
-    if(await InternetConnectionChecker().hasConnection){
+    if(!(await InternetConnectionChecker().hasConnection)){
+          print("No internet connection");
+          return SmsResultPackgage(message: "No Internet Connection", result: false);
+     }
+
+
+
+   
       final users= await firebaseDB.getUsers();
 
       for (var user in users) {
@@ -45,11 +52,7 @@ class Authentication {
 
 
       return SmsResultPackgage(message: code, result: smsSendResult);
-    }
-    else{
-      return SmsResultPackgage(message: "No internet connection", result: false);
-    }
-
+  
 
   }
 
@@ -75,6 +78,14 @@ class Authentication {
 
       return SmsResultPackgage(message: "Phone number is not valid", result: false);
     }
+
+     if(!(await InternetConnectionChecker().hasConnection)){
+          print("No internet connection");
+          return SmsResultPackgage(message: "No Internet Connection", result: false);
+        }
+      else{
+        print("Internet connection is available");
+      }
 
     final users=await localDB.getUsers();
 
