@@ -46,7 +46,13 @@ class FixedButton extends StatelessWidget {
                 MaterialPageRoute(builder: (context) =>  AuthPage()));
             }
             
-          } else if (name == "Verify") {
+          }
+          else if (name == "Logout") {
+            Authentication auth =Authentication();  
+            auth.logout();
+          }
+          
+           else if (name == "Verify") {
             bool isFilled = otpValues.every((element) => element.isNotEmpty);
             if (!isFilled) {
               ScaffoldMessenger.of(context).showSnackBar(
