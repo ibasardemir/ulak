@@ -1,8 +1,8 @@
 import "dart:async";
 import "dart:math";
 import "package:flutter_nearby_connections/flutter_nearby_connections.dart";
-//import "package:device_info_plus/device_info_plus.dart";
-import "package:ulak/database.dart";
+import "package:ulak/database/auth.dart";
+import "package:ulak/database/database.dart";
 
 /*
 Network Service: 
@@ -98,7 +98,10 @@ class NetworkService {
       for (var dev in connectedDevices){
         if(dev.deviceId!=data.senderDeviceId)sendMessage(data.content,dev.deviceId);
       }
-      LocalDB().saveData("messages", data.name, data);
+      
+      //TODO: Başar Buraya bak
+      // *Database.dart message class yolla*
+      LocalDB().saveMessage(data);
    });
   
   }

@@ -6,7 +6,7 @@ class RegisterTextField extends StatelessWidget
   final TextEditingController textController;
   final String iconName;
 
-  RegisterTextField({required this.iconName, required this.textController});
+  const RegisterTextField({super.key, required this.iconName, required this.textController});
 
   @override
   Widget build(BuildContext context) {
@@ -23,29 +23,29 @@ class RegisterTextField extends StatelessWidget
             color: Colors.grey.withOpacity(0.5),
             spreadRadius: 1,
             blurRadius: 5,
-            offset: Offset(0, 0),
+            offset: const Offset(0, 0),
           ),
         ],
       ),
       child: TextFormField(
         controller: textController,
-        style: TextStyle(color: Colors.grey),
+        style: const TextStyle(color: Colors.grey),
         decoration: InputDecoration(
           filled: true,
           fillColor: Colors.white,
           hintText: 'Phone number',
-          hintStyle: TextStyle(color: Colors.grey),
-          contentPadding: EdgeInsets.all(14.0),
+          hintStyle: const TextStyle(color: Colors.grey),
+          contentPadding: const EdgeInsets.all(14.0),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20.0),
             borderSide: BorderSide.none,
           ),
           prefixIcon: isPhoneField
-              ? Icon(
+              ? const Icon(
                   Icons.phone,
                   color: Colors.grey,
                 )
-              : Icon(
+              : const Icon(
                   Icons.account_circle,
                   color: Colors.grey,
                 ),
@@ -54,3 +54,4 @@ class RegisterTextField extends StatelessWidget
     );
   }
 }
+

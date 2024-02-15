@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -28,10 +25,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -49,6 +43,16 @@ class DefaultFirebaseOptions {
     }
   }
 
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyBuoC_7_corZKzG2Y8y0O2PfXxV6MvJx5A',
+    appId: '1:626463636097:web:0aa5efdd7ea0bae7c26b80',
+    messagingSenderId: '626463636097',
+    projectId: 'ulak-531f6',
+    authDomain: 'ulak-531f6.firebaseapp.com',
+    storageBucket: 'ulak-531f6.appspot.com',
+    measurementId: 'G-MNJ8TLMJ14',
+  );
+
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyAIEytHoPl7xh4SvYXtEC6aHcbYj1Q8yj8',
     appId: '1:626463636097:android:436c93b440b67a6bc26b80',
@@ -64,5 +68,14 @@ class DefaultFirebaseOptions {
     projectId: 'ulak-531f6',
     storageBucket: 'ulak-531f6.appspot.com',
     iosBundleId: 'com.example.ulak',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyAtmuMvHNOLxa1NKCvTmSQM3f10jCzh2EA',
+    appId: '1:626463636097:ios:591238343115c1b9c26b80',
+    messagingSenderId: '626463636097',
+    projectId: 'ulak-531f6',
+    storageBucket: 'ulak-531f6.appspot.com',
+    iosBundleId: 'com.example.ulak.RunnerTests',
   );
 }
