@@ -3,9 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ulak/bloc/register_provider.dart';
 import 'package:ulak/pages/auth_page.dart';
 import 'package:ulak/pages/register_page.dart';
+
+import "network/dummynetwork.dart";
 // 
 Future<void> main() async {
-  runApp(MyApp());
+  runApp(DummyNetwork());
+  //runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
