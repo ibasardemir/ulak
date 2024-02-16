@@ -32,7 +32,7 @@ class ConnectionPage extends StatelessWidget {
           children: <Widget>[
             ConnectWithClickWidget(),
             Center(
-              child: Text("It's sunny here"),
+              child: Text("There is no one nearby"),
             ),
           ],
         ),
