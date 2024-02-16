@@ -219,6 +219,7 @@ class _DevicesListScreenState extends State<DevicesListScreen> {
       return devices.length;
     }
   }
+  
 
   _onButtonClicked(Device device){
     switch(device.state){

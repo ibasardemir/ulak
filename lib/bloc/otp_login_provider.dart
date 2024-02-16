@@ -67,6 +67,7 @@ class OTPLoginBloc extends Bloc<OTPLoginEvent, OTPLoginState> {
       print(event.code);
       if (verifyResult) {
         print("Kayıt işlemi başarılı.");
+        
         emit(OTPLoginSuccess());
       }
     } else {

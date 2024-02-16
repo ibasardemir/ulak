@@ -111,7 +111,9 @@ Widget _buildRegisterForm(BuildContext context, TextEditingController phoneNumbe
                     Container(
                       margin: const EdgeInsets.all(10),
                       child:  const DebugButton(name: "Go to Messages")),
-
+                    Container(
+                      margin: const EdgeInsets.all(10),
+                      child:  const DebugButton(name: "Sync")),
                 ],
                 
               ))

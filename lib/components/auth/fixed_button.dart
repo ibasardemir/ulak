@@ -4,6 +4,7 @@ import 'package:ulak/bloc/otp_login_provider.dart';
 import 'package:ulak/bloc/otp_provider.dart';
 import 'package:ulak/database/auth.dart';
 import 'package:ulak/pages/app/main_app_page.dart';
+import 'package:ulak/pages/auth/auth_page.dart';
 import 'package:ulak/pages/auth/login_page.dart';
 import 'package:ulak/pages/auth/register_page.dart';
 
@@ -34,17 +35,26 @@ class FixedButton extends StatelessWidget {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const RegisterPage()));
           } else if (name == "Login") {
+
             Authentication auth =Authentication();  
             if(await auth.isLogin()){
-              Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const LoginPage()));
-            }
-            else{
+              print("hello");
               Navigator.push(context,
                 MaterialPageRoute(builder: (context) =>  MainPage()));
             }
+            else{
+              Navigator.push(context,
+                MaterialPageRoute(builder: (context) =>  LoginPage()));
+            }
             
-          } else if (name == "Verify") {
+          }
+          else if (name == "Logout") {
+            Authentication auth =Authentication();  
+            auth.logout();
+            print("afaf");
+          }
+
+           else if (name == "Verify") {
             bool isFilled = otpValues.every((element) => element.isNotEmpty);
             if (!isFilled) {
               ScaffoldMessenger.of(context).showSnackBar(

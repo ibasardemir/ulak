@@ -50,7 +50,7 @@ class _AuthWidgetState extends State<AuthWidget> {
                     Container(
                       margin: const EdgeInsets.all(10),
                       child:  const FixedButton(name: "Login",otpValues: [],)),
-                   
+                     
                 ],
                 
               ))
