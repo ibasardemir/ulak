@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ulak/components/auth/fixed_button.dart';
+import 'package:ulak/pages/messages/messages_detail_page.dart';
 
 class MessagesMainPage extends StatefulWidget {
   const MessagesMainPage({super.key});
@@ -211,7 +212,11 @@ class _MessagesListState extends State<MessagesList> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context){
+          return ChatDetailPage();
+        }));
+      },
       child: Container(
         padding: const EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 10),
         child: Row(

@@ -25,7 +25,7 @@ class NetworkService {
   StreamController<List<Device>> controller= StreamController<List<Device>>();
   late Stream stream;
   void init() async {
-    
+    print("object");
     await nearbyService.init(
       serviceType: 'mpconn',
       deviceName: "Fuhrer",//await Authentication().returnPhoneNum(),
