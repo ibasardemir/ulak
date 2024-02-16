@@ -137,7 +137,19 @@ class _MessagesListState extends State<MessagesList> {
                 ],
               ),
             ),
-            Text(widget.time,style: TextStyle(fontSize: 12,fontWeight: widget.isMessageRead?FontWeight.bold:FontWeight.normal),),
+            Column(
+              children: <Widget>[
+                Text(widget.time,style: TextStyle(fontSize: 12,fontWeight: widget.isMessageRead?FontWeight.bold:FontWeight.normal),),
+                SizedBox(height: 8),
+                Container(
+                  height: 10,
+                  width: 10,
+                  decoration: BoxDecoration(
+                    color: Color(0xFFFF8C00),
+                    shape: BoxShape.circle
+                  ))
+              ],
+            ),
           ],
         ),
       ),
