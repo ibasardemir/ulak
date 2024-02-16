@@ -24,8 +24,8 @@ class NetworkService {
   late StreamSubscription receivedDataSubscription;
   StreamController<List<Device>> controller= StreamController<List<Device>>();
   late Stream stream;
-  void init() async {
-    
+  void init({ bool meths=false}) async {
+    meth = meths;
     await nearbyService.init(
       serviceType: 'mpconn',
       deviceName: "Fuhrer",//await Authentication().returnPhoneNum(),
@@ -33,7 +33,7 @@ class NetworkService {
       callback: (isrunning) async {
         if(isrunning){
           print("new call");
-          if(rand.nextBool()){
+          if(meth){
             await nearbyService.startBrowsingForPeers();
             await Future.delayed(const Duration(microseconds: 200));
             for(int i= 0;i<10;i++){
