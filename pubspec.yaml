@@ -37,23 +37,24 @@ dependencies:
   firebase_auth: ^4.17.0
   firebase_core: ^2.25.3
   firebase_storage: ^11.2.4
-  fluttertoast: ^8.2.2
-  font_awesome_flutter: ^10.6.0
-  google_sign_in: ^6.1.5
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.3
   flutter_nearby_connections: ^1.1.2
+  flutter_sms:
+    path: additional_dependencies/flutter_sms-master
   flutter_styled_toast: ^2.2.1
+  fluttertoast: ^8.2.2
+  font_awesome_flutter: ^10.6.0
+  google_fonts: ^6.1.0
+  google_sign_in: ^6.1.5
+  internet_connection_checker: ^1.0.0+1
   otp_fields: ^0.0.4
   phone_number: ^2.0.1
   pin_code_fields: ^8.0.1
   shared_preferences: ^2.2.2
   sqflite: ^2.3.2
   style: ^0.0.5
-  internet_connection_checker: ^1.0.0+1
-  flutter_sms:
-    path: additional_dependencies/flutter_sms-master
 dev_dependencies:
   flutter_lints: ^3.0.1
   flutter_test:

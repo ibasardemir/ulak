@@ -224,9 +224,31 @@ class _MessagesListState extends State<MessagesList> {
             Expanded(
               child: Row(
                 children: <Widget>[
-                  const CircleAvatar(
-                    maxRadius: 30,
+                  ClipOval(
+                  child: Container(
+                    width: 60.0, // Dairenin genişliği
+                    height: 60.0, // Dairenin yüksekliği
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          Colors.orange,
+                          Colors.yellow
+                        ], // Gradient renkleri
+                        begin: Alignment.topLeft, // Gradient başlangıç noktası
+                        end: Alignment.bottomRight, // Gradient bitiş noktası
+                      ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        widget.name[0], // Göstermek istediğiniz harf
+                        style: TextStyle(
+                          fontSize: 20.0, // Harf boyutu
+                          color: Colors.white, // Harf rengi
+                        ),
+                      ),
+                    ),
                   ),
+                ),
                   const SizedBox(
                     width: 16,
                   ),
