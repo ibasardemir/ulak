@@ -57,17 +57,27 @@ class SettingsPage extends StatelessWidget {
             ),
           ),
         ),
+        const Divider(
+      color: Color.fromARGB(255, 143, 143, 143), // Çizginin rengi
+      thickness: 2, // Çizginin kalınlığı
+      height: 20, // Çizgi üstü ve altındaki boşluk toplamı
+      indent: 20, // Çizginin sol tarafındaki boşluk
+      endIndent: 20, // Çizginin sağ tarafındaki boşluk
+    ),
         Expanded(
-          child: Container(
-            child: Center(
-              child: Row(
+          child: Column(
+              children: <Widget>[Row(
                 children: [
                   SizedBox(width: 50.0,),
-                  Text("Phone number: "),
+                  Icon(Icons.phone,color: const Color.fromARGB(255, 146, 145, 145)),
+                  SizedBox(width: 50.0,),
+                  Text("Phone number: ",
+                  style: TextStyle(fontSize: 20,color: const Color.fromARGB(255, 146, 145, 145)),
+                  ),
                   SizedBox(width: 5.0,),
-                  Text("05417837934")
-                ],
-              )),
+                  Text("05417837934",
+                  style: TextStyle(fontSize: 16),)
+                ],),]
           ),
         ),
         Expanded(
