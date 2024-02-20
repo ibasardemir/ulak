@@ -214,7 +214,7 @@ class _MessagesListState extends State<MessagesList> {
     return GestureDetector(
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (context){
-          return ChatDetailPage();
+          return ChatDetailPage(receiver: widget.name,);
         }));
       },
       child: Container(

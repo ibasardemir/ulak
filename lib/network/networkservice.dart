@@ -104,10 +104,9 @@ class NetworkService {
       // *Database.dart message class yolla*
       LocalDB().saveMessage(data);
    });
-  
   }
   
   StreamSubscription returnSubscription (){
-    return controller.stream.listen((event) { });
+    return controller.stream.listen((event) {});
    } 
 }
