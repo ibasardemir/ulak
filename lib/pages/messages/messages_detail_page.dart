@@ -180,7 +180,7 @@ class _MessageFormWidgetState extends State<MessageFormWidget> {
 
     if (messageText.isNotEmpty) {
       BlocProvider.of<MessagesBloc>(context)
-          .add(SentMessages(messageContent: messageText,phoneNumber: widget.receiver));
+          .add(SentMessages(messageContent: messageText));
       _messageController.clear();
     }
   }
