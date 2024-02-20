@@ -20,15 +20,17 @@ class NetworkService {
   late StreamSubscription receivedDataSubscription;
   StreamController<List<Device>> controller = StreamController<List<Device>>();
   late Stream stream;
-  void init() async {
+  void init({bool meths = false}) async {
+    meth = meths;
     SharedPreferences pref = await SharedPreferences.getInstance();
     String phoneNumber = pref.getString("phoneNumber") ?? "";
     await nearbyService.init(
         serviceType: 'mpconn',
-        deviceName: phoneNumber,
+        deviceName: phoneNumber, //await Authentication().returnPhoneNum(),
         strategy: Strategy.P2P_CLUSTER,
         callback: (isrunning) async {
           if (isrunning) {
+            print("new call");
             if (meth) {
               await nearbyService.stopBrowsingForPeers();
               await Future.delayed(const Duration(microseconds: 200));
