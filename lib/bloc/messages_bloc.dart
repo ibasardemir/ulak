@@ -49,7 +49,7 @@ class MessagesBloc extends Bloc<MessagesEvent, MessagesState> {
     SharedPreferences prefs =await SharedPreferences.getInstance();
 
     //TODO: Change the reciever to the actual reciever
-    Message message = Message(sender:prefs.getString("username"),reciever: "admin",message:event.messageContent);
+    Message message = Message(sender:prefs.getString("phoneNumber"),reciever: "admin",message:event.messageContent);
 
     firebaseDB.saveMessage(message);
     localDB.saveMessage(message);
