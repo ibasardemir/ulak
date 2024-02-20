@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:ulak/components/connection/connect_button.dart';
+import 'package:ulak/network/networkservice.dart';
 
 class ConnectionPage extends StatelessWidget {
-  const ConnectionPage({super.key});
 
+  const ConnectionPage({super.key});
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -11,9 +12,19 @@ class ConnectionPage extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
+          centerTitle: false,
+          leading: SizedBox(),
+          titleSpacing: 0.0,
           backgroundColor: Color.fromARGB(255, 255, 255, 255),
-          title: const Text("Connection",
-          style: TextStyle(color: const Color(0xFFFF8C00))),
+          title: Align(
+            alignment: Alignment.centerRight,
+            child: const Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Text("Connection",
+              style: TextStyle(color: const Color(0xFFFF8C00))),
+              ]),
+          ),
           bottom: const TabBar(
             indicatorColor: const Color(0xFFFF8C00),
             labelColor: const Color(0xFFFF8C00),
@@ -31,13 +42,29 @@ class ConnectionPage extends StatelessWidget {
         body: const TabBarView(
           children: <Widget>[
             ConnectWithClickWidget(),
-            Center(
-              child: Text("There is no one nearby"),
-            ),
+            ConnectAuto()
           ],
         ),
       ),
     );
+  }
+}
+
+class ConnectAuto extends StatefulWidget {
+  const ConnectAuto({super.key});
+
+  @override
+  State<ConnectAuto> createState() => _MyWidgetState();
+}
+
+class _MyWidgetState extends State<ConnectAuto> {
+  @override
+  Widget build(BuildContext context) {
+    NetworkService networkService = NetworkService();
+    networkService.init(meths: true);
+    return Center(
+              child: Text("There is no one nearby"),
+            );
   }
 }
 

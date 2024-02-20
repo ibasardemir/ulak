@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ulak/components/auth/fixed_button.dart';
+import 'package:ulak/pages/messages/messages_detail_page.dart';
 
 class MessagesMainPage extends StatefulWidget {
   const MessagesMainPage({super.key});
@@ -211,7 +212,11 @@ class _MessagesListState extends State<MessagesList> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context){
+          return ChatDetailPage(receiver: widget.name,);
+        }));
+      },
       child: Container(
         padding: const EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 10),
         child: Row(
@@ -219,9 +224,31 @@ class _MessagesListState extends State<MessagesList> {
             Expanded(
               child: Row(
                 children: <Widget>[
-                  const CircleAvatar(
-                    maxRadius: 30,
+                  ClipOval(
+                  child: Container(
+                    width: 60.0, // Dairenin genişliği
+                    height: 60.0, // Dairenin yüksekliği
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          Colors.orange,
+                          Colors.yellow
+                        ], // Gradient renkleri
+                        begin: Alignment.topLeft, // Gradient başlangıç noktası
+                        end: Alignment.bottomRight, // Gradient bitiş noktası
+                      ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        widget.name[0], // Göstermek istediğiniz harf
+                        style: TextStyle(
+                          fontSize: 20.0, // Harf boyutu
+                          color: Colors.white, // Harf rengi
+                        ),
+                      ),
+                    ),
                   ),
+                ),
                   const SizedBox(
                     width: 16,
                   ),

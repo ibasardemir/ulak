@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ulak/pages/connect/app_connect_page.dart';
 import 'package:ulak/pages/messages/messages_main_page.dart';
+import 'package:ulak/pages/settings_page.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -65,7 +66,7 @@ class TabPage3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text("Page 1")),
+      body: SettingsPage()
     );
   }
 }

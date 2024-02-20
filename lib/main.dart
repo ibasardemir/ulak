@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ulak/bloc/database_messages_provider.dart';
 import 'package:ulak/bloc/login_provider.dart';
+import 'package:ulak/bloc/messages_bloc.dart';
 import 'package:ulak/bloc/otp_login_provider.dart';
 import 'package:ulak/bloc/otp_provider.dart';
 import 'package:ulak/bloc/register_provider.dart';
@@ -31,26 +32,31 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MultiBlocProvider(
-        providers: [
-          BlocProvider<RegisterBloc>(
-            create: (context) => registerBloc,
-          ),
-          BlocProvider<LoginBloc>(
-            create: (context) => loginBloc,
-          ),
-          BlocProvider<MessageDatabaseBloc>(
-            create: (context) => MessageDatabaseBloc(),
-          ),
-          BlocProvider<OTPBloc>(
-              create: (context) => OTPBloc(registerBloc: registerBloc)),
-          BlocProvider<OTPLoginBloc>(
-              create: (context) => OTPLoginBloc(loginBloc: loginBloc))
-        ],
-        child: MaterialApp(
-          home: AuthPage(),
+      home:  MultiBlocProvider(
+      providers: [
+        BlocProvider<RegisterBloc>(
+          create: (context) => registerBloc,
         ),
+        BlocProvider<LoginBloc>(
+          create: (context) => loginBloc,
+        ),
+        BlocProvider<MessageDatabaseBloc>(
+          create: (context) => MessageDatabaseBloc(),
+        ),
+        BlocProvider<OTPBloc>(
+          create: (context) => OTPBloc(registerBloc: registerBloc)
+        ),
+        BlocProvider<OTPLoginBloc>(
+          create: (context) => OTPLoginBloc(loginBloc: loginBloc)
+        ),
+        BlocProvider<MessagesBloc>(
+          create: (context) => MessagesBloc()
+        )
+      ],
+      child: MaterialApp(
+        home: AuthPage(),
       ),
+    ),
     );
   }
 }
