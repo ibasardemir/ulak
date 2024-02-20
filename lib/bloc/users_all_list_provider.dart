@@ -43,18 +43,16 @@ class UserMessagesBloc extends Bloc<UsersMessagesEvent, UserMessagesState> {
     final currentState = state;
     final userName = "Zeynebim";
     LocalDB localDB=LocalDB();
-    localDB.syncDatabases(FirebaseDB());
+ 
     List<User> users=await localDB.getUsers();
  
     for (User user in users){
       print(user.phoneNumber);
     }
-    print(event.phoneNumber);
     final newList = List<UserMessage>.from(currentState.userMessages)
       ..add(UserMessage(phoneNumber: event.phoneNumber,userName: userName));
     emit(UserMessagesUpdated(newList));
   }
-  
 }
 //annen
 
