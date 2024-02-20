@@ -6,6 +6,7 @@ import 'package:ulak/bloc/messages_bloc.dart';
 import 'package:ulak/bloc/otp_login_provider.dart';
 import 'package:ulak/bloc/otp_provider.dart';
 import 'package:ulak/bloc/register_provider.dart';
+import 'package:ulak/bloc/users_all_list_provider.dart';
 import 'package:ulak/pages/auth/auth_page.dart';
 import 'package:ulak/network/flutternearby.dart';
 
@@ -51,6 +52,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<MessagesBloc>(
           create: (context) => MessagesBloc()
+        ),
+        BlocProvider<UserMessagesBloc>(
+          create: (context) => UserMessagesBloc()
         )
       ],
       child: MaterialApp(

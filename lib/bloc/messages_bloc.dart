@@ -14,7 +14,7 @@ class SentMessages extends MessagesEvent {
   final String messageContent;
   final String reciever;
 
-  SentMessages({required this.messageContent});
+  SentMessages({required this.messageContent,required this.reciever});
 
   @override
   List<Object?> get props => [messageContent];
@@ -43,7 +43,6 @@ class MessagesBloc extends Bloc<MessagesEvent, MessagesState> {
   }
 
   void _onSentMessages(SentMessages event, Emitter<MessagesState> emit)async {
-    print("sdfsdfasdfasdfasdfdasf");
     final currentState = state;
     FirebaseDB firebaseDB = FirebaseDB();
     LocalDB localDB = LocalDB();
