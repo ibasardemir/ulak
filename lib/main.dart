@@ -7,19 +7,20 @@ import 'package:ulak/bloc/otp_login_provider.dart';
 import 'package:ulak/bloc/otp_provider.dart';
 import 'package:ulak/bloc/register_provider.dart';
 import 'package:ulak/pages/auth/auth_page.dart';
+import 'package:ulak/network/flutternearby.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:ulak/pages/auth/debug_page.dart';
 import 'firebase_options.dart';
 
+//Hi
 Future<void> main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
 
-   await Firebase.initializeApp(
+  await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  
+
   runApp(MyApp());
 }
 
