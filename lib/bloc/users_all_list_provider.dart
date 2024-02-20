@@ -46,6 +46,7 @@ class UserMessagesBloc extends Bloc<UsersMessagesEvent, UserMessagesState> {
       ..add(UserMessage(phoneNumber: event.phoneNumber,userName: userName));
     emit(UserMessagesUpdated(newList));
   }
+  
 }
 //annen
 
