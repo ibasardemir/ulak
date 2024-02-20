@@ -11,6 +11,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:ulak/pages/auth/debug_page.dart';
 import 'firebase_options.dart';
 
+//Hi
 Future<void> main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
