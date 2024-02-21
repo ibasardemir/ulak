@@ -110,23 +110,26 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                       padding: EdgeInsets.only(
                           left: 14, right: 14, top: 10, bottom: 10),
                       child: Align(
-                        alignment: (state.messages[index].messageType == "receiver"
-                            ? Alignment.topLeft
-                            : Alignment.topRight),
+                        alignment:
+                            (state.messages[index].messageType == "receiver"
+                                ? Alignment.topLeft
+                                : Alignment.topRight),
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
-                            color: (state.messages[index].messageType == "receiver"
-                                ? Colors.grey.shade200
-                                : Color(0xFFFF8C00)),
+                            color:
+                                (state.messages[index].messageType == "receiver"
+                                    ? Colors.grey.shade200
+                                    : Color(0xFFFF8C00)),
                           ),
                           padding: EdgeInsets.all(16),
                           child: Text(
                             state.messages[index].messageContent,
                             style: TextStyle(
-                              color:(state.messages[index].messageType == "receiver"
-                                ? const Color.fromARGB(255, 4, 4, 4)
-                                : const Color.fromARGB(255, 255, 255, 255)),
+                              color: (state.messages[index].messageType ==
+                                      "receiver"
+                                  ? const Color.fromARGB(255, 4, 4, 4)
+                                  : const Color.fromARGB(255, 255, 255, 255)),
                               fontSize: 15,
                             ),
                           ),

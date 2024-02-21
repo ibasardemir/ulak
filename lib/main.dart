@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:ulak/bloc/database_messages_provider.dart';
 import 'package:ulak/bloc/login_provider.dart';
 import 'package:ulak/bloc/messages_bloc.dart';
@@ -12,6 +13,7 @@ import 'package:ulak/network/flutternearby.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:ulak/pages/auth/debug_page.dart';
 import 'firebase_options.dart';
+import 'package:location/location.dart';
 
 //Hi
 Future<void> main() async {
@@ -22,6 +24,34 @@ Future<void> main() async {
   );
 
   runApp(MyApp());
+
+  // location permission
+  await Permission.location.isGranted; // Check
+  await Permission.location.request(); // Ask
+
+// location enable dialog
+  await Location.instance.requestService();
+
+// external storage permission
+  await Permission.storage.isGranted; // Check
+  await Permission.storage.request(); // Ask
+
+// Bluetooth permissions
+  bool granted = !(await Future.wait([
+    // Check
+    Permission.bluetooth.isGranted,
+    Permission.bluetoothAdvertise.isGranted,
+    Permission.bluetoothConnect.isGranted,
+    Permission.bluetoothScan.isGranted,
+  ]))
+      .any((element) => false);
+  [
+    // Ask
+    Permission.bluetooth,
+    Permission.bluetoothAdvertise,
+    Permission.bluetoothConnect,
+    Permission.bluetoothScan
+  ].request();
 }
 
 class MyApp extends StatelessWidget {
@@ -32,31 +62,27 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home:  MultiBlocProvider(
-      providers: [
-        BlocProvider<RegisterBloc>(
-          create: (context) => registerBloc,
+      home: MultiBlocProvider(
+        providers: [
+          BlocProvider<RegisterBloc>(
+            create: (context) => registerBloc,
+          ),
+          BlocProvider<LoginBloc>(
+            create: (context) => loginBloc,
+          ),
+          BlocProvider<MessageDatabaseBloc>(
+            create: (context) => MessageDatabaseBloc(),
+          ),
+          BlocProvider<OTPBloc>(
+              create: (context) => OTPBloc(registerBloc: registerBloc)),
+          BlocProvider<OTPLoginBloc>(
+              create: (context) => OTPLoginBloc(loginBloc: loginBloc)),
+          BlocProvider<MessagesBloc>(create: (context) => MessagesBloc())
+        ],
+        child: MaterialApp(
+          home: AuthPage(),
         ),
-        BlocProvider<LoginBloc>(
-          create: (context) => loginBloc,
-        ),
-        BlocProvider<MessageDatabaseBloc>(
-          create: (context) => MessageDatabaseBloc(),
-        ),
-        BlocProvider<OTPBloc>(
-          create: (context) => OTPBloc(registerBloc: registerBloc)
-        ),
-        BlocProvider<OTPLoginBloc>(
-          create: (context) => OTPLoginBloc(loginBloc: loginBloc)
-        ),
-        BlocProvider<MessagesBloc>(
-          create: (context) => MessagesBloc()
-        )
-      ],
-      child: MaterialApp(
-        home: AuthPage(),
       ),
-    ),
     );
   }
 }
