@@ -31,7 +31,8 @@ class UserMessagesInitial extends UserMessagesState {
 }
 
 class UserMessagesUpdated extends UserMessagesState {
-  const UserMessagesUpdated(List<UserMessage> messages) : super(userMessages: messages);
+  const UserMessagesUpdated(List<UserMessage> messages)
+      : super(userMessages: messages);
 }
 
 class UserMessagesBloc extends Bloc<UsersMessagesEvent, UserMessagesState> {
@@ -39,19 +40,23 @@ class UserMessagesBloc extends Bloc<UsersMessagesEvent, UserMessagesState> {
     on<GetUser>(_onGetUser);
   }
 
-  void _onGetUser(GetUser event, Emitter<UserMessagesState> emit)async {
+  void _onGetUser(GetUser event, Emitter<UserMessagesState> emit) async {
     final currentState = state;
-    final userName = "Zeynebim";
-    LocalDB localDB=LocalDB();
- 
-    List<User> users=await localDB.getUsers();
- 
-    for (User user in users){
-      print(user.phoneNumber);
+    LocalDB localDB = LocalDB();
+    List<User> users = await localDB.getUsers();
+
+    for (User user in users) {
+      if (user.phoneNumber == event.phoneNumber) {
+        final newList = List<UserMessage>.from(currentState.userMessages)
+          ..add(UserMessage(
+              phoneNumber: event.phoneNumber,
+              userName: user.username,
+              isUserAvailable: true,
+              messageText: "hi friend",
+              time: "31 Mart"));
+        emit(UserMessagesUpdated(newList));
+      }
     }
-    final newList = List<UserMessage>.from(currentState.userMessages)
-      ..add(UserMessage(phoneNumber: event.phoneNumber,userName: userName));
-    emit(UserMessagesUpdated(newList));
   }
 }
 //annen

@@ -8,6 +8,9 @@ class MessageDetail {
 
 class UserMessage {
   String phoneNumber;
-  String userName;
-  UserMessage({required this.phoneNumber,required this.userName});
+  String? userName;
+  bool isUserAvailable;
+  String messageText;
+  String time;
+  UserMessage({required this.phoneNumber,required this.userName,required this.isUserAvailable, required this.messageText, required this.time});
 }

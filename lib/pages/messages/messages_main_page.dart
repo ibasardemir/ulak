@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ulak/bloc/users_all_list_provider.dart';
 import 'package:ulak/components/auth/fixed_button.dart';
 import 'package:ulak/pages/messages/messages_add_page.dart';
 import 'package:ulak/pages/messages/messages_detail_page.dart';
@@ -12,7 +14,7 @@ class MessagesMainPage extends StatefulWidget {
 
 class ChatUsers {
   String name;
-  String messagename;
+  String? messagename;
   bool isUserAvailable;
   String time;
   ChatUsers(
@@ -22,56 +24,13 @@ class ChatUsers {
       required this.time});
 }
 
-List<ChatUsers> chatUsers = [
-  ChatUsers(
-      name: "Zeynebimmmm",
-      messagename: "I need some food",
-      isUserAvailable: true,
-      time: "21 Jan"),
-  ChatUsers(
-      name: "Umut Paşa",
-      messagename: "Yardım lazım bana",
-      isUserAvailable: false,
-      time: "9 July"),
-  ChatUsers(
-      name: "Başar Brother",
-      messagename: "Müsait misiniz?",
-      isUserAvailable: true,
-      time: "31 Mar"),
-  ChatUsers(
-      name: "Boss Aksel",
-      messagename: "Lütfen yanıma gelin beyler",
-      isUserAvailable: true,
-      time: "28 Mar"),
-  ChatUsers(
-      name: "Suna Teyze",
-      messagename: "Acil b5 apartmanı önone gelebilir misiniz?",
-      isUserAvailable: true,
-      time: "23 Mar"),
-  ChatUsers(
-      name: "Arrrrrman",
-      messagename: "Ben Arrrrman",
-      isUserAvailable: true,
-      time: "17 Mar"),
-  ChatUsers(
-      name: "Eren 12",
-      messagename: "Abi yardım edebilir misin?",
-      isUserAvailable: true,
-      time: "24 Feb"),
-  ChatUsers(
-      name: "Sinan Engin",
-      messagename: "?",
-      isUserAvailable: false,
-      time: "18 Feb"),
-];
-
 class _MessagesMainPageState extends State<MessagesMainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: Padding(
-          padding: const EdgeInsets.only(top:8.0,left: 8.0),
+          padding: const EdgeInsets.only(top: 8.0, left: 8.0),
           child: Center(
             child: Container(
               width: 32, // Container genişliği
@@ -84,8 +43,7 @@ class _MessagesMainPageState extends State<MessagesMainPage> {
                 ),
               ),
               child: InkWell(
-                onTap: () {
-                },
+                onTap: () {},
                 child: const Center(
                   child: Icon(Icons.more_horiz,
                       color: Color(0xFFFF8C00), size: 24), // Icon boyutu
@@ -109,8 +67,8 @@ class _MessagesMainPageState extends State<MessagesMainPage> {
                     width: 20,
                   ),
                   Container(
-                    padding:
-                        const EdgeInsets.only(left: 8, right: 8, top: 2, bottom: 2),
+                    padding: const EdgeInsets.only(
+                        left: 8, right: 8, top: 2, bottom: 2),
                     height: 30,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30),
@@ -172,18 +130,27 @@ class _MessagesMainPageState extends State<MessagesMainPage> {
                 ),
               ),
             ),
-            ListView.builder(
-              itemCount: chatUsers.length,
-              shrinkWrap: true,
-              padding: const EdgeInsets.only(top: 16),
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) {
-                return MessagesList(
-                  name: chatUsers[index].name,
-                  messageText: chatUsers[index].messagename,
-                  isUserAvailable: chatUsers[index].isUserAvailable,
-                  time: chatUsers[index].time,
-                );
+            BlocBuilder<UserMessagesBloc, UserMessagesState>(
+              builder: (context, state) {
+                if (state is UserMessagesUpdated) {
+                  return ListView.builder(
+                    itemCount: state.userMessages.length, // State içindeki kullanıcı listesi
+                    shrinkWrap: true,
+                    padding: const EdgeInsets.only(top: 16),
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return MessagesList(
+                        name: state.userMessages[index].userName ?? "",
+                        messageText: state.userMessages[index]
+                            .messageText, // `messagename` yerine genel kullanım `messageText` olabilir
+                        isUserAvailable: state.userMessages[index].isUserAvailable,
+                        time: state.userMessages[index].time,
+                      );
+                    },
+                  );
+                } else {
+                  return Center(); 
+                }
               },
             )
           ],
@@ -201,7 +168,8 @@ class _MessagesMainPageState extends State<MessagesMainPage> {
           child: AddUserForm(),
         ),
       ),
-      shape: RoundedRectangleBorder( // Kenarları yuvarlak bir şekil vermek için
+      shape: RoundedRectangleBorder(
+        // Kenarları yuvarlak bir şekil vermek için
         borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
       ),
       isScrollControlled: true, // İçerik çok uzunsa kaydırmayı etkinleştir
@@ -232,42 +200,46 @@ class _MessagesListState extends State<MessagesList> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context){
-          return ChatDetailPage(receiver: widget.name,);
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return ChatDetailPage(
+            receiver: widget.name,
+          );
         }));
       },
       child: Container(
-        padding: const EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 10),
+        padding:
+            const EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 10),
         child: Row(
           children: <Widget>[
             Expanded(
               child: Row(
                 children: <Widget>[
                   ClipOval(
-                  child: Container(
-                    width: 60.0, // Dairenin genişliği
-                    height: 60.0, // Dairenin yüksekliği
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          Colors.orange,
-                          Colors.yellow
-                        ], // Gradient renkleri
-                        begin: Alignment.topLeft, // Gradient başlangıç noktası
-                        end: Alignment.bottomRight, // Gradient bitiş noktası
+                    child: Container(
+                      width: 60.0, // Dairenin genişliği
+                      height: 60.0, // Dairenin yüksekliği
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.orange,
+                            Colors.yellow
+                          ], // Gradient renkleri
+                          begin:
+                              Alignment.topLeft, // Gradient başlangıç noktası
+                          end: Alignment.bottomRight, // Gradient bitiş noktası
+                        ),
                       ),
-                    ),
-                    child: Center(
-                      child: Text(
-                        widget.name[0], // Göstermek istediğiniz harf
-                        style: TextStyle(
-                          fontSize: 20.0, // Harf boyutu
-                          color: Colors.white, // Harf rengi
+                      child: Center(
+                        child: Text(
+                          widget.name[0], // Göstermek istediğiniz harf
+                          style: TextStyle(
+                            fontSize: 20.0, // Harf boyutu
+                            color: Colors.white, // Harf rengi
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
                   const SizedBox(
                     width: 16,
                   ),
@@ -311,11 +283,13 @@ class _MessagesListState extends State<MessagesList> {
                           : FontWeight.normal),
                 ),
                 const SizedBox(height: 8),
-                widget.isUserAvailable ? Container(
-                    height: 10,
-                    width: 10,
-                    decoration: const BoxDecoration(
-                        color: Color(0xFFFF8C00), shape: BoxShape.circle)) : Container()
+                widget.isUserAvailable
+                    ? Container(
+                        height: 10,
+                        width: 10,
+                        decoration: const BoxDecoration(
+                            color: Color(0xFFFF8C00), shape: BoxShape.circle))
+                    : Container()
               ],
             ),
           ],
