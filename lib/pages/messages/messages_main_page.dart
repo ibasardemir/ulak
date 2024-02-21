@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ulak/components/auth/fixed_button.dart';
+import 'package:ulak/pages/messages/messages_add_page.dart';
 import 'package:ulak/pages/messages/messages_detail_page.dart';
 
 class MessagesMainPage extends StatefulWidget {
@@ -84,7 +85,6 @@ class _MessagesMainPageState extends State<MessagesMainPage> {
               ),
               child: InkWell(
                 onTap: () {
-                  print("Menü butonuna tıklandı.");
                 },
                 child: const Center(
                   child: Icon(Icons.more_horiz,
@@ -116,22 +116,25 @@ class _MessagesMainPageState extends State<MessagesMainPage> {
                       borderRadius: BorderRadius.circular(30),
                       color: const Color.fromARGB(255, 247, 215, 176),
                     ),
-                    child: const Row(
-                      children: <Widget>[
-                        Icon(
-                          Icons.add,
-                          color: Color(0xFFFF8C00),
-                          size: 20,
-                        ),
-                        SizedBox(
-                          width: 2,
-                        ),
-                        Text(
-                          "Add New",
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.bold),
-                        ),
-                      ],
+                    child: GestureDetector(
+                      onTap: () => _showBottomSheet(context),
+                      child: const Row(
+                        children: <Widget>[
+                          Icon(
+                            Icons.add,
+                            color: Color(0xFFFF8C00),
+                            size: 20,
+                          ),
+                          SizedBox(
+                            width: 2,
+                          ),
+                          Text(
+                            "Add New",
+                            style: TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
                     ),
                   )
                 ],
@@ -186,6 +189,22 @@ class _MessagesMainPageState extends State<MessagesMainPage> {
           ],
         ),
       ),
+    );
+  }
+
+  void _showBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => Container(
+        height: 570, // Açılır sayfanın yüksekliği
+        child: Center(
+          child: AddUserForm(),
+        ),
+      ),
+      shape: RoundedRectangleBorder( // Kenarları yuvarlak bir şekil vermek için
+        borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
+      ),
+      isScrollControlled: true, // İçerik çok uzunsa kaydırmayı etkinleştir
     );
   }
 }
