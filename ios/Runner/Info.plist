@@ -45,5 +45,10 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+
+	<key>NSBluetoothAlwaysUsageDescription</key>
+    <string>Uygulama BLE cihazlarını bulmak için bluetooth'u kullanır</string>
+    <key>NSBluetoothPeripheralUsageDescription</key>
+    <string>Uygulama BLE cihazlarını bulmak için bluetooth'u kullanır</string>
 </dict>
 </plist>
