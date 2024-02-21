@@ -1,10 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class SettingsPage extends StatelessWidget {
+
+
+class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
-  final String name = "Zeynep Nullptr";
 
+  @override
+  State<SettingsPage> createState() => _SettingsPageState();
+}
+
+class _SettingsPageState extends State<SettingsPage> {
+
+  String name = " ";
+  String phonenumber = " ";
+
+  @override
+  void initState() {
+    super.initState();
+    _loadData();
+  }
+
+ Future<void> _loadData() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String? username=pref.getString("username");
+    String? phoneNumber= pref.getString("phoneNumber");
+    setState(() {
+      name = username ?? "User";
+      phonenumber = phoneNumber ?? " ";
+    });
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -66,17 +93,25 @@ class SettingsPage extends StatelessWidget {
     ),
         Expanded(
           child: Column(
-              children: <Widget>[Row(
+              children: <Widget>[
+                SizedBox(height: 20),
+                Row(
                 children: [
-                  SizedBox(width: 50.0,),
+                  SizedBox(width: 30.0,),
                   Icon(Icons.phone,color: const Color.fromARGB(255, 146, 145, 145)),
-                  SizedBox(width: 50.0,),
+                  SizedBox(width: 8.0,),
                   Text("Phone number: ",
                   style: TextStyle(fontSize: 20,color: const Color.fromARGB(255, 146, 145, 145)),
                   ),
-                  SizedBox(width: 5.0,),
-                  Text("05417837934",
-                  style: TextStyle(fontSize: 16),)
+                  SizedBox(width: 15.0,),
+                  Text(
+                  phonenumber,
+                  style: GoogleFonts.inter(
+                    textStyle: Theme.of(context).textTheme.displayLarge,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                )
                 ],),]
           ),
         ),
@@ -84,6 +119,6 @@ class SettingsPage extends StatelessWidget {
           child: Container(),
         ),
       ],
-    ));
+    ));;
   }
 }

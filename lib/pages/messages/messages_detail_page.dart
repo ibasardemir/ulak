@@ -151,7 +151,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                   height: 60,
                   width: double.infinity,
                   color: Colors.white,
-                  child: MessageFormWidget()),
+                  child: MessageFormWidget(receiver: widget.receiver,)),
             ),
           ),
         ],
@@ -161,6 +161,10 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
 }
 
 class MessageFormWidget extends StatefulWidget {
+  final String receiver;
+
+  MessageFormWidget({required this.receiver});
+
   @override
   _MessageFormWidgetState createState() => _MessageFormWidgetState();
 }
@@ -179,7 +183,7 @@ class _MessageFormWidgetState extends State<MessageFormWidget> {
 
     if (messageText.isNotEmpty) {
       BlocProvider.of<MessagesBloc>(context)
-          .add(SentMessages(messageContent: messageText));
+          .add(SentMessages(messageContent: messageText,reciever: widget.receiver));
       _messageController.clear();
     }
   }

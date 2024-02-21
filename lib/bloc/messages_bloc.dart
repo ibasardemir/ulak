@@ -1,5 +1,8 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:ulak/database/database.dart';
 import 'package:ulak/pages/messages/messageEntities/message_detail.dart';
 
 abstract class MessagesEvent extends Equatable {
@@ -9,8 +12,9 @@ abstract class MessagesEvent extends Equatable {
 
 class SentMessages extends MessagesEvent {
   final String messageContent;
+  final String reciever;
 
-  SentMessages({required this.messageContent});
+  SentMessages({required this.messageContent, required this.reciever});
 
   @override
   List<Object?> get props => [messageContent];
@@ -50,6 +54,19 @@ class MessagesBloc extends Bloc<MessagesEvent, MessagesState> {
     }
 
     final currentState = state;
+    FirebaseDB firebaseDB = FirebaseDB();
+    LocalDB localDB = LocalDB();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    //TODO: Change the reciever to the actual reciever
+    Message message = Message(
+        sender: prefs.getString("phoneNumber"),
+        reciever: event.reciever,
+        message: event.messageContent);
+
+    firebaseDB.saveMessage(message);
+    localDB.saveMessage(message);
+
     final newList = List<MessageDetail>.from(currentState.messages)
       ..add(MessageDetail(
           messageContent: event.messageContent, messageType: "sender"));

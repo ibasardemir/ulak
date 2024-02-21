@@ -7,6 +7,7 @@ import 'package:ulak/bloc/messages_bloc.dart';
 import 'package:ulak/bloc/otp_login_provider.dart';
 import 'package:ulak/bloc/otp_provider.dart';
 import 'package:ulak/bloc/register_provider.dart';
+import 'package:ulak/bloc/users_all_list_provider.dart';
 import 'package:ulak/pages/auth/auth_page.dart';
 import 'package:ulak/network/flutternearby.dart';
 
@@ -77,7 +78,9 @@ class MyApp extends StatelessWidget {
               create: (context) => OTPBloc(registerBloc: registerBloc)),
           BlocProvider<OTPLoginBloc>(
               create: (context) => OTPLoginBloc(loginBloc: loginBloc)),
-          BlocProvider<MessagesBloc>(create: (context) => MessagesBloc())
+          BlocProvider<MessagesBloc>(create: (context) => MessagesBloc()),
+          BlocProvider<UserMessagesBloc>(
+              create: (context) => UserMessagesBloc())
         ],
         child: MaterialApp(
           home: AuthPage(),
