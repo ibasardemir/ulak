@@ -88,7 +88,7 @@ class Authentication {
       }
 
     final users=await localDB.getUsers();
-
+    print(phoneNumber);
     for (var user in users) {
 
       print(user.phoneNumber);  
