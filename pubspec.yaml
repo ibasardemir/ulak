@@ -49,7 +49,9 @@ dependencies:
   google_fonts: ^6.1.0
   google_sign_in: ^6.1.5
   internet_connection_checker: ^1.0.0+1
+  location: ^5.0.3
   otp_fields: ^0.0.4
+  permission_handler: ^11.3.0
   phone_number: ^2.0.1
   pin_code_fields: ^8.0.1
   shared_preferences: ^2.2.2
@@ -59,7 +61,12 @@ dev_dependencies:
   flutter_lints: ^3.0.1
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.13.1
 
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/ulak_logo.jpg"
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter packages.

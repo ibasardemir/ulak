@@ -14,7 +14,7 @@ class SentMessages extends MessagesEvent {
   final String messageContent;
   final String reciever;
 
-  SentMessages({required this.messageContent,required this.reciever});
+  SentMessages({required this.messageContent, required this.reciever});
 
   @override
   List<Object?> get props => [messageContent];
@@ -34,7 +34,8 @@ class MessagesInitial extends MessagesState {
 }
 
 class MessagesUpdated extends MessagesState {
-  const MessagesUpdated(List<MessageDetail> messages) : super(messages: messages);
+  const MessagesUpdated(List<MessageDetail> messages)
+      : super(messages: messages);
 }
 
 class MessagesBloc extends Bloc<MessagesEvent, MessagesState> {
@@ -42,20 +43,34 @@ class MessagesBloc extends Bloc<MessagesEvent, MessagesState> {
     on<SentMessages>(_onSentMessages);
   }
 
-  void _onSentMessages(SentMessages event, Emitter<MessagesState> emit)async {
+  void _onSentMessages(SentMessages event, Emitter<MessagesState> emit) async {
+    Future<void> boron() async {
+      await Future.delayed(const Duration(seconds: 2));
+      print("hello");
+      final currentState = state;
+      final newList = List<MessageDetail>.from(currentState.messages)
+        ..add(MessageDetail(messageContent: "Hi!", messageType: "receiver"));
+      emit(MessagesUpdated(newList));
+    }
+
     final currentState = state;
     FirebaseDB firebaseDB = FirebaseDB();
     LocalDB localDB = LocalDB();
-    SharedPreferences prefs =await SharedPreferences.getInstance();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
 
     //TODO: Change the reciever to the actual reciever
-    Message message = Message(sender:prefs.getString("phoneNumber"),reciever: event.reciever,message:event.messageContent);
+    Message message = Message(
+        sender: prefs.getString("phoneNumber"),
+        reciever: event.reciever,
+        message: event.messageContent);
 
     firebaseDB.saveMessage(message);
     localDB.saveMessage(message);
 
     final newList = List<MessageDetail>.from(currentState.messages)
-      ..add(MessageDetail(messageContent: event.messageContent, messageType: "receiver"));
+      ..add(MessageDetail(
+          messageContent: event.messageContent, messageType: "sender"));
     emit(MessagesUpdated(newList));
+    await boron();
   }
 }
