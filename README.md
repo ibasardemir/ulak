@@ -148,8 +148,10 @@ You can press **Search** button to look for devices to connect. Later you can se
 
 Your connections that is stored in your phone or the cloud will appear on the screen. The ones that are connected to your phone are marked with an orange dot.
 
-### Demo video
 <a name=demo>
+
+### Demo video
+
 You can watch our demo video by clicking the photo below.
 
 [<img src="https://img.youtube.com/vi/o1SiltGYY-4/maxresdefault.jpg" width="100%">](https://www.youtube.com/watch?v=o1SiltGYY-4 "video")
