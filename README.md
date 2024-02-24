@@ -39,7 +39,7 @@
     <a href="https://github.com/ibasardemir/ulak"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/github_username/repo_name">View Demo</a>
+    <a href="https://github.com/ibasardemir/ulak#demo">View Demo</a>
     
   </p>
 </div>
@@ -76,10 +76,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
-Ulak aims to resolve communication problems occuring after the telecommunication infastructure gets damaged by natural disasters. Ulak utilizes Google's nearby devices technology to form a local network so that users can communicate with devices eventhough they are not in the connection range. By storing messages in a firebase database, users will get messages from outside of the local network when one of the devices in the local network has internet connection.
-
+Ulak is dedicated to addressing communication challenges that arise in the aftermath of natural disasters when traditional telecommunication infrastructure is compromised. Leveraging Google's Nearby Devices technology, Ulak creates a resilient local network, enabling users to communicate with nearby devices even when conventional connections are unavailable. Messages are securely stored in a Firebase database, ensuring seamless delivery to users within the local network and beyond, once an internet connection is established by any device within the network.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -131,7 +128,28 @@ Flutter and android SDK should be installed. Two android devices are required fo
 
 <!-- USAGE EXAMPLES -->
 ## Usage
+### Registration
+<img src="images/register.jpeg" width="50%">
 
+Register using phone number(currently there is a mock up sms verification). This requires internet connection.
+### Login
+<img src="images/login.jpeg" width="50%">
+
+Enter your phone number and sms verification code will be sent. After initial login, internet connection won't be required to enter the app again.
+### connection
+<div style="display:flex;">
+<img src="images/connection.jpeg" style="margin:5px" width="48%">
+<img src="images/nearby.jpeg" style="margin:5px" width="48%">
+</div>
+
+You can press **Search** button to look for devices to connect. Later you can see the devices on the connections screen.
+### Conversations
+<img src="images/conversations.jpeg" width="50%">
+
+Your connections that is stored in your phone or the cloud will appear on the screen. The ones that are connected to your phone are marked with an orange dot.
+
+### Demo video
+<a name=demo>
 You can watch our demo video by clicking the photo below.
 
 [<img src="https://img.youtube.com/vi/o1SiltGYY-4/maxresdefault.jpg" width="100%">](https://www.youtube.com/watch?v=o1SiltGYY-4 "video")
