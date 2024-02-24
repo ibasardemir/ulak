@@ -28,13 +28,13 @@
 <br />
 <div align="center">
   <a href="https://github.com/ibasardemir/ulak">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="assets/ulak_logo.jpg" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">project_title</h3>
+<h3 align="center">Ulak</h3>
 
   <p align="center">
-    project_description
+    a wireless communication app for natural disasters
     <br />
     <a href="https://github.com/ibasardemir/ulak"><strong>Explore the docs »</strong></a>
     <br />
