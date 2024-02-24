@@ -129,22 +129,22 @@ Flutter and android SDK should be installed. Two android devices are required fo
 <!-- USAGE EXAMPLES -->
 ## Usage
 ### Registration
-<img src="images/register.jpeg" width="50%">
+<img src="images/register.jpeg" width="20%">
 
 Register using phone number(currently there is a mock up sms verification). This requires internet connection.
 ### Login
-<img src="images/login.jpeg" width="50%">
+<img src="images/login.jpeg" width="20%">
 
 Enter your phone number and sms verification code will be sent. After initial login, internet connection won't be required to enter the app again.
 ### connection
 <div style="display:flex;">
-<img src="images/connection.jpeg" style="margin:5px" width="48%">
-<img src="images/nearby.jpeg" style="margin:5px" width="48%">
+<img src="images/connection.jpeg" style="margin:5px" width="20%">
+<img src="images/nearby.jpeg" style="margin:5px" width="20%">
 </div>
 
 You can press **Search** button to look for devices to connect. Later you can see the devices on the connections screen.
 ### Conversations
-<img src="images/conversations.jpeg" width="50%">
+<img src="images/conversations.jpeg" width="20%">
 
 Your connections that is stored in your phone or the cloud will appear on the screen. The ones that are connected to your phone are marked with an orange dot.
 
