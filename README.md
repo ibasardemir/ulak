@@ -104,20 +104,16 @@ Flutter and android SDK should be installed. Two android devices are required fo
 
 ### Installation
 
-1. Get the API Key at [https://example.com](https://example.com)
-2. Clone the repo
+
+1. Clone the repo
    ```sh
    git clone https://github.com/ibasardemir/ulak.git
    ```
-3. Install dart packages
+2. Install dart packages
    ```sh
    flutter pub get 
    ```
-4. Enter your API in `main.dart`
-   ```dart
-   const String API_KEY = 'ENTER YOUR API';
-   ```
-5. Run the app
+3. Run the app
    ```sh
    flutter run
    ```
