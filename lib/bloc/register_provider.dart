@@ -35,12 +35,12 @@ class RegisterSuccess extends RegisterState {
    final String smsCode;
    final String userName;
    final String phonenumber;
-  RegisterSuccess({required this.smsCode, required this.userName, required this.phonenumber});
+  const RegisterSuccess({required this.smsCode, required this.userName, required this.phonenumber});
 }
 class RegisterFailure extends RegisterState {
   final String error;
 
-  RegisterFailure({required this.error});
+  const RegisterFailure({required this.error});
 
   @override
   List<Object> get props => [error];
@@ -84,7 +84,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       
       
     } catch (error) {
-      emit(RegisterFailure(error: 'Kayıt başarısız.'));
+      emit(const RegisterFailure(error: 'Kayıt başarısız.'));
     }
   }
 }

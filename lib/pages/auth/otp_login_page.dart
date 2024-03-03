@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ulak/bloc/otp_login_provider.dart';
-import 'package:ulak/bloc/otp_provider.dart';
 import 'package:ulak/components/auth/fixed_button.dart';
 import 'package:ulak/pages/app/main_app_page.dart';
 
@@ -100,7 +99,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => MainPage()));
+                            builder: (context) => const MainPage()));
               }
             },
             builder: (context, state) {

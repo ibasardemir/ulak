@@ -33,7 +33,7 @@ class LoginLoading extends LoginState {}
 class LoginSuccess extends LoginState {
   final String smsCode; 
    final String phonenumber;
-  LoginSuccess({required this.smsCode, required this.phonenumber});
+  const LoginSuccess({required this.smsCode, required this.phonenumber});
 }
 class LoginFailure extends LoginState {
   final String error;

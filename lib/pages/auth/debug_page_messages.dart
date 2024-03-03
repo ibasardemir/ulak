@@ -84,7 +84,7 @@ Widget _buildRegisterForm(BuildContext context, TextEditingController fromCr, Te
                       margin: const EdgeInsets.all(10),
                       child:   TextField(
                         controller: fromCr,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'from',
                         ),
@@ -94,7 +94,7 @@ Widget _buildRegisterForm(BuildContext context, TextEditingController fromCr, Te
                       margin: const EdgeInsets.all(10),
                       child:   TextField(
                         controller: toCr,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'to',
                         ),
@@ -104,7 +104,7 @@ Widget _buildRegisterForm(BuildContext context, TextEditingController fromCr, Te
                       margin: const EdgeInsets.all(10),
                       child:   TextField(
                         controller: messageCr,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'message',
                         ),

@@ -1,7 +1,6 @@
 //Currently designed for usual authentication, with completed tables data type requested can be changed
 import 'dart:math';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'database.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -164,13 +163,13 @@ class AuthenticationHelper{
 
   static Future<bool> smsSender(String message, List<String> recipents) async {
 
-    String _result = await sendSMS(message: message, recipients: recipents)
+    String result = await sendSMS(message: message, recipients: recipents)
         .catchError((onError) {
       print(onError);
     });
 
 
-    if (_result == "SMS Sent!") {
+    if (result == "SMS Sent!") {
       return true;
     } else {
       return false;

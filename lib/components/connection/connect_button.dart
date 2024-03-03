@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ulak/network/networkservice.dart';
-import 'package:ulak/pages/auth/login_page.dart';
-import 'package:ulak/pages/auth/register_page.dart';
 
 
 class ConnectButton extends StatelessWidget {

@@ -4,6 +4,8 @@ import 'package:ulak/pages/messages/messages_main_page.dart';
 import 'package:ulak/pages/settings_page.dart';
 
 class MainPage extends StatefulWidget {
+  const MainPage({super.key});
+
   @override
   _MainPageState createState() => _MainPageState();
 }
@@ -11,10 +13,10 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
 
-  static List<Widget> _widgetOptions = <Widget>[
-    ConnectionPage(),
-    MessagesMainPage(),
-    TabPage3(),
+  static final List<Widget> _widgetOptions = <Widget>[
+    const ConnectionPage(),
+    const MessagesMainPage(),
+    const TabPage3(),
   ];
 
   void _onItemTapped(int index) {
@@ -51,8 +53,8 @@ class _MainPageState extends State<MainPage> {
           
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Color(0xFFFF8C00),
-        unselectedItemColor: Color(0xFF7a7a7a),
+        selectedItemColor: const Color(0xFFFF8C00),
+        unselectedItemColor: const Color(0xFF7a7a7a),
         onTap: _onItemTapped,
       ),
     );
@@ -65,7 +67,7 @@ class TabPage3 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: SettingsPage()
     );
   }

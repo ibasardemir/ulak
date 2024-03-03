@@ -13,21 +13,21 @@ class ConnectionPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           centerTitle: false,
-          leading: SizedBox(),
+          leading: const SizedBox(),
           titleSpacing: 0.0,
-          backgroundColor: Color.fromARGB(255, 255, 255, 255),
-          title: Align(
+          backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+          title: const Align(
             alignment: Alignment.centerRight,
-            child: const Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Text("Connection",
-              style: TextStyle(color: const Color(0xFFFF8C00))),
+              style: TextStyle(color: Color(0xFFFF8C00))),
               ]),
           ),
           bottom: const TabBar(
-            indicatorColor: const Color(0xFFFF8C00),
-            labelColor: const Color(0xFFFF8C00),
+            indicatorColor: Color(0xFFFF8C00),
+            labelColor: Color(0xFFFF8C00),
             unselectedLabelColor: Color(0xFF7a7a7a),
             tabs: <Widget>[
               Tab(
@@ -62,7 +62,7 @@ class _MyWidgetState extends State<ConnectAuto> {
   Widget build(BuildContext context) {
     NetworkService networkService = NetworkService();
     networkService.init(meths: true);
-    return Center(
+    return const Center(
               child: Text("There is no one nearby"),
             );
   }
@@ -80,7 +80,7 @@ class _ConnectWithClickWidgetState extends State<ConnectWithClickWidget> {
   Widget build(BuildContext context) {
     return 
 Scaffold(
-      backgroundColor: Color.fromARGB(255, 255, 255, 255),
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       body: Column(children: <Widget>[
           Center(child: Column(
             children: [
@@ -89,7 +89,7 @@ Scaffold(
               ),
               Container(
                 child: const Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(8.0),
                   child: Text("Find and connect to other devices",
                   style: TextStyle(
                     fontSize: 18,
@@ -99,7 +99,7 @@ Scaffold(
                 ),
               ),
               Container(
-                child:  Center(child: ConnectButton(name: "Search")),
+                child:  const Center(child: ConnectButton(name: "Search")),
               )
             ],
           ),),

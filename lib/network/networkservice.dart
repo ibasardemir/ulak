@@ -1,7 +1,6 @@
 import "dart:async";
 import "dart:math";
 import "package:flutter_nearby_connections/flutter_nearby_connections.dart";
-import "package:ulak/database/auth.dart";
 import "package:shared_preferences/shared_preferences.dart";
 
 import "package:ulak/database/database.dart" as database;
@@ -84,8 +83,9 @@ class NetworkService {
         nearbyService.dataReceivedSubscription(callback: (data) async {
       //TODO check this
       for (var dev in connectedDevices) {
-        if (dev.deviceId != data.senderDeviceId)
+        if (dev.deviceId != data.senderDeviceId) {
           sendMessage(data.content, dev.deviceId);
+        }
       }
 
       //TODO: Başar Buraya bak

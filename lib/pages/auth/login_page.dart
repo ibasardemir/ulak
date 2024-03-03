@@ -5,7 +5,6 @@ import 'package:ulak/bloc/login_provider.dart';
 import 'package:ulak/components/auth/login_button.dart';
 import 'package:ulak/components/auth/register_textfield.dart';
 import 'package:ulak/pages/auth/otp_login_page.dart';
-import 'package:ulak/pages/auth/otp_page.dart';
 import 'package:ulak/pages/auth/register_page.dart';
 
 class LoginPage extends StatefulWidget {

@@ -41,14 +41,14 @@ class _SettingsPageState extends State<SettingsPage> {
           child: Center(
             child: Container(
               child: Column(children: <Widget>[
-                SizedBox(
+                const SizedBox(
                   height: 80,
                 ),
                 ClipOval(
                   child: Container(
                     width: 90.0, // Dairenin genişliği
                     height: 90.0, // Dairenin yüksekliği
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       gradient: LinearGradient(
                         colors: [
                           Colors.orange,
@@ -61,7 +61,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     child: Center(
                       child: Text(
                         name[0], // Göstermek istediğiniz harf
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 40.0, // Harf boyutu
                           color: Colors.white, // Harf rengi
                         ),
@@ -69,7 +69,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Text(
@@ -94,16 +94,16 @@ class _SettingsPageState extends State<SettingsPage> {
         Expanded(
           child: Column(
               children: <Widget>[
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Row(
                 children: [
-                  SizedBox(width: 30.0,),
-                  Icon(Icons.phone,color: const Color.fromARGB(255, 146, 145, 145)),
-                  SizedBox(width: 8.0,),
-                  Text("Phone number: ",
-                  style: TextStyle(fontSize: 20,color: const Color.fromARGB(255, 146, 145, 145)),
+                  const SizedBox(width: 30.0,),
+                  const Icon(Icons.phone,color: Color.fromARGB(255, 146, 145, 145)),
+                  const SizedBox(width: 8.0,),
+                  const Text("Phone number: ",
+                  style: TextStyle(fontSize: 20,color: Color.fromARGB(255, 146, 145, 145)),
                   ),
-                  SizedBox(width: 15.0,),
+                  const SizedBox(width: 15.0,),
                   Text(
                   phonenumber,
                   style: GoogleFonts.inter(
@@ -119,6 +119,6 @@ class _SettingsPageState extends State<SettingsPage> {
           child: Container(),
         ),
       ],
-    ));;
+    ));
   }
 }

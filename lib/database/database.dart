@@ -13,9 +13,7 @@ class Message {
     this.status = false,
     this.sentTime,
   }) {
-    if (this.sentTime == null) {
-      sentTime = DateTime.now();
-    }
+    sentTime ??= DateTime.now();
     generateID();
   }
 
@@ -36,7 +34,7 @@ class Message {
   }
 
   void generateID() {
-    this.id = sender! + reciever! + sentTime.toString()!;
+    id = sender! + reciever! + sentTime.toString();
   }
 }
 
@@ -55,7 +53,7 @@ class User {
 }
 
 abstract class DatabaseUtility {
-  DatabaseUtility() {}
+  DatabaseUtility();
   String? type;
   void saveUser(User data);
   void saveMessage(Message data);
@@ -119,7 +117,6 @@ class LocalDB extends DatabaseUtility {
 
     return messages;
 
-    ;
   }
 
   @override

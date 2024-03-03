@@ -82,7 +82,7 @@ Widget _buildRegisterForm(BuildContext context, TextEditingController phoneNumbe
                       margin: const EdgeInsets.all(10),
                       child:   TextField(
                         controller: userNameCr,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'username',
                         ),
@@ -91,7 +91,7 @@ Widget _buildRegisterForm(BuildContext context, TextEditingController phoneNumbe
                       margin: const EdgeInsets.all(10),
                       child:   TextField(
                         controller: phoneNumberCr,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'phoneNumber',
                         ),

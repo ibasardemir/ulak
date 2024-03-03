@@ -73,10 +73,10 @@ class OTPBloc extends Bloc<OTPEvent, OTPState> {
 
         emit(OTPSuccess());
       } else {
-        emit(OTPFailure(error: 'Doğrulama kodu yanlış.'));
+        emit(const OTPFailure(error: 'Doğrulama kodu yanlış.'));
       }
     } else {
-      emit(OTPFailure(error: 'Kayıt işlemi tamamlanmadı.'));
+      emit(const OTPFailure(error: 'Kayıt işlemi tamamlanmadı.'));
     }
   } catch (error) {
     emit(OTPFailure(error: error.toString()));

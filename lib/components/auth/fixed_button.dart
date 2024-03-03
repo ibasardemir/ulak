@@ -4,7 +4,6 @@ import 'package:ulak/bloc/otp_login_provider.dart';
 import 'package:ulak/bloc/otp_provider.dart';
 import 'package:ulak/database/auth.dart';
 import 'package:ulak/pages/app/main_app_page.dart';
-import 'package:ulak/pages/auth/auth_page.dart';
 import 'package:ulak/pages/auth/login_page.dart';
 import 'package:ulak/pages/auth/register_page.dart';
 
@@ -40,11 +39,11 @@ class FixedButton extends StatelessWidget {
             if(await auth.isLogin()){
               print("hello");
               Navigator.push(context,
-                MaterialPageRoute(builder: (context) =>  MainPage()));
+                MaterialPageRoute(builder: (context) =>  const MainPage()));
             }
             else{
               Navigator.push(context,
-                MaterialPageRoute(builder: (context) =>  LoginPage()));
+                MaterialPageRoute(builder: (context) =>  const LoginPage()));
             }
             
           }
@@ -58,15 +57,15 @@ class FixedButton extends StatelessWidget {
             bool isFilled = otpValues.every((element) => element.isNotEmpty);
             if (!isFilled) {
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Please fill in all the fields')),
+                const SnackBar(content: Text('Please fill in all the fields')),
               );
             }
             else{
               
               String userCode = "";
-              otpValues.forEach((element) { 
+              for (var element in otpValues) { 
                 userCode = userCode + element;
-              });
+              }
               print(userCode);
               BlocProvider.of<OTPBloc>(context).add(OTPControl(code: userCode));
             }
@@ -74,14 +73,14 @@ class FixedButton extends StatelessWidget {
             bool isFilled = otpValues.every((element) => element.isNotEmpty);
             if (!isFilled) {
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Please fill in all the fields')),
+                const SnackBar(content: Text('Please fill in all the fields')),
               );
             }
             else{
               String userCode = "";
-              otpValues.forEach((element) { 
+              for (var element in otpValues) { 
                 userCode = userCode + element;
-              });
+              }
               print(userCode);
               BlocProvider.of<OTPLoginBloc>(context).add(OTPLoginControl(code: userCode));
             }

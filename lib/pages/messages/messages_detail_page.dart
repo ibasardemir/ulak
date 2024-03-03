@@ -5,7 +5,7 @@ import 'package:ulak/bloc/messages_bloc.dart';
 class ChatDetailPage extends StatefulWidget {
   final receiver;
 
-  ChatDetailPage({Key? key, required this.receiver}) : super(key: key);
+  const ChatDetailPage({super.key, required this.receiver});
 
   @override
   _ChatDetailPageState createState() => _ChatDetailPageState();
@@ -15,33 +15,33 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 251, 249, 249),
+      backgroundColor: const Color.fromARGB(255, 251, 249, 249),
       appBar: AppBar(
         elevation: 0,
         automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
         flexibleSpace: SafeArea(
           child: Container(
-            padding: EdgeInsets.only(right: 16),
+            padding: const EdgeInsets.only(right: 16),
             child: Row(
               children: <Widget>[
                 IconButton(
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.arrow_back,
                     color: Colors.black,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 2,
                 ),
                 ClipOval(
                   child: Container(
                     width: 50.0, // Dairenin genişliği
                     height: 50.0, // Dairenin yüksekliği
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       gradient: LinearGradient(
                         colors: [
                           Colors.orange,
@@ -54,7 +54,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                     child: Center(
                       child: Text(
                         widget.receiver[0], // Göstermek istediğiniz harf
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 30.0, // Harf boyutu
                           color: Colors.white, // Harf rengi
                         ),
@@ -62,7 +62,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 12,
                 ),
                 Expanded(
@@ -72,10 +72,10 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                     children: <Widget>[
                       Text(
                         widget.receiver,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 16, fontWeight: FontWeight.w600),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 6,
                       ),
                       Text(
@@ -86,7 +86,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                     ],
                   ),
                 ),
-                Icon(
+                const Icon(
                   Icons.settings,
                   color: Colors.black54,
                 ),
@@ -103,11 +103,11 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                 return ListView.builder(
                   itemCount: state.messages.length,
                   shrinkWrap: true,
-                  padding: EdgeInsets.only(top: 10, bottom: 10),
-                  physics: NeverScrollableScrollPhysics(),
+                  padding: const EdgeInsets.only(top: 10, bottom: 10),
+                  physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
                     return Container(
-                      padding: EdgeInsets.only(
+                      padding: const EdgeInsets.only(
                           left: 14, right: 14, top: 10, bottom: 10),
                       child: Align(
                         alignment:
@@ -120,9 +120,9 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                             color:
                                 (state.messages[index].messageType == "receiver"
                                     ? Colors.grey.shade200
-                                    : Color(0xFFFF8C00)),
+                                    : const Color(0xFFFF8C00)),
                           ),
-                          padding: EdgeInsets.all(16),
+                          padding: const EdgeInsets.all(16),
                           child: Text(
                             state.messages[index].messageContent,
                             style: TextStyle(
@@ -147,7 +147,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
             child: Material(
               elevation: 5.0,
               child: Container(
-                  padding: EdgeInsets.only(left: 10, bottom: 10, top: 10),
+                  padding: const EdgeInsets.only(left: 10, bottom: 10, top: 10),
                   height: 60,
                   width: double.infinity,
                   color: Colors.white,
@@ -163,7 +163,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
 class MessageFormWidget extends StatefulWidget {
   final String receiver;
 
-  MessageFormWidget({required this.receiver});
+  const MessageFormWidget({super.key, required this.receiver});
 
   @override
   _MessageFormWidgetState createState() => _MessageFormWidgetState();
@@ -192,25 +192,25 @@ class _MessageFormWidgetState extends State<MessageFormWidget> {
   Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
-        SizedBox(width: 15),
+        const SizedBox(width: 15),
         Expanded(
           child: TextField(
             controller: _messageController,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               hintText: "Write message...",
               hintStyle: TextStyle(color: Colors.black54),
               border: InputBorder.none,
             ),
           ),
         ),
-        SizedBox(width: 15),
+        const SizedBox(width: 15),
         FloatingActionButton(
           onPressed: _sendMessage,
-          child: Icon(Icons.send, color: Colors.white, size: 18),
-          backgroundColor: Color(0xFFFF8C00),
+          backgroundColor: const Color(0xFFFF8C00),
           elevation: 0,
+          child: const Icon(Icons.send, color: Colors.white, size: 18),
         ),
-        SizedBox(width: 2)
+        const SizedBox(width: 2)
       ],
     );
   }

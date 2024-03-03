@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ulak/bloc/users_all_list_provider.dart';
-import 'package:ulak/components/auth/fixed_button.dart';
 import 'package:ulak/pages/messages/messages_add_page.dart';
 import 'package:ulak/pages/messages/messages_detail_page.dart';
 
@@ -38,7 +37,7 @@ class _MessagesMainPageState extends State<MessagesMainPage> {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(
-                  color: Color(0xFFFF8C00), // Çerçeve rengi
+                  color: const Color(0xFFFF8C00), // Çerçeve rengi
                   width: 4, // Çerçeve kalınlığı
                 ),
               ),
@@ -119,7 +118,7 @@ class _MessagesMainPageState extends State<MessagesMainPage> {
                   ),
                   filled: true,
                   fillColor: const Color.fromARGB(255, 249, 248, 248),
-                  contentPadding: EdgeInsets.all(8),
+                  contentPadding: const EdgeInsets.all(8),
                   enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
                       borderSide: BorderSide(color: Colors.grey.shade100)),
@@ -149,7 +148,7 @@ class _MessagesMainPageState extends State<MessagesMainPage> {
                     },
                   );
                 } else {
-                  return Center(); 
+                  return const Center(); 
                 }
               },
             )
@@ -162,13 +161,13 @@ class _MessagesMainPageState extends State<MessagesMainPage> {
   void _showBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
-      builder: (context) => Container(
+      builder: (context) => const SizedBox(
         height: 570, // Açılır sayfanın yüksekliği
         child: Center(
           child: AddUserForm(),
         ),
       ),
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
         // Kenarları yuvarlak bir şekil vermek için
         borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
       ),
@@ -185,7 +184,7 @@ class MessagesList extends StatefulWidget {
   bool isUserAvailable;
 
   MessagesList(
-      {required this.name,
+      {super.key, required this.name,
       required this.isUserAvailable,
       required this.time,
       required this.messageText});
@@ -218,7 +217,7 @@ class _MessagesListState extends State<MessagesList> {
                     child: Container(
                       width: 60.0, // Dairenin genişliği
                       height: 60.0, // Dairenin yüksekliği
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         gradient: LinearGradient(
                           colors: [
                             Colors.orange,
@@ -232,7 +231,7 @@ class _MessagesListState extends State<MessagesList> {
                       child: Center(
                         child: Text(
                           widget.name[0], // Göstermek istediğiniz harf
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 20.0, // Harf boyutu
                             color: Colors.white, // Harf rengi
                           ),

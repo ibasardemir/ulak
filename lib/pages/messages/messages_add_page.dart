@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ulak/bloc/users_all_list_provider.dart';
 
 class AddUserForm extends StatefulWidget {
+  const AddUserForm({super.key});
+
   @override
   _AddUserFormState createState() => _AddUserFormState();
 }
@@ -51,7 +53,7 @@ class _AddUserFormState extends State<AddUserForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Find Contacts',
           style: TextStyle(color: Color(0xFFFF8C00)),
         ),
@@ -89,7 +91,7 @@ class _AddUserFormState extends State<AddUserForm> {
                   _updateButtonState();
                 },
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed:() {
                   if(_isButtonEnabled){
@@ -99,14 +101,14 @@ class _AddUserFormState extends State<AddUserForm> {
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  primary: Color(0xFFFF8C00),
-                  padding: EdgeInsets.symmetric(horizontal: 70, vertical: 20),
+                  backgroundColor: const Color(0xFFFF8C00),
+                  padding: const EdgeInsets.symmetric(horizontal: 70, vertical: 20),
                   textStyle: const TextStyle(fontSize: 18, color: Colors.white),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
                   ),
                 ),
-                child: Text('Find', style: TextStyle(color: Colors.white),),
+                child: const Text('Find', style: TextStyle(color: Colors.white),),
               )
             ],
           ),

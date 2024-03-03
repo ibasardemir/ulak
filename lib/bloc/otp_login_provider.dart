@@ -1,8 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:ulak/bloc/login_provider.dart';
-import 'package:ulak/bloc/register_provider.dart';
-import '../database/auth.dart';
 
 // Olayları temsil eden sınıf
 abstract class OTPLoginEvent extends Equatable {
@@ -61,7 +59,7 @@ class OTPLoginBloc extends Bloc<OTPLoginEvent, OTPLoginState> {
 
       String smsCode = currentState.smsCode;
       
-      final verifyResult= true;
+      const verifyResult= true;
       print(verifyResult);
       print(smsCode);
       print(event.code);
@@ -71,7 +69,7 @@ class OTPLoginBloc extends Bloc<OTPLoginEvent, OTPLoginState> {
         emit(OTPLoginSuccess());
       }
     } else {
-      emit(OTPLoginFailure(error: 'Kayıt işlemi tamamlanmadı.'));
+      emit(const OTPLoginFailure(error: 'Kayıt işlemi tamamlanmadı.'));
     }
   } catch (error) {
     emit(OTPLoginFailure(error: error.toString()));
